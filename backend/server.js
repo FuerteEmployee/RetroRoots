@@ -15,8 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 // Database Connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB Error:", err));
+  .then(() => console.log("MongoDB Connected Successfully"))
+  .catch((err) => {
+    console.error("CRITICAL: MongoDB Connection Error!");
+    console.error("Message:", err.message);
+    console.error("Check If MONGO_URI is set correctly in environment variables.");
+  });
 
 // Routes
 app.use("/api/auth", require("./routes/auth"));
