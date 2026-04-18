@@ -1,120 +1,146 @@
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Link } from "react-router-dom";
-import factoryImg from "@/assets/factory.jpg";
-import heroImg from "@/assets/hero-1.jpg";
+import { Check, Mail, Sofa, Utensils, Home, Briefcase, Bed, Clock } from "lucide-react";
 
-const milestones = [
-  { year: "2010", title: "Founded in Rajkot", desc: "Started as a small manufacturing unit with a vision to redefine surface design." },
-  { year: "2013", title: "First Export Order", desc: "Shipped our first international order to the UAE market." },
-  { year: "2016", title: "ISO Certification", desc: "Achieved ISO 9001:2015 certification for quality management." },
-  { year: "2019", title: "Factory Expansion", desc: "Expanded manufacturing capacity with state-of-the-art machinery." },
-  { year: "2022", title: "25+ Countries", desc: "Reached milestone of exporting to 25+ countries across 5 continents." },
-  { year: "2026", title: "Digital Transformation", desc: "Launched new digital platform with 3D product viewer and AI-optimised catalog." },
+const stats = [
+  { label: "Products Sold", value: "10K+" },
+  { label: "Years Service", value: "35" },
+  { label: "Outlets Worldwide", value: "450" },
+  { label: "Satisfied Customers", value: "1000+" },
 ];
 
-const values = [
-  { title: "Quality First", desc: "Every product passes rigorous multi-point quality control before dispatch.", icon: "🏆" },
-  { title: "Innovation", desc: "Continuously investing in R&D to bring cutting-edge surface solutions.", icon: "💡" },
-  { title: "Sustainability", desc: "Eco-friendly manufacturing processes and responsible sourcing of raw materials.", icon: "🌿" },
-  { title: "Customer Focus", desc: "Dedicated support from design consultation to after-sales service.", icon: "🤝" },
+const categories = [
+  { name: "Dining Room", icon: Utensils },
+  { name: "Living Room", icon: Sofa },
+  { name: "Kitchen", icon: Home },
+  { name: "Office", icon: Briefcase },
+  { name: "Bed Room", icon: Bed },
+  { name: "Waiting Hall", icon: Clock },
 ];
 
 const About = () => (
-  <Layout title="About Us" description="Learn about Flexicore's journey, vision, and commitment to manufacturing premium solid surfaces and tiles in Rajkot, Gujarat.">
-    <PageHeader title="About Flexicore" subtitle="Our story of craftsmanship, innovation, and global excellence" />
+  <Layout title="About Us" description="Discover the heritage and craftsmanship of RetroRoots. Timeless furniture for modern living.">
+    <div className="bg-white text-foreground">
+      <PageHeader title="About RetroRoots" subtitle="Our story of craftsmanship, innovation, and global excellence" />
 
-    {/* Brand Story */}
-    <section className="section-padding">
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Our Story</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5">From Rajkot to the <span className="gold-text">World</span></h2>
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            Flexicore is a Rajkot-based solid surface and tiles manufacturer with an established brand presence across India and international markets. Founded with a passion for creating seamless, elegant surfaces, we've grown into one of India's most trusted names in the industry.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            Our state-of-the-art manufacturing facility combines traditional craftsmanship with cutting-edge technology, enabling us to deliver surfaces that meet the highest international standards. From raw material sourcing to final dispatch, every step is meticulously quality-controlled.
-          </p>
-          <p className="text-muted-foreground leading-relaxed">
-            Today, Flexicore products grace homes, hotels, hospitals, and commercial spaces across 25+ countries — a testament to our unwavering commitment to excellence.
-          </p>
-        </div>
-        <div className="rounded-2xl overflow-hidden shadow-lg">
-          <img src={factoryImg} alt="Flexicore Manufacturing Facility" className="w-full h-80 lg:h-[400px] object-cover" loading="lazy" width={800} height={400} />
-        </div>
-      </div>
-    </section>
-
-    {/* Vision & Mission */}
-    <section className="section-padding bg-muted">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-card p-8 rounded-xl border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-4">🎯 Our Vision</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            To be the #1 digitally visible and most trusted solid surface & tile brand in India and key export markets, setting benchmarks in design innovation, quality, and customer experience.
-          </p>
-        </div>
-        <div className="bg-card p-8 rounded-xl border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-4">🚀 Our Mission</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            To enable distributor acquisition across pin code, area, and country levels, drive international export enquiries through AI-optimised product pages, and provide a self-managed platform that empowers our team and partners.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    {/* Values */}
-    <section className="section-padding">
-      <div className="container mx-auto">
-        <div className="text-center mb-10">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Why Flexicore</p>
-          <h2 className="text-3xl font-bold text-foreground">Our Core <span className="gold-text">Values</span></h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map(v => (
-            <div key={v.title} className="bg-card p-6 rounded-xl border border-border card-hover text-center">
-              <div className="text-4xl mb-4">{v.icon}</div>
-              <h4 className="font-semibold text-foreground mb-2">{v.title}</h4>
-              <p className="text-sm text-muted-foreground">{v.desc}</p>
+      {/* Hero Content Section */}
+      <section className="py-20 px-4 md:px-8">
+        <div className="container mx-auto">
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
+            <div className="max-w-xl">
+              <h2 className="text-3xl md:text-4xl font-serif mb-8 text-black leading-tight">
+                Timeless Furniture For <br /> Modern Living
+              </h2>
+              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                At Retro Roots, we craft more than furniture — we create experiences. Every sofa, chair, and recliner is designed with the perfect blend of retro charm and contemporary comfort. Our artisans handcraf each piece with precision, passion, and purpose, ensuring you enjoy not just a seat — but a feeling of warmth, luxury, and belonging. From classic mid-century silhouettes to bold modern curves, our furniture adds character to every corner of your home — making comfort look effortlessly elegant.
+              </p>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Timeline */}
-    <section className="section-padding bg-muted">
-      <div className="container mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-foreground">Our <span className="gold-text">Journey</span></h2>
-        </div>
-        <div className="max-w-3xl mx-auto space-y-6">
-          {milestones.map((m, i) => (
-            <div key={m.year} className="flex gap-6 items-start">
-              <div className="flex-shrink-0 w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">{m.year}</div>
-              <div className="bg-card p-5 rounded-xl border border-border flex-1">
-                <h4 className="font-semibold text-foreground">{m.title}</h4>
-                <p className="text-sm text-muted-foreground mt-1">{m.desc}</p>
-              </div>
+            <div className="rounded-2xl overflow-hidden aspect-square md:aspect-video shadow-xl border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=1200" alt="Luxury Interior" className="w-full h-full object-cover" />
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+          </div>
 
-    {/* Manufacturing Process */}
-    <section className="section-padding">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold text-foreground mb-4">Manufacturing <span className="gold-text">Excellence</span></h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-          Our Entry-to-Exit manufacturing journey ensures every surface meets the highest quality standards — from raw material inspection to final dispatch.
-        </p>
-        <div className="rounded-2xl overflow-hidden">
-          <img src={heroImg} alt="Manufacturing Process" className="w-full h-64 md:h-96 object-cover" loading="lazy" width={1200} height={400} />
+          {/* Row 2 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="rounded-2xl overflow-hidden aspect-square shadow-xl order-2 md:order-1 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1200" alt="Craftsmanship" className="w-full h-full object-cover" />
+            </div>
+            <div className="max-w-xl order-1 md:order-2">
+              <h2 className="text-3xl md:text-4xl font-serif mb-8 text-black leading-tight">
+                Crafting Quality Furniture
+              </h2>
+              <p className="text-muted-foreground leading-relaxed text-sm md:text-base mb-8">
+                At Retro Roots, quality isn’t just a promise — it’s a tradition. Every sofa, chair, and recliner is built with care, precision, and passion. We handpick the finest materials, blend them with timeless craftsmanship, and shape them into furniture that lasts for generations. From sturdy frames to plush upholstery, every detail reflects our dedication to excellence.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "At Retro Roots, tradition meets craftsmanship.",
+                  "Luxury materials with sustainable sourcing.",
+                  "Artisanal finishes that define elegance."
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Check className="w-3 h-3 text-primary" />
+                    </div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Stats Bar */}
+      <section className="relative h-64 flex items-center overflow-hidden">
+         <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=2000" alt="Background" className="absolute inset-0 w-full h-full object-cover brightness-[0.1]" />
+         <div className="absolute inset-0 bg-black/40" />
+         <div className="container mx-auto relative z-10 px-4 text-white">
+           <div className="grid grid-cols-2 lg:grid-cols-4 items-center">
+              {stats.map((stat, i) => (
+                <div key={stat.label} className={`flex flex-col items-center justify-center p-8 ${i !== stats.length -1 ? "lg:border-r border-white/20" : ""}`}>
+                  <span className="text-4xl font-bold mb-2 tracking-tighter">{stat.value}</span>
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-gray-300 text-center">{stat.label}</span>
+                </div>
+              ))}
+           </div>
+         </div>
+      </section>
+
+      {/* Customized Furniture Section */}
+      <section className="py-24 px-4 md:px-8 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <p className="text-primary text-[10px] uppercase font-bold tracking-[0.4em] mb-4">Diverse Range</p>
+            <h2 className="text-4xl md:text-5xl font-serif text-black">Customized Furniture's</h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+            <div className="bg-white border border-gray-200 shadow-sm rounded-3xl p-8 flex items-center justify-center min-h-[400px]">
+               <div className="text-center">
+                  <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
+                    <p className="text-xs text-gray-400 font-bold tracking-widest">SHOWCASE</p>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Our Manufacturing Experience</p>
+               </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              {categories.map((cat) => (
+                <div key={cat.name} className="bg-white border border-gray-100 p-8 rounded-2xl flex flex-col items-center justify-center hover:shadow-md transition-all cursor-pointer group hover:border-primary/20">
+                  <cat.icon className="w-8 h-8 text-primary mb-4 transition-transform group-hover:scale-110" />
+                  <span className="text-sm font-semibold tracking-wide text-gray-700">{cat.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter / CTA Section */}
+      <section className="py-32 relative overflow-hidden text-center bg-white">
+         <div className="container mx-auto relative z-10 px-4 max-w-2xl">
+            <p className="text-primary text-[10px] uppercase font-bold tracking-[0.4em] mb-4">Art of Comfort</p>
+            <h2 className="text-4xl md:text-5xl font-serif mb-12 text-black">Transforming Spaces,<br />Transforming Style</h2>
+            
+            <form className="relative max-w-md mx-auto mb-6">
+              <input 
+                type="email" 
+                placeholder="Enter your mail id here" 
+                className="w-full bg-gray-50 border border-gray-200 rounded-full py-4 px-8 pr-16 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
+              />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white p-2.5 rounded-full hover:opacity-90 transition-all shadow-lg">
+                <Mail className="w-5 h-5" />
+              </button>
+            </form>
+            <p className="text-[10px] text-muted-foreground font-medium">
+               Your email is safe with us, we dont spam. <Link to="/privacy" className="underline hover:text-primary">Privacy Policy</Link>
+            </p>
+         </div>
+      </section>
+    </div>
   </Layout>
 );
 

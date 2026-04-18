@@ -2,27 +2,29 @@ import Layout from "@/components/Layout";
 import HeroSlider from "@/components/home/HeroSlider";
 import DailyUpdates from "@/components/home/DailyUpdates";
 import CategoryShowcase from "@/components/home/CategoryShowcase";
-import ProductsSection from "@/components/home/ProductsSection";
-import AboutTeaser from "@/components/home/AboutTeaser";
-import TeamSection from "@/components/home/TeamSection";
-import ExportSection from "@/components/home/ExportSection";
-import FactoryGallery from "@/components/home/FactoryGallery";
-import TrustedBy from "@/components/home/TrustedBy";
 import InstagramGrid from "@/components/home/InstagramGrid";
+import FAQSection from "@/components/home/FAQSection";
 import BlogPreview from "@/components/home/BlogPreview";
 
+// Legacy components (kept as per user request to not remove anything)
+import ProductsSection from "@/components/home/ProductsSection";
+import NewBanners from "@/components/home/NewBanners";
+import AboutTeaser from "@/components/home/AboutTeaser";
+
 const Index = () => (
-  <Layout title="Premium Solid Surface & Tiles Manufacturer | Rajkot" description="Flexicore is India's leading solid surface and tiles manufacturer. Premium surfaces, exported to 25+ countries. Seamless surfaces, timeless elegance.">
+  <Layout title="Retro Roots | Luxurious Handcrafted Furniture" description="Discover our luxurious haven collection. Premium handcrafted furniture blending vintage charm with modern comfort. Custom designs available.">
     <HeroSlider />
     <DailyUpdates />
     <CategoryShowcase />
+    
+    {/* Middle Sections */}
     <ProductsSection />
+    <NewBanners />
     <AboutTeaser />
-    <TeamSection />
-    <ExportSection />
-    <FactoryGallery />
-    <TrustedBy />
+    
+    {/* Final Flow */}
     <InstagramGrid />
+    <FAQSection />
     <BlogPreview />
   </Layout>
 );

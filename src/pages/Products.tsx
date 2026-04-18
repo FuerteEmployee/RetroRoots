@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { Eye, Play, Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import { getProducts } from "@/lib/api";
 
-const categories = ["All", "Solid Surface", "Tiles"];
-const industries = ["All", "Kitchen", "Bathroom", "Wall", "Floor", "Commercial", "Hospitality"];
+const categories = ["All", "Sofa", "Dining Chair", "Lounger (Diwaan)", "Lounge Chair", "Recliners"];
+const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState<any[]>([]);

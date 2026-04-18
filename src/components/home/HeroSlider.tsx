@@ -6,29 +6,29 @@ import heroChair from "@/assets/hero-chair.jpg";
 import heroSofa from "@/assets/hero-sofa.jpg";
 
 const slides = [
-  { 
-    image: heroBar, 
-    tagline: "Hero Section",
-    heading: "Where Classic Design Meets Modern Living.", 
-    description: "Every sofa we craft is a story of comfort, craftsmanship, and character. Inspired by the timeless aesthetics of retro décor, we bring back the elegance of the past with the functionality and luxury of today.", 
-    cta: "Shop Now", 
-    link: "/products" 
+  {
+    image: heroBar,
+    tagline: "Unmatched Comfort",
+    heading: "Where Classic Design Meets Modern Living.",
+    description: "Every sofa we craft is a story of comfort, craftsmanship, and character. Inspired by the timeless aesthetics of retro décor, we bring back the elegance of the past with the functionality and luxury of today.",
+    cta: "Shop Now",
+    link: "/products"
   },
-  { 
-    image: heroChair, 
-    tagline: "Smart Solution",
-    heading: "Enjoy With Style & Comfort", 
-    description: "Feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam ut porttitor leo a diam sollicitudin. Nam at lectus urna duis convallis. At urna condimentum pretium lectus pretium lectus quam mattis pellentesque id nibh tortor id.", 
-    cta: "Explore More", 
-    link: "/products" 
+  {
+    image: heroChair,
+    tagline: "Ergonomic Luxury",
+    heading: "Enjoy With Style & Comfort",
+    description: "Feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam ut porttitor leo a diam sollicitudin. Nam at lectus urna duis convallis. At urna condimentum pretium lectus pretium lectus quam mattis pellentesque id nibh tortor id.",
+    cta: "Explore More",
+    link: "/products"
   },
-  { 
-    image: heroSofa, 
-    tagline: "Create Memories",
-    heading: "Embrace The Beauty Of Furniture's", 
-    description: "Ut placerat orci nulla pellentesque posuere lorem ipsum dolor. A condimentum vitae sapien pellentesque habitant morbi tristique senectus. Faucibus turpis in eu mi pellentesque posuere bibendum neque egestas. Maecenas accumsan lacus vel facilisis volutpat.", 
-    cta: "Our Collection", 
-    link: "/products" 
+  {
+    image: heroSofa,
+    tagline: "Elegant Spaces",
+    heading: "Embrace The Beauty Of Fine Furniture",
+    description: "Ut placerat orci nulla pellentesque posuere lorem ipsum dolor. A condimentum vitae sapien pellentesque habitant morbi tristique senectus. Faucibus turpis in eu mi pellentesque posuere bibendum neque egestas. Maecenas accumsan lacus vel facilisis volutpat.",
+    cta: "Our Collection",
+    link: "/products"
   },
 ];
 

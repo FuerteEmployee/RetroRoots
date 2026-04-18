@@ -2,9 +2,30 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const blogs = [
-  { title: "Top 10 Solid Surface Trends for 2026", date: "Apr 10, 2026", category: "Trends", excerpt: "Discover the latest innovations in solid surface design transforming modern interiors." },
-  { title: "How Flexicore Exports to 25+ Countries", date: "Apr 5, 2026", category: "Business", excerpt: "Our journey from Rajkot to global markets — the Flexicore export story." },
-  { title: "Best Kitchen Countertop Materials Guide", date: "Mar 28, 2026", category: "Guide", excerpt: "A comprehensive comparison of kitchen surface materials to help you choose the best." },
+  { 
+    id: "modest-living-space",
+    title: "The Modest Living Space Furnishings Ideas", 
+    date: "May 24, 2024", 
+    category: "Design", 
+    excerpt: "Creating a beautiful and functional living space doesn’t always require a large area or a huge budget.",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800&h=600"
+  },
+  { 
+    id: "reading-area-space",
+    title: "Tips For Designing Reading Area Space Smartly", 
+    date: "May 24, 2024", 
+    category: "Productivity", 
+    excerpt: "A dedicated reading space can transform your daily routine into a peaceful and enjoyable experience.",
+    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=800&h=600"
+  },
+  { 
+    id: "furnish-home-affordably",
+    title: "Easy Way To Furnish Your Home Affordably", 
+    date: "May 24, 2024", 
+    category: "Budget", 
+    excerpt: "Furnishing your home beautifully doesn’t have to be expensive. achieve a stylish look without overspending.",
+    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800&h=600"
+  },
 ];
 
 const BlogPreview = () => (
@@ -19,18 +40,24 @@ const BlogPreview = () => (
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {blogs.map(b => (
-          <Link key={b.title} to="/blog" className="bg-card rounded-xl overflow-hidden border border-border card-hover">
-            <div className="aspect-video bg-secondary" />
-            <div className="p-5">
+          <div key={b.title} className="bg-card rounded-xl overflow-hidden border border-border card-hover flex flex-col">
+            <Link to={`/blog/${b.id}`} className="block aspect-video bg-secondary overflow-hidden">
+              <img src={b.image} alt={b.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy" />
+            </Link>
+            <div className="p-5 flex flex-col flex-1">
               <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
                 <Calendar className="w-3.5 h-3.5" /><span>{b.date}</span>
                 <span className="px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium">{b.category}</span>
               </div>
-              <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{b.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2">{b.excerpt}</p>
-              <span className="inline-flex items-center gap-1 text-sm text-primary mt-3 font-medium">Read More <ArrowRight className="w-3.5 h-3.5" /></span>
+              <h3 className="font-semibold text-foreground mb-2 line-clamp-2 hover:text-primary transition-colors">
+                <Link to={`/blog/${b.id}`}>{b.title}</Link>
+              </h3>
+              <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{b.excerpt}</p>
+              <Link to={`/blog/${b.id}`} className="inline-flex items-center gap-1 text-sm text-primary mt-auto font-medium hover:underline">
+                Read More <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

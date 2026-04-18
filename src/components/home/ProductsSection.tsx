@@ -1,15 +1,15 @@
 import { Eye, Play } from "lucide-react";
 import { Link } from "react-router-dom";
-import catKitchen from "@/assets/category-kitchen.jpg";
-import catBathroom from "@/assets/category-bathroom.jpg";
-import catWall from "@/assets/category-wall.jpg";
-import catFloor from "@/assets/category-floor.jpg";
+import catSofa from "@/assets/category-sofa.jpg";
+import catDiningChair from "@/assets/category-dining-chair.png";
+import catLounger from "@/assets/category-lounger.png";
+import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 
 const products = [
-  { name: "Calacatta Marble Surface", category: "Solid Surface", tag: "Bestseller", image: catKitchen },
-  { name: "Nero Marquina", category: "Solid Surface", tag: "New", image: catBathroom },
-  { name: "Italian Carrara Tile", category: "Tiles", tag: "Premium", image: catWall },
-  { name: "Arctic White", category: "Solid Surface", tag: "", image: catFloor },
+  { name: "Royal Velvet Sofa", category: "Sofa", tag: "Bestseller", image: catSofa },
+  { name: "Nordic Dining Chair", category: "Dining Chair", tag: "New", image: catDiningChair },
+  { name: "Traditional Diwaan Set", category: "Lounger (Diwaan)", tag: "Premium", image: catLounger },
+  { name: "Modern Accent Chair", category: "Lounge Chair", tag: "Classic", image: catLoungeChair },
 ];
 
 const ProductsSection = () => (

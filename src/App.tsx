@@ -31,6 +31,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Products from "./pages/Products";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
 import Gallery from "./pages/Gallery";
@@ -42,6 +43,7 @@ import Expo from "./pages/Expo";
 import Privacy from "./pages/Privacy";
 import Delivery from "./pages/Delivery";
 import PRNews from "./pages/PRNews";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -68,6 +70,7 @@ const App = () => (
               <Route path="/via-flexicore" element={<ViaFlexicore />} />
               <Route path="/products" element={<Products />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/contact" element={<Contact />} />
@@ -78,6 +81,7 @@ const App = () => (
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/delivery" element={<Delivery />} />
               <Route path="/pr-news" element={<PRNews />} />
+              <Route path="/cart" element={<Cart />} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<LoginPage />} />

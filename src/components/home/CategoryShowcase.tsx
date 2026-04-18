@@ -1,34 +1,33 @@
 import { Link } from "react-router-dom";
-import catKitchen from "@/assets/category-kitchen.jpg";
-import catBathroom from "@/assets/category-bathroom.jpg";
-import catWall from "@/assets/category-wall.jpg";
-import catFloor from "@/assets/category-floor.jpg";
-import catCommercial from "@/assets/category-commercial.jpg";
-import catHospitality from "@/assets/category-hospitality.jpg";
+import catSofa from "@/assets/category-sofa.jpg";
+import catDiningChair from "@/assets/category-dining-chair.png";
+import catLounger from "@/assets/category-lounger.png";
+import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 
 const categories = [
-  { name: "Kitchen Surfaces", image: catKitchen, slug: "kitchen" },
-  { name: "Bathroom", image: catBathroom, slug: "bathroom" },
-  { name: "Wall Tiles", image: catWall, slug: "wall-tiles" },
-  { name: "Floor Tiles", image: catFloor, slug: "floor-tiles" },
-  { name: "Commercial", image: catCommercial, slug: "commercial" },
-  { name: "Hospitality", image: catHospitality, slug: "hospitality" },
+  { name: "Sofa", image: catSofa, slug: "sofa" },
+  { name: "Dining Chair", image: catDiningChair, slug: "dining-chair" },
+  { name: "Lounger (Diwaan)", image: catLounger, slug: "lounger" },
+  { name: "Lounge Chair", image: catLoungeChair, slug: "lounge-chair" },
+  { name: "Recliners", image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=400&h=400", slug: "recliners" },
 ];
 
 const CategoryShowcase = () => (
-  <section className="section-padding">
+  <section className="section-padding bg-white">
     <div className="container mx-auto">
-      <div className="sage-banner rounded-xl p-6 md:p-8 text-center text-primary-foreground mb-10">
-        <p className="text-sm mb-1 opacity-80">Crafted for every space — explore our</p>
-        <h2 className="text-2xl md:text-3xl font-bold">Top Product Categories</h2>
+      <div className="sage-banner rounded-3xl p-10 md:p-12 text-center text-primary-foreground mb-16 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+        <p className="text-xs uppercase font-black tracking-[0.4em] mb-4 opacity-70">Crafted for every space — explore our</p>
+        <h2 className="text-3xl md:text-5xl font-serif">Top Product Categories</h2>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+      
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
         {categories.map((cat) => (
-          <Link key={cat.name} to={`/products?category=${cat.slug}`} className="flex flex-col items-center gap-3 group">
-            <div className="circle-category w-32 h-32 md:w-40 md:h-40">
-              <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" loading="lazy" width={200} height={200} />
+          <Link key={cat.name} to={`/products?category=${cat.slug}`} className="flex flex-col items-center gap-4 group">
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-primary transition-all duration-500 shadow-lg group-hover:shadow-primary/20">
+              <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" width={200} height={200} />
             </div>
-            <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors text-center">{cat.name}</span>
+            <span className="text-xs font-black uppercase tracking-widest text-slate-800 group-hover:text-primary transition-colors text-center">{cat.name}</span>
           </Link>
         ))}
       </div>
