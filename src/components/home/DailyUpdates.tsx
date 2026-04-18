@@ -1,9 +1,10 @@
 const updates = [
-  "🚀 New Marble Collection 2026 Launched",
-  "📍 Now Exporting to 15+ Countries",
-  "🏆 ISO 9001:2025 Certified",
-  "🎪 Visit Us at Ceramica India Expo — Booth A12",
-  "🆕 Premium Kitchen Series Available Now",
+  "Designed To Last, Styled To Love",
+  "Vintage Soul, Modern Style",
+  "Where Classic Design Meets Modern Living",
+  "Designs That Echo The Past",
+  "Simply Classic, Quietly Luxurious",
+  "Vintage Elegance Made Modern",
 ];
 
 const DailyUpdates = () => (

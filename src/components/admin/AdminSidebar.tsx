@@ -67,7 +67,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
       <aside className={sidebarClasses}>
         <div className="flex items-center justify-between h-14 px-4 border-b border-border">
           <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            FlexiCore Admin
+            Retro Roots Admin
           </span>
           <button 
             onClick={onClose}

@@ -37,9 +37,9 @@ const LoginPage = () => {
         <div className="bg-card rounded-2xl border border-border shadow-lg p-8">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl admin-gradient mb-4">
-              <span className="text-xl font-bold text-primary-foreground">F</span>
+              <span className="text-xl font-bold text-primary-foreground">R</span>
             </div>
-            <h1 className="text-2xl font-bold text-card-foreground">FLEXICORE Admin</h1>
+            <h1 className="text-2xl font-bold text-card-foreground">Retro Roots Admin</h1>
             <p className="text-sm text-muted-foreground mt-1">Sign in to manage your website</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -48,7 +48,7 @@ const LoginPage = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@flexicore.in"
+                placeholder="admin@retroroots.co.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-1.5"

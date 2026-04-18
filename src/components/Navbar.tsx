@@ -116,7 +116,7 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> +91 96624 96622</span>
-            <span className="hidden sm:inline">flexicore@yahoo.com</span>
+            <span className="hidden sm:inline">info@retroroots.co.in</span>
           </div>
           <div className="flex items-center gap-4">
             <span>Free Shipping Pan India</span>
@@ -129,9 +129,13 @@ const Navbar = () => {
       <nav className={`sticky top-0 z-50 bg-card transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-sm"}`}>
         {/* Row 1: Logo + Search + CTA */}
         <div className={`container mx-auto flex items-center justify-between transition-all duration-300 ${scrolled ? "h-[50px]" : "h-[60px]"} px-4 lg:px-8`}>
-          <Link to="/" className="flex items-center gap-2">
-              <span className={`font-bold gold-text tracking-wide transition-all duration-300 ${scrolled ? "text-xl" : "text-2xl"}`}>FLEXICORE</span>
-            </Link>
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/logo.png" 
+              alt="Retro Roots" 
+              className={`transition-all duration-300 object-contain ${scrolled ? "h-10" : "h-14"}`} 
+            />
+          </Link>
 
           {/* Search bar - desktop */}
           <div className="hidden md:flex items-center flex-1 max-w-lg mx-6">
