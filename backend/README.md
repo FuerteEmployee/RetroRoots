@@ -8,7 +8,7 @@
 4. `npm run dev` — Start development server
 
 ## Default Admin
-- Email: admin@flexicore.in
+- Email: admin@retroroots.co.in
 - Password: admin123
 
 ## API Endpoints
