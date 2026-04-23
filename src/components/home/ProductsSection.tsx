@@ -62,7 +62,7 @@ const ProductsSection = () => {
           })}
         </div>
         <div className="text-center mt-8">
-          <Link to="/products" className="inline-block px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+          <Link to="/products" className="inline-block px-8 py-3 border-2 border-black text-black font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
             View All Products →
           </Link>
         </div>
