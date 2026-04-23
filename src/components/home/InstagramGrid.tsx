@@ -16,7 +16,7 @@ const InstagramGrid = () => (
     <div className="container mx-auto">
       <div className="flex items-center justify-center gap-3 mb-8">
         <Instagram className="w-6 h-6 text-primary" />
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground">Follow Us on <span className="gold-text">Instagram</span></h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground">Follow Us on <span className="font-bold">Instagram</span></h2>
       </div>
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
         {posts.map(p => (

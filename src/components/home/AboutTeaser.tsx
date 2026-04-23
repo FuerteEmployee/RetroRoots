@@ -36,12 +36,12 @@ const AboutTeaser = () => (
         <div>
           <p className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3">About Retro Roots</p>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
-            Why Choose <span className="gold-text">Retro Roots</span>?
+            Why Choose <span className="font-bold">Retro Roots</span>?
           </h2>
           <p className="text-lg text-foreground/80 leading-relaxed mb-6 italic">
             At Retro Roots, every sofa is more than just furniture — it’s a story of comfort, craftsmanship, and character.
           </p>
-          
+
           <div className="space-y-4 mb-10">
             {[
               "Premium quality materials",

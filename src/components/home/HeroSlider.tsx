@@ -48,14 +48,14 @@ const HeroSlider = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-2xl animate-fade-in-up">
             {slides[current].tagline && (
-              <span className="inline-block text-primary font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4">
+              <span className="inline-block text-white font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4">
                 {slides[current].tagline}
               </span>
             )}
-            <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-4">
+            <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-4">
               {slides[current].heading}
             </h1>
-            <p className="text-primary-foreground/90 text-sm md:text-lg mb-8 leading-relaxed max-w-xl">
+            <p className="text-white/90 text-sm md:text-lg mb-8 leading-relaxed max-w-xl">
               {slides[current].description}
             </p>
             <Link to={slides[current].link} className="inline-block px-10 py-4 gold-gradient text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-all hover:scale-105 transform duration-300 text-sm tracking-widest uppercase">

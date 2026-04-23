@@ -6,11 +6,28 @@ import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
-    alert("Thank you for reaching out! We will get back to you soon.");
-    setForm({ name: "", email: "", phone: "", subject: "", message: "" });
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL + "/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          mobile: form.phone,
+          message: `Subject: ${form.subject}\n\n${form.message}`
+        })
+      });
+      if (res.ok) {
+        alert("Thank you for reaching out! We will get back to you soon.");
+        setForm({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        alert("Failed to submit form. Please try again.");
+      }
+    } catch (error) {
+      alert("Error submitting form. Please check your connection.");
+    }
   };
 
   return (

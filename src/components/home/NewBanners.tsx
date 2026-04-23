@@ -21,13 +21,13 @@ const NewBanners = () => {
       {/* 1. Top Categories Banner */}
       <section className="py-8">
         <div className="container mx-auto px-4">
-          <div className="warm-banner rounded-lg p-5 md:p-8 mb-8 text-center relative overflow-hidden">
+          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10">
             <div className="relative z-10">
-              <p className="text-white/90 text-xs md:text-sm mb-1">Thoughtful touches for every corner—explore our</p>
-              <h2 className="text-white text-xl md:text-3xl font-extrabold uppercase tracking-tight">Top Furniture Categories</h2>
+              <p className="text-white/80 text-xs md:text-sm mb-2 uppercase tracking-widest font-medium">Thoughtful touches for every corner—explore our</p>
+              <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight">Top Furniture Categories</h2>
             </div>
           </div>
-          
+
           <div className="relative group">
             <div className="flex overflow-x-auto pb-3 gap-4 no-scrollbar snap-x">
               {categories.map((cat) => (
@@ -50,38 +50,37 @@ const NewBanners = () => {
       <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-[#D9B47E] p-6 md:p-10 text-center rounded-xl relative overflow-hidden group">
+            <div className="bg-[#D4B785] p-6 md:p-10 text-center rounded-xl relative overflow-hidden group">
               <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">SALE SALE SALE</div>
               <div className="relative z-10">
                 <h3 className="text-white text-lg md:text-xl font-bold mb-3">Furniture clearance</h3>
                 <p className="text-white text-3xl md:text-5xl font-black mb-6">40% - 80% off</p>
-                <Link to="/products" className="inline-block bg-white text-[#D9B47E] px-10 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-colors uppercase tracking-widest shadow-lg text-xs">Shop Now</Link>
+                <Link to="/products" className="inline-block bg-white text-[#D4B785] px-10 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-colors uppercase tracking-widest shadow-lg text-xs">Shop Now</Link>
               </div>
             </div>
             <div className="bg-[#8E9F8A] p-6 md:p-10 text-center rounded-xl relative overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">OFFER OFFER OFFER</div>
+              <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">SALE SALE SALE</div>
               <div className="relative z-10">
                 <h3 className="text-white text-lg md:text-xl font-bold mb-3">Up to 70% off</h3>
-                <p className="text-white text-3xl md:text-5xl font-black mb-6 leading-tight">on Luxury Decor</p>
+                <p className="text-white text-3xl md:text-5xl font-black mb-6 leading-tight">on Home & Decor</p>
                 <Link to="/products" className="inline-block bg-white text-[#8E9F8A] px-10 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-colors uppercase tracking-widest shadow-lg text-xs">Shop Now</Link>
               </div>
             </div>
             <div className="bg-[#8E9F8A] p-6 md:p-10 text-center rounded-xl relative overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">RETRO RETRO RETRO</div>
+              <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">SALE SALE SALE</div>
               <div className="relative z-10">
-                <h3 className="text-white text-lg md:text-xl font-bold mb-3 font-serif italic">Every style under</h3>
-                <p className="text-white text-4xl md:text-6xl font-black mb-6 tracking-tighter">₹9,999</p>
+                <h3 className="text-white text-lg md:text-xl font-bold mb-3">Everything under</h3>
+                <p className="text-white text-4xl md:text-6xl font-black mb-6 tracking-tighter">₹499</p>
                 <Link to="/products" className="inline-block bg-white text-[#8E9F8A] px-10 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-colors uppercase tracking-widest shadow-lg text-xs">Shop Now</Link>
               </div>
             </div>
-            <div className="bg-[#D9B47E] p-6 md:p-10 text-center rounded-xl relative overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">CLUB CLUB CLUB</div>
+            <div className="bg-[#D4B785] p-6 md:p-10 text-center rounded-xl relative overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white font-bold text-5xl break-all">SALE SALE SALE</div>
               <div className="relative z-10">
                 <p className="text-white text-2xl md:text-4xl font-bold mb-2 uppercase">Extra 20% off*</p>
                 <p className="text-white/80 text-base mb-6 uppercase tracking-widest">online exclusive</p>
-                <div className="bg-white text-[#D9B47E] py-3 px-10 rounded-full inline-block border-2 border-dashed border-[#D9B47E]">
-                  <p className="text-[10px] uppercase font-bold mb-0.5 opacity-70">Use Code:</p>
-                  <p className="text-xl font-black text-black">RETRO20</p>
+                <div className="bg-white text-[#D4B785] py-2.5 px-10 rounded-full inline-block font-bold uppercase tracking-widest shadow-lg text-xs">
+                  Code: FUR20
                 </div>
               </div>
             </div>
@@ -101,8 +100,8 @@ const NewBanners = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#8E9F8A] p-2 text-center rounded-lg shadow-inner">
-            <h3 className="text-white text-base md:text-xl font-bold tracking-widest uppercase italic leading-none">New arrivals: in stock & ready to ship</h3>
+          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10">
+            <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight">New arrivals: in stock & ready to ship</h2>
           </div>
         </div>
       </section>
@@ -124,7 +123,7 @@ const NewBanners = () => {
               <p className="text-center font-bold text-base text-gray-800 uppercase tracking-widest">Elite Dining</p>
             </div>
           </div>
-          
+
           <div className="relative rounded-2xl overflow-hidden h-36 md:h-48 group">
             <img src={heroBar} alt="Custom Furniture" className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition-transform duration-1000" />
             <div className="absolute inset-0 flex items-center justify-end px-8">
@@ -141,11 +140,11 @@ const NewBanners = () => {
       {/* 5. Bestsellers Segment */}
       <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
-           <div className="bg-[#D9B47E] p-4 md:p-6 text-center rounded-lg mb-8 overflow-hidden relative">
-              <div className="absolute left-0 top-0 h-full w-16 bg-white/10 -skew-x-[45deg] animate-pulse"></div>
-              <h2 className="text-white text-2xl md:text-3xl font-black uppercase tracking-tight relative z-10">Retro Roots Bestsellers</h2>
+          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10">
+            <div className="absolute left-0 top-0 h-full w-16 bg-white/10 -skew-x-[45deg] animate-pulse"></div>
+            <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight relative z-10">Retro Roots Bestsellers</h2>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {[
               { name: "Sofa Sets", price: "9,999", img: catSofa },
@@ -163,9 +162,9 @@ const NewBanners = () => {
             ))}
           </div>
 
-          <div className="bg-[#8E9F8A] p-6 text-center rounded-lg mt-10 shadow-lg relative overflow-hidden group">
-              <div className="absolute inset-x-0 top-0 h-0.5 bg-white/20"></div>
-              <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter opacity-100 group-hover:scale-105 transition-transform leading-none py-2">Explore All Collections</h2>
+          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mt-10 shadow-lg group">
+            <div className="absolute inset-x-0 top-0 h-0.5 bg-white/20"></div>
+            <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight opacity-100 group-hover:scale-105 transition-transform leading-none py-2">Explore All Collections</h2>
           </div>
         </div>
       </section>
@@ -195,12 +194,12 @@ const NewBanners = () => {
 
       {/* 7. Furniture Deals Banner */}
       <section className="py-4 overflow-hidden">
-        <div className="bg-[#D9B47E] py-6 relative">
+        <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10">
           <div className="absolute inset-0 flex items-center justify-center opacity-10 whitespace-nowrap text-white font-black text-6xl space-x-12">
             <span>Deals Deals Deals Deals Deals Deals Deals</span>
           </div>
           <div className="container mx-auto px-4 relative z-10 text-center">
-            <h2 className="text-white text-3xl md:text-5xl font-bold tracking-tight">Furniture Deals</h2>
+            <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight">Furniture Deals</h2>
           </div>
         </div>
       </section>
@@ -259,8 +258,8 @@ const NewBanners = () => {
             </div>
           </div>
 
-          <div className="bg-[#8E9F8A] py-4 rounded-lg text-center shadow-lg transform hover:scale-[1.005] transition-transform">
-            <h2 className="text-white text-xl md:text-3xl font-bold tracking-tight py-1">Furniture New Launches</h2>
+          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10 shadow-lg transform hover:scale-[1.005] transition-transform">
+            <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight py-1">Furniture New Launches</h2>
           </div>
         </div>
       </section>
@@ -314,14 +313,14 @@ const NewBanners = () => {
       {/* 12. Rewards Banner */}
       <section className="py-6">
         <div className="container mx-auto px-4">
-          <div className="bg-black text-white rounded-sm overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-8 relative">
+          <div className="bg-[#000000] text-white rounded-sm overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-8 relative">
             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 relative z-10 w-full text-center md:text-left">
               <div className="flex items-center gap-3">
                 <p className="text-[10px] uppercase tracking-[0.2em] font-bold opacity-60">Retro Roots</p>
                 <div className="h-6 w-[1px] bg-white/20 hidden md:block"></div>
                 <div>
-                   <p className="text-[10px] opacity-60 uppercase">UPTO</p>
-                   <p className="text-3xl md:text-4xl font-black text-[#D9B47E]">50,000</p>
+                  <p className="text-[10px] opacity-60 uppercase">UPTO</p>
+                  <p className="text-3xl md:text-4xl font-black text-white">50,000</p>
                 </div>
               </div>
               <div>
@@ -357,18 +356,18 @@ const NewBanners = () => {
             ].map((brand) => (
               <div key={brand.name} className="group cursor-pointer relative overflow-hidden">
                 <div className="aspect-square mb-2 bg-muted overflow-hidden relative rounded-sm">
-                   <img src={brand.img} alt={brand.name} className="w-full h-full object-cover transition-all duration-700" />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80"></div>
-                   <div className="absolute bottom-2 left-3 right-3 text-white text-left">
-                      <p className="font-bold text-sm mb-0.5 uppercase tracking-tight">{brand.name}</p>
-                      <p className="text-[10px] uppercase opacity-90"><span className="text-base font-black text-[#D9B47E]">{brand.discount}</span> off</p>
-                   </div>
+                  <img src={brand.img} alt={brand.name} className="w-full h-full object-cover transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80"></div>
+                  <div className="absolute bottom-2 left-3 right-3 text-white text-left">
+                    <p className="font-bold text-sm mb-0.5 uppercase tracking-tight">{brand.name}</p>
+                    <p className="text-[10px] uppercase opacity-90"><span className="text-base font-black text-white">{brand.discount}</span> off</p>
+                  </div>
                 </div>
               </div>
             ))}
-            
+
             {/* Explore card */}
-            <div className="bg-[#5C4532] text-white p-4 flex flex-col items-center justify-center text-center aspect-square rounded-sm border-2 border-transparent hover:border-white/20 transition-all">
+            <div className="bg-[#000000] text-white p-4 flex flex-col items-center justify-center text-center aspect-square rounded-sm border-2 border-transparent hover:border-white/20 transition-all">
               <h3 className="text-sm md:text-base font-bold uppercase tracking-tight leading-tight mb-2">Explore more brands</h3>
               <div className="w-6 h-0.5 bg-white/30"></div>
             </div>
@@ -380,3 +379,5 @@ const NewBanners = () => {
 };
 
 export default NewBanners;
+
+

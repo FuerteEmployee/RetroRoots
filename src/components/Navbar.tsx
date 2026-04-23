@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { 
-  Menu, X, Search, Phone, ChevronDown, 
+import {
+  Menu, X, Search, Phone, ChevronDown,
   Heart, ShoppingBasket, MoreHorizontal,
-  Truck, Calendar, MapPin, AppWindow, 
+  Truck, Calendar, MapPin, AppWindow,
   Package, HelpCircle, User, ShoppingBag
 } from "lucide-react";
 
@@ -88,7 +88,7 @@ const Navbar = () => {
       {authModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 relative">
-            <button 
+            <button
               onClick={() => setAuthModalOpen(false)}
               className="absolute top-6 right-6 p-1 rounded-full hover:bg-gray-100 transition-colors"
             >
@@ -99,28 +99,28 @@ const Navbar = () => {
               <p className="text-gray-500 text-sm md:text-base mb-10 leading-relaxed font-normal">
                 Enjoy the convenience of a single account across all participating brands
               </p>
-              
+
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-3 ml-1">Mobile Number</label>
                   <div className="flex border border-slate-200 rounded-xl focus-within:border-primary transition-all overflow-hidden group">
                     <span className="px-5 py-4 bg-gray-50 border-r border-slate-200 text-gray-600 font-semibold">+91</span>
-                    <input 
-                      type="tel" 
-                      placeholder="Enter your mobile number" 
+                    <input
+                      type="tel"
+                      placeholder="Enter your mobile number"
                       className="flex-1 px-5 py-4 outline-none text-gray-900 font-normal placeholder:text-gray-300"
                     />
                   </div>
                 </div>
-                
+
                 <p className="text-xs text-gray-500 font-normal leading-relaxed">
                   By creating your account you agree to our <span className="text-primary font-semibold cursor-pointer hover:underline">Terms and Conditions</span>
                 </p>
-                
+
                 <div className="pt-4 border-t border-gray-100 flex justify-end">
-                   <button className="w-full md:w-auto px-12 py-4 gold-gradient text-primary-foreground font-bold rounded-xl uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all active:scale-95">
-                      Continue
-                   </button>
+                  <button className="w-full md:w-auto px-12 py-4 gold-gradient text-primary-foreground font-bold rounded-xl uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all active:scale-95">
+                    Continue
+                  </button>
                 </div>
               </div>
             </div>
@@ -161,10 +161,10 @@ const Navbar = () => {
         {/* Main Row: Logo + Search + Sign In + Favorites + Basket + More */}
         <div className={`container mx-auto flex items-center justify-between transition-all duration-300 ${scrolled ? "h-[50px]" : "h-[75px]"} px-4 lg:px-8`}>
           <Link to="/" className="flex items-center flex-shrink-0">
-            <img 
-              src="/logo.png" 
-              alt="Retro Roots" 
-              className={`transition-all duration-300 object-contain ${scrolled ? "h-10" : "h-16"}`} 
+            <img
+              src="/logo.png"
+              alt="Retro Roots"
+              className={`transition-all duration-300 object-contain ${scrolled ? "h-10" : "h-16"}`}
             />
           </Link>
 
@@ -183,15 +183,15 @@ const Navbar = () => {
           {/* Action Buttons: Sign In, Favorite, Basket, More */}
           <div className="flex items-center gap-1 sm:gap-6">
             {/* Login Button */}
-            <button 
+            <button
               onClick={() => setAuthModalOpen(true)}
               className={`hidden lg:flex items-center justify-center px-6 whitespace-nowrap gold-gradient text-primary-foreground font-bold uppercase tracking-widest rounded transition-all shadow hover:opacity-90 active:scale-95 ${scrolled ? "py-2 text-[9px]" : "py-3.5 text-[11px]"}`}
             >
-               Sign Up / Sign In
+              Sign Up / Sign In
             </button>
 
             {/* Favorite - Triggers Auth */}
-            <button 
+            <button
               onClick={() => setAuthModalOpen(true)}
               className="flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
@@ -200,23 +200,23 @@ const Navbar = () => {
             </button>
 
             {/* Basket - Link to new page */}
-            <Link 
+            <Link
               to="/cart"
               className="flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
-              <ShoppingBasket className={`text-muted-foreground group-hover:text-primary transition-colors ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
+              <ShoppingBasket className={`text-muted-foreground group-:text-primary transition-colors ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
               <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Basket</span>
             </Link>
 
             {/* More - Hover to show categories */}
-            <div 
+            <div
               className="relative group cursor-pointer flex flex-col items-center gap-1"
               onMouseEnter={() => setShowMoreMenu(true)}
               onMouseLeave={() => setShowMoreMenu(null)}
             >
-              <MoreHorizontal className={`text-muted-foreground group-hover:text-primary transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
+              <MoreHorizontal className={`text-muted-foreground group-:text-primary transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
               <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>More</span>
-              
+
               {/* More Menu Popover */}
               {showMoreMenu && (
                 <div className="absolute top-[100%] right-0 pt-4 z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
@@ -224,15 +224,15 @@ const Navbar = () => {
                     <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4 pb-2 border-b border-gray-50">All Categories</h4>
                     <div className="space-y-1">
                       {categories.map((cat) => (
-                        <Link 
-                          key={cat.label} 
+                        <Link
+                          key={cat.label}
                           to={`/products?category=${cat.slug}`}
                           className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group/item"
                         >
-                          <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 group-hover/item:border-primary">
+                          <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 group-/item:border-primary">
                             <img src={cat.image} className="w-full h-full object-cover" alt="" />
                           </div>
-                          <span className="text-sm font-bold text-gray-700 group-hover/item:text-primary">{cat.label}</span>
+                          <span className="text-sm font-bold text-gray-700 group-hover/item:text-gray-900">{cat.label}</span>
                         </Link>
                       ))}
                       <div className="pt-4 border-t border-gray-50 mt-2">
@@ -254,23 +254,22 @@ const Navbar = () => {
         <div className={`hidden lg:block border-t border-border bg-white transition-all duration-300 ${scrolled ? "py-1.5" : "py-3"}`}>
           <div className="container mx-auto px-4 lg:px-8">
             <div className={`flex items-center justify-center gap-2 xl:gap-8 transition-all duration-300`}>
-              
+
               {/* SALE ITEM */}
               <div className="relative group">
-                  <Link to="/products?on_sale=true" className="flex flex-col items-center gap-1.5">
-                    <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 border-red-500 flex items-center justify-center bg-red-600 text-white text-center p-1 ${
-                      scrolled ? "w-0 h-0 opacity-0 scale-0" : "w-16 h-16 xl:w-[72px] xl:h-[72px] opacity-100 scale-100 shadow-lg shadow-red-200"
+                <Link to="/products?on_sale=true" className={`flex flex-col items-center ${scrolled ? "gap-0 px-2" : "gap-1.5"}`}>
+                  <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 border-red-500 flex items-center justify-center bg-red-600 text-white text-center p-1 ${scrolled ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0" : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 shadow-lg shadow-red-200"
                     }`}>
-                      <div className="flex flex-col items-center">
-                        <span className="text-[7px] uppercase font-bold leading-tight">Clearance</span>
-                        <span className="text-[14px] font-black leading-none italic uppercase">Sale</span>
-                        <span className="text-[8px] font-bold leading-none">40-80%</span>
-                      </div>
+                    <div className="flex flex-col items-center">
+                      <span className="text-[7px] uppercase font-bold leading-tight">Clearance</span>
+                      <span className="text-[14px] font-black leading-none italic uppercase">Sale</span>
+                      <span className="text-[8px] font-bold leading-none">40-80%</span>
                     </div>
-                    <span className={`font-bold transition-all duration-300 ${scrolled ? "text-[11px] text-red-600 uppercase tracking-widest" : "text-xs text-red-600"}`}>
-                      Sale
-                    </span>
-                  </Link>
+                  </div>
+                  <span className={`font-bold transition-all duration-300 ${scrolled ? "text-[11px] text-red-600 uppercase tracking-widest" : "text-[11px] uppercase text-red-600 tracking-tighter"}`}>
+                    Sale
+                  </span>
+                </Link>
               </div>
 
               {categories.map((cat) => (
@@ -284,11 +283,10 @@ const Navbar = () => {
                     to={`/products?category=${cat.slug}`}
                     className={`flex flex-col items-center group transition-all duration-300 ${scrolled ? "gap-0 px-2" : "gap-1.5"}`}
                   >
-                    <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 ${
-                      scrolled 
-                        ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0" 
-                        : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 border-border group-hover:border-primary/60"
-                    }`}>
+                    <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 ${scrolled
+                      ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0"
+                      : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 border-border group-hover:border-primary/60"
+                      }`}>
                       <img
                         src={cat.image}
                         alt={cat.label}
@@ -298,11 +296,9 @@ const Navbar = () => {
                         height={72}
                       />
                     </div>
-                    <span className={`font-bold text-center leading-tight transition-all duration-300 ${
-                      scrolled ? "text-[11px] uppercase tracking-widest" : "text-[11px] uppercase tracking-tighter"
-                    } ${
-                      hoveredCategory === cat.label ? "text-primary" : "text-foreground group-hover:text-primary"
-                    }`}>
+                    <span className={`font-bold text-center leading-tight transition-all duration-300 ${scrolled ? "text-[11px] uppercase tracking-widest" : "text-[11px] uppercase tracking-tighter"
+                      } ${hoveredCategory === cat.label ? "text-black" : "text-foreground group-hover:text-black"
+                      }`}>
                       {cat.label}
                     </span>
                   </Link>
@@ -342,7 +338,7 @@ const Navbar = () => {
                       </div>
                     ))}
                     <div className="col-span-1 rounded-2xl overflow-hidden shadow-lg h-48 border border-gray-100">
-                        <img src={cat.image} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="Promo" />
+                      <img src={cat.image} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="Promo" />
                     </div>
                   </div>
                 ))}
@@ -356,7 +352,7 @@ const Navbar = () => {
             <div className="p-4">
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-border">
                 <Link to="/products?on_sale=true" className="flex flex-col items-center gap-1.5">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center bg-red-600 text-white border-2 border-red-500 shadow-md">
+                  <div className="w-16 h-16 rounded-full flex items-end justify-center bg-red-600 text-white border-2 border-red-500 shadow-md">
                     <span className="text-[10px] font-black italic uppercase">Sale</span>
                   </div>
                   <span className="text-[10px] font-bold text-red-600 uppercase">Sale</span>
@@ -371,21 +367,21 @@ const Navbar = () => {
                 ))}
               </div>
               <div className="space-y-1">
-                 <button 
+                <button
                   onClick={() => setAuthModalOpen(true)}
                   className="w-full flex items-center gap-2 px-4 py-4 mb-4 gold-gradient text-primary-foreground font-bold text-xs uppercase tracking-widest rounded-xl text-center justify-center"
-                 >
-                    <User className="w-4 h-4" /> Sign Up / Sign In
-                 </button>
-                 {[
-                   { label: "Favorite", action: () => setAuthModalOpen(true), icon: Heart },
-                   { label: "Basket", action: () => (window.location.href = "/cart"), icon: ShoppingBasket },
-                   { label: "More", action: () => setShowMoreMenu(!showMoreMenu), icon: MoreHorizontal },
-                 ].map(item => (
-                    <button key={item.label} onClick={item.action} className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold uppercase tracking-widest text-foreground hover:bg-muted rounded-lg text-left">
-                       <item.icon className="w-5 h-5 text-muted-foreground" /> {item.label}
-                    </button>
-                 ))}
+                >
+                  <User className="w-4 h-4" /> Sign Up / Sign In
+                </button>
+                {[
+                  { label: "Favorite", action: () => setAuthModalOpen(true), icon: Heart },
+                  { label: "Basket", action: () => (window.location.href = "/cart"), icon: ShoppingBasket },
+                  { label: "More", action: () => setShowMoreMenu(!showMoreMenu), icon: MoreHorizontal },
+                ].map(item => (
+                  <button key={item.label} onClick={item.action} className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold uppercase tracking-widest text-foreground hover:bg-muted rounded-lg text-left">
+                    <item.icon className="w-5 h-5 text-muted-foreground" /> {item.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>

@@ -40,7 +40,7 @@ const Cart = () => {
                     <ShoppingBag className="w-20 h-20 md:w-28 md:h-28 text-slate-200 stroke-[1]" />
                   </div>
                   {/* Plus icon decoration */}
-                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-gold-gradient rounded-full flex items-center justify-center text-white shadow-lg animate-bounce duration-3000">
+                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-black rounded-full flex items-center justify-center text-white shadow-lg animate-bounce duration-3000">
                     <span className="text-2xl font-bold">+</span>
                   </div>
                 </div>
@@ -54,7 +54,7 @@ const Cart = () => {
 
                 <Link 
                   to="/products"
-                  className="inline-flex items-center gap-3 px-10 py-4 gold-gradient text-primary-foreground font-black rounded-2xl uppercase tracking-[0.2em] text-sm shadow-2xl shadow-primary/20 hover:scale-105 transition-all active:scale-95 group"
+                  className="inline-flex items-center gap-3 px-10 py-4 gold-gradient text-primary-foreground font-black rounded-2xl uppercase tracking-[0.2em] text-sm shadow-2xl hover:scale-105 transition-all active:scale-95 group"
                 >
                   Explore Collections
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

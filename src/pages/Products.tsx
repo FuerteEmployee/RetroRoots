@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Link } from "react-router-dom";
@@ -9,11 +10,20 @@ const categories = ["All", "Sofa", "Dining Chair", "Lounger (Diwaan)", "Lounge C
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
 const Products = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialCategory = queryParams.get("category") || "All";
+
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [catFilter, setCatFilter] = useState("All");
+  const [catFilter, setCatFilter] = useState(initialCategory);
   const [indFilter, setIndFilter] = useState("All");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const cat = queryParams.get("category");
+    if (cat) setCatFilter(cat);
+  }, [location.search]);
 
   useEffect(() => {
     getProducts()
@@ -23,8 +33,16 @@ const Products = () => {
   }, []);
 
   const filtered = allProducts.filter(p => {
-    const categoryName = typeof p.category === 'object' ? p.category?.name : p.category;
-    if (catFilter !== "All" && categoryName !== catFilter) return false;
+    // Map categoryId to category for filtering
+    const category = p.categoryId || p.category;
+    const categoryName = typeof category === 'object' ? category?.name : category;
+    const categorySlug = typeof category === 'object' ? category?.slug : category;
+
+    if (catFilter !== "All") {
+      if (categoryName !== catFilter && categorySlug !== catFilter && category?._id !== catFilter) {
+        return false;
+      }
+    }
     
     const industry = p.industryTags?.[0] || "All";
     if (indFilter !== "All" && industry !== indFilter) return false;
@@ -73,7 +91,9 @@ const Products = () => {
               {filtered.map(p => (
                 <div key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
                   <div className="relative aspect-square">
-                    <img src={p.images?.[0]?.url || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
+                    <img 
+                      src={p.images?.[0]?.url || (p.image ? (typeof p.image === 'object' ? p.image.url : (p.image.includes('http') || String(p.image).includes('data:image') || String(p.image).startsWith('/src') ? p.image : `http://localhost:5000/uploads/products/${p.image}`)) : "/placeholder.svg")} 
+                      alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                     <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                       <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground cursor-pointer"><Eye className="w-4 h-4" /></span>
@@ -82,10 +102,12 @@ const Products = () => {
                   </div>
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs text-primary font-medium">{typeof p.category === 'object' ? p.category?.name : p.category}</span>
+                      <span className="text-xs text-primary font-medium">
+                        {(typeof p.categoryId === 'object' ? p.categoryId?.name : p.categoryId) || (typeof p.category === 'object' ? p.category?.name : p.category)}
+                      </span>
                       <span className="text-xs text-muted-foreground">• {p.industryTags?.[0] || 'General'}</span>
                     </div>
-                    <h3 className="font-semibold text-foreground text-sm">{p.name}</h3>
+                    <h3 className="font-semibold text-foreground text-sm line-clamp-1">{p.name}</h3>
                     <button className="mt-2 text-xs text-primary font-medium hover:underline">View Details →</button>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem("flexicore_token");
+      const token = localStorage.getItem("retroroots_token");
       if (!token) {
         setIsLoading(false);
         return;
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           const data = await res.json();
           setUser(data);
         } else {
-          localStorage.removeItem("flexicore_token");
+          localStorage.removeItem("retroroots_token");
           setUser(null);
         }
       } catch (error) {
@@ -60,12 +60,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const data = await res.json();
-    localStorage.setItem("flexicore_token", data.token);
-    setUser(data.user);
+    localStorage.setItem("retroroots_token", data.token);
+    setUser(data.admin || data.user);
   };
 
   const logout = () => {
-    localStorage.removeItem("flexicore_token");
+    localStorage.removeItem("retroroots_token");
     setUser(null);
   };
 

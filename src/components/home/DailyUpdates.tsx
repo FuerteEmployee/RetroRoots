@@ -8,10 +8,10 @@ const updates = [
 ];
 
 const DailyUpdates = () => (
-  <div className="bg-primary overflow-hidden py-2.5">
+  <div className="bg-black overflow-hidden py-2.5">
     <div className="flex whitespace-nowrap marquee">
       {[...updates, ...updates].map((item, i) => (
-        <span key={i} className="mx-8 text-sm font-medium text-primary-foreground">{item}</span>
+        <span key={i} className="mx-8 text-sm font-medium text-white">{item}</span>
       ))}
     </div>
   </div>

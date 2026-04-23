@@ -36,19 +36,18 @@ const FAQSection = () => {
     <section className="section-padding bg-muted/50">
       <div className="container mx-auto max-w-4xl px-4">
         <div className="text-center mb-12">
-          <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2 font-outfit">Products & Services</p>
+          <p className="text-sm font-bold text-black uppercase tracking-widest mb-2 font-outfit">Products & Services</p>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground font-outfit">
-            Product Related <span className="gold-text">Queries</span>
+            Product Related <span className="font-bold">Queries</span>
           </h2>
         </div>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div 
-              key={index} 
-              className={`border border-border rounded-xl bg-card overflow-hidden transition-all duration-300 ${
-                openIndex === index ? "shadow-md ring-1 ring-primary/20" : ""
-              }`}
+            <div
+              key={index}
+              className={`border border-border rounded-xl bg-card overflow-hidden transition-all duration-300 ${openIndex === index ? "shadow-md ring-1 ring-primary/20" : ""
+                }`}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -63,11 +62,10 @@ const FAQSection = () => {
                   <ChevronDown className="w-5 h-5 text-muted-foreground flex-shrink-0" />
                 )}
               </button>
-              
-              <div 
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
+
+              <div
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
               >
                 <div className="p-5 pt-0 text-muted-foreground border-t border-border/50 text-sm md:text-base leading-relaxed font-outfit">
                   {faq.answer}

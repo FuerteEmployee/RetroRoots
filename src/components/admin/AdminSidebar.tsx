@@ -1,20 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  Package, 
-  Layers, 
-  FileText, 
-  RefreshCw, 
-  Users, 
-  Image, 
-  Award, 
-  MapPin, 
-  Newspaper, 
-  CheckCircle, 
-  Briefcase, 
-  MessageSquare, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Package,
+  Layers,
+  FileText,
+  RefreshCw,
+  Users,
+  Image,
+  Award,
+  MapPin,
+  Newspaper,
+  CheckCircle,
+  Briefcase,
+  MessageSquare,
+  Settings,
   Search,
   X,
   LogOut
@@ -58,7 +58,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-30 bg-background/80 backdrop-blur-sm lg:hidden"
           onClick={onClose}
         />
@@ -66,10 +66,12 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
 
       <aside className={sidebarClasses}>
         <div className="flex items-center justify-between h-14 px-4 border-b border-border">
-          <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <img src="/logo.png" alt="Retro Roots" className="h-12 my-2 object-contain" />
+
+          <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent text-sm">
             Retro Roots Admin
           </span>
-          <button 
+          <button
             onClick={onClose}
             className="lg:hidden p-2 rounded-lg hover:bg-accent text-muted-foreground"
           >
@@ -88,8 +90,8 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
               end={item.path === "/admin"}
               className={({ isActive }) => cn(
                 "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 group text-sm font-medium",
-                isActive 
-                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/20" 
+                isActive
+                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                   : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               )}
             >

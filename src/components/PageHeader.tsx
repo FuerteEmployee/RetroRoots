@@ -10,8 +10,8 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => (
     <img src={heroImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
     <div className="page-header-overlay" />
     <div className="relative z-10 container mx-auto px-4">
-      <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-3">{title}</h1>
-      {subtitle && <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">{subtitle}</p>}
+      <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">{title}</h1>
+      {subtitle && <p className="text-white/80 text-lg max-w-2xl mx-auto">{subtitle}</p>}
     </div>
   </div>
 );

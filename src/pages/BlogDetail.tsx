@@ -51,7 +51,7 @@ const BlogDetail = () => {
         <div className="min-h-[60vh] flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold mb-4">Post Not Found</h2>
           <Link to="/blog" className="text-primary hover:underline flex items-center gap-2">
-            <ArrowLeft className="w-4 h-4" /> Back to Blog
+            <ArrowLeft className="text-black w-4 h-4" /> Back to Blog
           </Link>
         </div>
       </Layout>
@@ -61,28 +61,28 @@ const BlogDetail = () => {
   return (
     <Layout title={post.title} description={post.excerpt}>
       <PageHeader title={post.title} subtitle="Expert insights on design and living" />
-      
+
       <article className="section-padding">
         <div className="container mx-auto max-w-4xl">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-primary hover:underline mb-8">
-            <ArrowLeft className="w-4 h-4" /> Back to all articles
+          <Link to="/blog" className="inline-flex items-center gap-2 text-black hover:underline mb-8">
+            <ArrowLeft className="text-black w-4 h-4" /> Back to all articles
           </Link>
-          
+
           <div className="relative aspect-video rounded-2xl overflow-hidden mb-10 shadow-xl">
-            <img 
-              src={post.featuredImage?.url || post.image || "/placeholder.svg"} 
-              alt={post.title} 
+            <img
+              src={post.featuredImage?.url || post.image || "/placeholder.svg"}
+              alt={post.title}
               className="w-full h-full object-cover"
             />
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
             <span className="flex items-center gap-2"><Calendar className="w-4 h-4" /> {formatDate(post.publishDate)}</span>
             <span className="flex items-center gap-2"><User className="w-4 h-4" /> {post.author || 'Retro Roots Team'}</span>
             <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider">{post.tags?.[0] || 'General'}</span>
           </div>
-          
-          <div 
+
+          <div
             className="prose prose-lg max-w-none text-foreground/80 leading-relaxed font-outfit"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />

@@ -24,7 +24,7 @@ const ContactSection = () => {
             <p className="text-muted-foreground mb-10 leading-relaxed font-outfit">
               Have a question or need help with an order? We’re here to help with your furniture journey.
             </p>
-            
+
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
