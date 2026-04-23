@@ -41,7 +41,7 @@ const ProductsSection = () => {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((p, idx) => {
-            const imgUrl = p.images?.[0]?.url || (p.image ? (typeof p.image === 'string' && (p.image.includes('http') || p.image.startsWith('/src') || p.image.startsWith('data:')) ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/products/${p.image}`) : p.image);
+            const imgUrl = p.images?.[0]?.url || (p.image ? (typeof p.image === 'string' && (p.image.includes('http') || p.image.startsWith('/src') || p.image.startsWith('data:')) ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/${p.image}`) : p.image);
             const categoryName = p.categoryId?.name || p.categoryName;
             return (
               <Link key={p._id || idx} to="/products" className="bg-card rounded-xl overflow-hidden border border-border card-hover group">

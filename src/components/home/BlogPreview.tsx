@@ -61,7 +61,7 @@ const BlogPreview = () => {
             const rawImage = b.image || b.coverImage;
             const imgUrl = (String(rawImage || '').includes('http') || String(rawImage || '').includes('data:image') || String(rawImage || '').startsWith('/src') || (!b._id)) ?
               rawImage :
-              `${API_BASE_URL.replace('/api', '')}/uploads/blogs/${rawImage}`;
+              `${API_BASE_URL.replace('/api', '')}/uploads/${rawImage}`;
 
             return (
               <div key={b.title || idx} className="bg-card rounded-xl overflow-hidden border border-border card-hover flex flex-col">

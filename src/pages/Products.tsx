@@ -93,7 +93,7 @@ const Products = () => {
                 <div key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
                   <div className="relative aspect-square">
                     <img 
-                      src={p.images?.[0]?.url || (p.image ? (typeof p.image === 'object' ? p.image.url : (p.image.includes('http') || String(p.image).includes('data:image') || String(p.image).startsWith('/src') ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/products/${p.image}`)) : "/placeholder.svg")} 
+                      src={p.images?.[0]?.url || (p.image ? (typeof p.image === 'object' ? p.image.url : (p.image.includes('http') || String(p.image).includes('data:image') || String(p.image).startsWith('/src') ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/${p.image}`)) : "/placeholder.svg")} 
                       alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                     <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
