@@ -328,7 +328,7 @@ const Navbar = () => {
                             <li key={item}>
                               <Link
                                 to={`/products?category=${cat.slug}&type=${item.toLowerCase().replace(/ /g, "-")}`}
-                                className="text-sm text-muted-foreground hover:text-primary hover:pl-2 transition-all block"
+                                className="text-sm text-muted-foreground hover:text-black hover:pl-2 transition-all block"
                               >
                                 {item}
                               </Link>

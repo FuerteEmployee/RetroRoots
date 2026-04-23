@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import { Link } from "react-router-dom";
 import { Eye, Play, Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import { getProducts } from "@/lib/api";
+import { API_BASE_URL } from "@/contexts/AuthContext";
 
 const categories = ["All", "Sofa", "Dining Chair", "Lounger (Diwaan)", "Lounge Chair", "Recliners"];
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
@@ -92,7 +93,7 @@ const Products = () => {
                 <div key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
                   <div className="relative aspect-square">
                     <img 
-                      src={p.images?.[0]?.url || (p.image ? (typeof p.image === 'object' ? p.image.url : (p.image.includes('http') || String(p.image).includes('data:image') || String(p.image).startsWith('/src') ? p.image : `http://localhost:5000/uploads/products/${p.image}`)) : "/placeholder.svg")} 
+                      src={p.images?.[0]?.url || (p.image ? (typeof p.image === 'object' ? p.image.url : (p.image.includes('http') || String(p.image).includes('data:image') || String(p.image).startsWith('/src') ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/products/${p.image}`)) : "/placeholder.svg")} 
                       alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                     <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
