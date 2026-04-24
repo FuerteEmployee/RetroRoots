@@ -58,7 +58,8 @@ const BlogPreview = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((b, idx) => {
-            const rawImage = b.image || b.coverImage;
+            const imgObj = b.featuredImage || b.image || b.coverImage;
+            const rawImage = typeof imgObj === 'object' ? imgObj?.url : imgObj;
             const imgUrl = (String(rawImage || '').includes('http') || String(rawImage || '').includes('data:image') || String(rawImage || '').startsWith('/src') || (!b._id)) ?
               rawImage :
               `${API_BASE_URL.replace('/api', '')}/uploads/${rawImage}`;

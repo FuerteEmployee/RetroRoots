@@ -10,6 +10,14 @@ import { API_BASE_URL } from "@/contexts/AuthContext";
 const categories = ["All", "Sofa", "Dining Chair", "Lounger (Diwaan)", "Lounge Chair", "Recliners"];
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
+const getImageUrl = (img: any) => {
+  const url = typeof img === 'object' ? img?.url : img;
+  if (!url) return "/placeholder.svg";
+  if (typeof url !== 'string') return "/placeholder.svg";
+  if (url.includes('http') || url.includes('data:image') || url.startsWith('/src')) return url;
+  return `${API_BASE_URL.replace('/api', '')}/uploads/${url}`;
+};
+
 const Products = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -18,12 +26,16 @@ const Products = () => {
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [catFilter, setCatFilter] = useState(initialCategory);
+  const [typeFilter, setTypeFilter] = useState(queryParams.get("type") || "All");
   const [indFilter, setIndFilter] = useState("All");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     const cat = queryParams.get("category");
+    const type = queryParams.get("type");
     if (cat) setCatFilter(cat);
+    if (type) setTypeFilter(type);
+    else setTypeFilter("All");
   }, [location.search]);
 
   useEffect(() => {
@@ -43,6 +55,15 @@ const Products = () => {
       if (categoryName !== catFilter && categorySlug !== catFilter && category?._id !== catFilter) {
         return false;
       }
+    }
+    
+    if (typeFilter !== "All") {
+      const tags = p.industryTags || [];
+      const match = tags.some(t => 
+        t.toLowerCase().replace(/ /g, "-") === typeFilter.toLowerCase() || 
+        t.toLowerCase() === typeFilter.toLowerCase()
+      );
+      if (!match) return false;
     }
     
     const industry = p.industryTags?.[0] || "All";
@@ -93,7 +114,7 @@ const Products = () => {
                 <div key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
                   <div className="relative aspect-square">
                     <img 
-                      src={p.images?.[0]?.url || (p.image ? (typeof p.image === 'object' ? p.image.url : (p.image.includes('http') || String(p.image).includes('data:image') || String(p.image).startsWith('/src') ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/${p.image}`)) : "/placeholder.svg")} 
+                      src={getImageUrl(p.images?.[0] || p.image)} 
                       alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                     <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">

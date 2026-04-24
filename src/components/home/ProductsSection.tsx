@@ -19,7 +19,7 @@ const ProductsSection = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/products/active`)
+    fetch(`${API_BASE_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -41,8 +41,13 @@ const ProductsSection = () => {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((p, idx) => {
-            const imgUrl = p.images?.[0]?.url || (p.image ? (typeof p.image === 'string' && (p.image.includes('http') || p.image.startsWith('/src') || p.image.startsWith('data:')) ? p.image : `${API_BASE_URL.replace('/api', '')}/uploads/${p.image}`) : p.image);
-            const categoryName = p.categoryId?.name || p.categoryName;
+            const imgRaw = p.images?.[0]?.url || (p.images?.[0] && typeof p.images[0] === 'object' ? p.images[0].url : null) || p.image;
+            const imgUrl = !imgRaw 
+              ? "/placeholder.svg" 
+              : (typeof imgRaw === 'string' && (imgRaw.includes('http') || imgRaw.startsWith('/src') || imgRaw.startsWith('data:'))
+                ? imgRaw 
+                : `${API_BASE_URL.replace('/api', '')}/uploads/${imgRaw}`);
+            const categoryName = p.category?.name || p.categoryId?.name || p.categoryName;
             return (
               <Link key={p._id || idx} to="/products" className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
                 <div className="relative aspect-square">
