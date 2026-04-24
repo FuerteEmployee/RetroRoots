@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
+import { API_BASE_URL } from "@/contexts/AuthContext";
 import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 
 const Contact = () => {
@@ -9,13 +10,14 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL + "/contact", {
+      const res = await fetch(API_BASE_URL + "/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          mobile: form.phone,
+          phone: form.phone,
+          type: "feedback",
           message: `Subject: ${form.subject}\n\n${form.message}`
         })
       });

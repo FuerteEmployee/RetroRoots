@@ -1,7 +1,7 @@
 import { API_BASE_URL, useAuth } from "@/contexts/AuthContext";
 
 export const apiRequest = async (endpoint: string, options: RequestInit = {}) => {
-  const token = localStorage.getItem("flexicore_token");
+  const token = localStorage.getItem("retroroots_token");
   const headers: Record<string, string> = {
     ...(options.headers as Record<string, string> || {}),
   };

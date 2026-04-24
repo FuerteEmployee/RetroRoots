@@ -1,6 +1,14 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const getApiUrl = () => {
+  const url = import.meta.env.VITE_API_URL;
+  if (url) {
+    return url.endsWith('/api') ? url : `${url.replace(/\/$/, '')}/api`;
+  }
+  return "http://localhost:5000/api";
+};
+
+export const API_BASE_URL = getApiUrl();
 type AuthContextType = {
   user: any;
   isLoading: boolean;
