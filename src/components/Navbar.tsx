@@ -70,11 +70,30 @@ const Navbar = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const location = useLocation();
 
+  // useEffect(() => {
+  //   const onScroll = () => setScrolled(window.scrollY > 40);
+  //   window.addEventListener("scroll", onScroll);
+  //   return () => window.removeEventListener("scroll", onScroll);
+  // }, []);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let lastScrollY = 0;
+
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // 👇 sirf tab update kare jab value actually change ho
+      if (currentScrollY > 5 && !scrolled) {
+        setScrolled(true);
+      } else if (currentScrollY <= 5 && scrolled) {
+        setScrolled(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [scrolled]);
 
   useEffect(() => {
     setMobileOpen(false);
