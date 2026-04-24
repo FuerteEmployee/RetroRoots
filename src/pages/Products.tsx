@@ -111,7 +111,7 @@ const Products = () => {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {filtered.map(p => (
-                <div key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
+                <Link to={`/product/${p._id}`} key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
                   <div className="relative aspect-square">
                     <img 
                       src={getImageUrl(p.images?.[0] || p.image)} 
@@ -130,9 +130,9 @@ const Products = () => {
                       <span className="text-xs text-muted-foreground">• {p.industryTags?.[0] || 'General'}</span>
                     </div>
                     <h3 className="font-semibold text-foreground text-sm line-clamp-1">{p.name}</h3>
-                    <button className="mt-2 text-xs text-primary font-medium hover:underline">View Details →</button>
+                    <span className="mt-2 text-xs text-primary font-medium group-hover:underline block">View Details →</span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

@@ -49,7 +49,7 @@ const ProductsSection = () => {
                 : `${API_BASE_URL.replace('/api', '')}/uploads/${imgRaw}`);
             const categoryName = p.category?.name || p.categoryId?.name || p.categoryName;
             return (
-              <Link key={p._id || idx} to="/products" className="bg-card rounded-xl overflow-hidden border border-border card-hover group">
+              <Link key={p._id || idx} to={`/product/${p._id || p.id || idx}`} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
                 <div className="relative aspect-square">
                   <img src={imgUrl} alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                   {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}

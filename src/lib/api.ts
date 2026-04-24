@@ -34,6 +34,7 @@ export const uploadFiles = async (files: File[]): Promise<{ url: string; publicI
 };
 
 export const getProducts = () => apiRequest("/products");
+export const getProduct = (id: string) => apiRequest(`/products/${id}`);
 export const getBlogs = () => apiRequest("/blogs");
 export const getGallery = () => apiRequest("/gallery");
 

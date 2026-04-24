@@ -30,6 +30,7 @@ import SeoPage from "@/pages/admin/SeoPage";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import Contact from "./pages/Contact";
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/via-flexicore" element={<ViaFlexicore />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/gallery" element={<Gallery />} />

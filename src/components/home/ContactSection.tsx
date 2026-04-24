@@ -19,7 +19,7 @@ const ContactSection = () => {
           <div className="lg:w-1/3">
             <p className="text-sm font-bold text-primary uppercase tracking-widest mb-4">Contact Us</p>
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight font-outfit">
-              Reach Out <span className="gold-text">To Us</span>
+              Reach Out <span className="text-bold">To Us</span>
             </h2>
             <p className="text-muted-foreground mb-10 leading-relaxed font-outfit">
               Have a question or need help with an order? We’re here to help with your furniture journey.
