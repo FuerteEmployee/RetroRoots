@@ -48,7 +48,7 @@ const CategoryShowcase = () => {
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-primary transition-all duration-500 shadow-lg group-hover:shadow-primary/20">
                   <img src={imgUrl} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" width={200} height={200} />
                 </div>
-                <span className="text-xs font-black uppercase tracking-widest text-slate-800 group-hover:text-primary transition-colors text-center">{cat.name}</span>
+                <span className="text-xs font-black uppercase tracking-widest text-slate-800 group-active:text-primary transition-colors text-center">{cat.name}</span>
               </Link>
             )
           })}

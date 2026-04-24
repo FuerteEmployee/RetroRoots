@@ -42,10 +42,10 @@ const ProductsSection = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((p, idx) => {
             const imgRaw = p.images?.[0]?.url || (p.images?.[0] && typeof p.images[0] === 'object' ? p.images[0].url : null) || p.image;
-            const imgUrl = !imgRaw 
-              ? "/placeholder.svg" 
+            const imgUrl = !imgRaw
+              ? "/placeholder.svg"
               : (typeof imgRaw === 'string' && (imgRaw.includes('http') || imgRaw.startsWith('/src') || imgRaw.startsWith('data:'))
-                ? imgRaw 
+                ? imgRaw
                 : `${API_BASE_URL.replace('/api', '')}/uploads/${imgRaw}`);
             const categoryName = p.category?.name || p.categoryId?.name || p.categoryName;
             return (
@@ -54,8 +54,8 @@ const ProductsSection = () => {
                   <img src={imgUrl} alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                   {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                   <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                    <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground"><Eye className="w-4 h-4" /></span>
-                    <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground"><Play className="w-4 h-4" /></span>
+                    {/* <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground"><Eye className="w-4 h-4" /></span>
+                    <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground"><Play className="w-4 h-4" /></span> */}
                   </div>
                 </div>
                 <div className="p-4">
