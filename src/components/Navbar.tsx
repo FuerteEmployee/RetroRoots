@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { API_BASE_URL } from "@/contexts/AuthContext";
+import { getImageUrl } from "@/lib/utils";
 import {
   Menu, X, Search, Phone, ChevronDown,
   Heart, ShoppingBasket, MoreHorizontal,
@@ -94,12 +96,7 @@ const Navbar = () => {
       .catch(() => setCategories(staticCategories));
   }, []);
 
-  const getImageUrl = (image: any) => {
-    if (!image) return "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
-    if (typeof image === 'string' && (image.includes('http') || image.startsWith('/') || image.startsWith('data:'))) return image;
-    const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api';
-    return `${baseUrl.replace('/api', '')}/uploads/${image}`;
-  };
+
 
   // useEffect(() => {
   //   const onScroll = () => setScrolled(window.scrollY > 40);

@@ -5,6 +5,7 @@ import catLounger from "@/assets/category-lounger.png";
 import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 import { useState, useEffect } from "react";
 import { useAuth, API_BASE_URL } from "@/contexts/AuthContext";
+import { getImageUrl } from "@/lib/utils";
 
 const dummyCategories = [
   { name: "Sofa", image: catSofa, slug: "sofa" },
@@ -42,14 +43,7 @@ const CategoryShowcase = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
           {categories.slice(0, 10).map((cat, idx) => {
-            const rawImage = typeof cat.image === 'object' ? cat.image?.url : cat.image;
-            const fallbackImg = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
-            
-            let imgUrl = rawImage || fallbackImg;
-            if (rawImage && !rawImage.includes('http') && !rawImage.includes('data:image') && !rawImage.startsWith('/')) {
-              const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api';
-              imgUrl = `${baseUrl.replace('/api', '')}/uploads/${rawImage}`;
-            }
+            const imgUrl = getImageUrl(cat.image);
 
             return (
               <Link key={cat.name || idx} to={`/products?category=${cat.slug || cat._id}`} className="flex flex-col items-center gap-4 group">

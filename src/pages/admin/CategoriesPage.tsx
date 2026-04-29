@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { apiRequest } from "@/lib/api";
+import { getImageUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -98,7 +99,7 @@ const CategoriesPage = () => {
               <div className="mt-1 flex items-center gap-4">
                 {form.image?.url && (
                   <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-border">
-                    <img src={form.image.url} alt="Preview" className="w-full h-full object-cover" />
+                    <img src={getImageUrl(form.image)} alt="Preview" className="w-full h-full object-cover" />
                     <button 
                       type="button" 
                       onClick={() => setForm({ ...form, image: { url: "", publicId: "" } })}
@@ -135,7 +136,7 @@ const CategoriesPage = () => {
             {cats.map(c => (
               <div key={c._id} className="p-3 flex items-center gap-3">
                 {c.image?.url ? (
-                  <img src={c.image.url} alt="" className="w-10 h-10 rounded-full object-cover border border-border" />
+                  <img src={getImageUrl(c.image)} alt="" className="w-10 h-10 rounded-full object-cover border border-border" />
                 ) : (
                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-[10px] text-muted-foreground">No Img</div>
                 )}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRequest } from "@/lib/api";
+import { getImageUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, Loader2, Eye, EyeOff } from "lucide-react";
@@ -82,7 +83,7 @@ const ProductsPage = () => {
                   <tr key={p._id} className="hover:bg-muted/30 transition-colors">
                     <td className="p-4">
                       {p.images?.[0] ? (
-                        <img src={p.images[0].url} className="w-12 h-12 rounded-lg object-cover border border-border" alt="" />
+                        <img src={getImageUrl(p.images[0])} className="w-12 h-12 rounded-lg object-cover border border-border" alt="" />
                       ) : (
                         <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-muted-foreground text-[10px]">No Image</div>
                       )}

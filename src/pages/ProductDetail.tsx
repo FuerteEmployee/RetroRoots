@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { getProduct } from "@/lib/api";
 import { API_BASE_URL } from "@/contexts/AuthContext";
+import { getImageUrl } from "@/lib/utils";
 import ImageMagnifier from "@/components/ImageMagnifier";
 import { Loader2, AlertCircle, ShoppingCart, Star, CheckCircle, Truck } from "lucide-react";
 import catSofa from "@/assets/category-sofa.jpg";
@@ -11,13 +12,7 @@ import catDiningChair from "@/assets/category-dining-chair.png";
 import catLounger from "@/assets/category-lounger.png";
 import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 
-const getImageUrl = (img: any) => {
-  const url = typeof img === 'object' ? img?.url : img;
-  if (!url) return "/placeholder.svg";
-  if (typeof url !== 'string') return "/placeholder.svg";
-  if (url.includes('http') || url.includes('data:image') || url.startsWith('/src')) return url;
-  return `${API_BASE_URL.replace('/api', '')}/uploads/${url}`;
-};
+
 
 const dummyProductsMap: Record<string, any> = {
   "0": { name: "Royal Velvet Sofa", categoryName: "Sofa", tag: "Bestseller", image: catSofa, price: 45000, description: "A luxurious royal velvet sofa perfectly crafted for your living space. This sofa is designed to provide maximum comfort and elegance to any room.", features: ["Premium Velvet Fabric", "High-Density Foam", "Solid Wood Frame", "Ergonomic Support"], specifications: { "Material": "Velvet", "Color": "Royal Blue", "Dimensions": "84 x 35 x 30 inches", "Warranty": "5 Years" }, rating: 4.8, reviews: 124 },

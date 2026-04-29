@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Loader2 } from "lucide-react";
 import { getGallery } from "@/lib/api";
+import { getImageUrl } from "@/lib/utils";
 
 const galleryCategories = ["All", "factory", "installation", "event", "entry-to-exit"];
 
@@ -46,7 +47,7 @@ const Gallery = () => {
             <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
               {filtered.map((img) => (
                 <div key={img._id} className="break-inside-avoid rounded-xl overflow-hidden group cursor-pointer relative">
-                  <img src={img.image?.url || "/placeholder.svg"} alt={img.title} className="w-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  <img src={getImageUrl(img.image)} alt={img.title} className="w-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                     <div>
                       <span className="text-xs text-primary-foreground/80">{getLabel(img.category)}</span>

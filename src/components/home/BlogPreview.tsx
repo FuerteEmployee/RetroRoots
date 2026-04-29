@@ -2,6 +2,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/contexts/AuthContext";
+import { getImageUrl } from "@/lib/utils";
 
 
 
@@ -32,10 +33,7 @@ const BlogPreview = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((b, idx) => {
             const imgObj = b.featuredImage || b.image || b.coverImage;
-            const rawImage = typeof imgObj === 'object' ? imgObj?.url : imgObj;
-            const imgUrl = (String(rawImage || '').includes('http') || String(rawImage || '').includes('data:image') || String(rawImage || '').startsWith('/src') || (!b._id)) ?
-              rawImage :
-              `${API_BASE_URL.replace('/api', '')}/uploads/${rawImage}`;
+            const imgUrl = getImageUrl(imgObj);
 
             return (
               <div key={b.title || idx} className="bg-card rounded-xl overflow-hidden border border-border card-hover flex flex-col">
