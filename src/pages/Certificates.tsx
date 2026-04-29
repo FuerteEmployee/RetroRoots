@@ -12,7 +12,7 @@ const certs = [
 ];
 
 const Certificates = () => (
-  <Layout title="Certificates" description="View Flexicore's quality certifications — ISO 9001, CE, BIS, and more. Proof of our commitment to excellence.">
+  <Layout title="Certificates" description="View RetroRoots's quality certifications — ISO 9001, CE, BIS, and more. Proof of our commitment to excellence.">
     <PageHeader title="Certificates" subtitle="Our commitment to quality, verified and certified" />
     <section className="section-padding">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

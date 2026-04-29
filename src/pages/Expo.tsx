@@ -10,7 +10,7 @@ const expos = [
 ];
 
 const Expo = () => (
-  <Layout title="Expo & Events" description="See Flexicore at trade shows and expos worldwide. View upcoming events and past exhibition highlights.">
+  <Layout title="Expo & Events" description="See RetroRoots at trade shows and expos worldwide. View upcoming events and past exhibition highlights.">
     <PageHeader title="Expo & Events" subtitle="Meet us at the world's leading trade exhibitions" />
     <section className="section-padding">
       <div className="container mx-auto">

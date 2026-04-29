@@ -17,7 +17,7 @@ const FactoryGallery = () => (
         <h2 className="text-3xl md:text-4xl font-bold text-foreground">Factory Journey — <span className="gold-text">Entry to Exit</span></h2>
       </div>
       <div className="rounded-2xl overflow-hidden mb-10">
-        <img src={factoryImg} alt="Flexicore Factory" className="w-full h-48 md:h-72 object-cover" loading="lazy" width={1920} height={400} />
+        <img src={factoryImg} alt="RetroRoots Factory" className="w-full h-48 md:h-72 object-cover" loading="lazy" width={1920} height={400} />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {steps.map(s => (

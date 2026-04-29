@@ -6,20 +6,20 @@ const jobs = [
   { title: "Product Designer", location: "Rajkot, Gujarat", type: "Full-time", dept: "Design", desc: "Design innovative solid surface patterns and product collections for domestic and international markets." },
   { title: "Export Sales Manager", location: "Rajkot, Gujarat", type: "Full-time", dept: "Sales", desc: "Drive international sales and build relationships with distributors across Middle East, Africa, and Europe." },
   { title: "Production Supervisor", location: "Factory, Rajkot", type: "Full-time", dept: "Manufacturing", desc: "Oversee daily production operations, quality control, and team management at our manufacturing facility." },
-  { title: "Digital Marketing Executive", location: "Rajkot (Hybrid)", type: "Full-time", dept: "Marketing", desc: "Manage social media, SEO, content marketing, and digital campaigns for the Flexicore brand." },
+  { title: "Digital Marketing Executive", location: "Rajkot (Hybrid)", type: "Full-time", dept: "Marketing", desc: "Manage social media, SEO, content marketing, and digital campaigns for the RetroRoots brand." },
   { title: "Quality Control Engineer", location: "Factory, Rajkot", type: "Full-time", dept: "QC", desc: "Ensure all products meet ISO standards through rigorous testing and inspection processes." },
 ];
 
 const Careers = () => (
-  <Layout title="Careers" description="Join the Flexicore team. Explore career opportunities in manufacturing, design, sales, and marketing at India's leading solid surface manufacturer.">
-    <PageHeader title="Careers at Flexicore" subtitle="Build your career with India's leading surface manufacturer" />
+  <Layout title="Careers" description="Join the RetroRoots team. Explore career opportunities in manufacturing, design, sales, and marketing at India's leading solid surface manufacturer.">
+    <PageHeader title="Careers at RetroRoots" subtitle="Build your career with India's leading surface manufacturer" />
 
     <section className="section-padding">
       <div className="container mx-auto">
         {/* Culture section */}
         <div className="sage-banner rounded-xl p-8 md:p-12 text-primary-foreground text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Why Work With Us?</h2>
-          <p className="max-w-2xl mx-auto opacity-90">At Flexicore, we believe our people are our greatest asset. We offer a dynamic work environment, competitive compensation, and opportunities for growth in a fast-expanding global company.</p>
+          <p className="max-w-2xl mx-auto opacity-90">At RetroRoots, we believe our people are our greatest asset. We offer a dynamic work environment, competitive compensation, and opportunities for growth in a fast-expanding global company.</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 max-w-3xl mx-auto">
             {["Competitive Salary", "Health Insurance", "Learning Budget", "Global Exposure"].map(b => (
               <div key={b} className="bg-primary-foreground/10 rounded-lg p-3 backdrop-blur">
@@ -56,7 +56,7 @@ const Careers = () => (
         <div className="bg-muted p-8 rounded-xl mt-10 text-center">
           <h3 className="text-xl font-bold text-foreground mb-2">Don't see the right role?</h3>
           <p className="text-muted-foreground mb-4">We're always looking for talented individuals. Send us your resume and we'll keep you in mind for future opportunities.</p>
-          <a href="mailto:careers@flexicore.in" className="inline-block px-6 py-2.5 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+          <a href="mailto:careers@retroroots.in" className="inline-block px-6 py-2.5 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
             Send Your Resume →
           </a>
         </div>

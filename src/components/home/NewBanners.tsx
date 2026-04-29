@@ -92,7 +92,7 @@ const NewBanners = () => {
       <section className="py-8">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="relative rounded-2xl overflow-hidden h-[220px] md:h-[320px] mb-4">
-            <img src={showcase} alt="Lifestyle" className="w-full h-full object-cover" />
+            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=1200&h=400" alt="Lifestyle" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent flex items-center px-8">
               <div className="max-w-sm text-white">
                 <h2 className="text-3xl md:text-4xl font-serif italic mb-4 leading-tight">Bring home comfort that never fades.</h2>
@@ -178,7 +178,7 @@ const NewBanners = () => {
               { name: "King Beds", img: catLounger },
               { name: "Dining Chairs", img: catDiningChair },
               { name: "Study & Work", img: catLoungeChair },
-              { name: "Centre Tables", img: showcase },
+              { name: "Centre Tables", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=800&h=600" },
               { name: "Shoe Racks", img: heroBar }
             ].map((item) => (
               <div key={item.name} className="group cursor-pointer">

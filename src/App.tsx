@@ -13,6 +13,8 @@ import DashboardPage from "@/pages/admin/DashboardPage";
 import ProductsPage from "@/pages/admin/ProductsPage";
 import CategoriesPage from "@/pages/admin/CategoriesPage";
 import BlogsPage from "@/pages/admin/BlogsPage";
+import AddBlog from "@/pages/admin/AddBlog";
+import AddProduct from "@/pages/admin/AddProduct";
 import DailyUpdatesPage from "@/pages/admin/DailyUpdatesPage";
 import DistributorsPage from "@/pages/admin/DistributorsPage";
 import TeamPage from "@/pages/admin/TeamPage";
@@ -39,7 +41,7 @@ import Gallery from "./pages/Gallery";
 import Distributor from "./pages/Distributor";
 import Team from "./pages/Team";
 import Certificates from "./pages/Certificates";
-import ViaFlexicore from "./pages/ViaFlexicore";
+import ViaRetroRoots from "./pages/ViaRetroRoots";
 import Expo from "./pages/Expo";
 import Privacy from "./pages/Privacy";
 import Delivery from "./pages/Delivery";
@@ -68,7 +70,7 @@ const App = () => (
               {/* Public Routes */}
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
-              <Route path="/via-flexicore" element={<ViaFlexicore />} />
+              <Route path="/via-retroroots" element={<ViaRetroRoots />} />
               <Route path="/products" element={<Products />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/blog" element={<Blog />} />
@@ -90,8 +92,12 @@ const App = () => (
               <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
                 <Route index element={<DashboardPage />} />
                 <Route path="products" element={<ProductsPage />} />
+                <Route path="products/add" element={<AddProduct />} />
+                <Route path="products/edit/:id" element={<AddProduct />} />
                 <Route path="categories" element={<CategoriesPage />} />
                 <Route path="blogs" element={<BlogsPage />} />
+                <Route path="blogs/add" element={<AddBlog />} />
+                <Route path="blogs/edit/:id" element={<AddBlog />} />
                 <Route path="daily-updates" element={<DailyUpdatesPage />} />
                 <Route path="distributors" element={<DistributorsPage />} />
                 <Route path="team" element={<TeamPage />} />

@@ -3,7 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import { Truck, Clock, MapPin, Package } from "lucide-react";
 
 const Delivery = () => (
-  <Layout title="Delivery Information" description="Flexicore delivery zones, timelines, and logistics information for domestic and international orders.">
+  <Layout title="Delivery Information" description="RetroRoots delivery zones, timelines, and logistics information for domestic and international orders.">
     <PageHeader title="Delivery Information" subtitle="Fast, safe delivery across India and worldwide" />
     <section className="section-padding">
       <div className="container mx-auto">

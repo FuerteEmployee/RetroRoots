@@ -5,17 +5,17 @@ import { Calendar, ArrowRight, User, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getBlogs } from "@/lib/api";
 
-import { staticPosts } from "@/data/blogData";
+
 
 const Blog = () => {
-  const [posts, setPosts] = useState<any[]>(staticPosts);
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getBlogs()
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPosts([...staticPosts, ...data]);
+        if (Array.isArray(data)) {
+          setPosts(data);
         }
       })
       .catch(err => console.error("Failed to fetch blogs:", err))
@@ -45,9 +45,12 @@ const Blog = () => {
                 <article key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover flex flex-col">
                   <Link to={`/blog/${p._id}`} className="block aspect-video bg-secondary overflow-hidden">
                     <img 
-                      src={p.featuredImage?.url || "/placeholder.svg"} 
+                      src={p.image || p.featuredImage?.url || "/placeholder.svg"} 
                       alt={p.title} 
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/placeholder.svg";
+                      }}
                     />
                   </Link>
                   <div className="p-5 flex flex-col flex-1">
@@ -56,7 +59,7 @@ const Blog = () => {
                       <span className="flex items-center gap-1"><User className="w-3 h-3" />{p.author || 'Retro Roots Team'}</span>
                     </div>
                     <span className="inline-block px-2.5 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium mb-2 w-fit">{p.tags?.[0] || 'General'}</span>
-                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2 hover:text-primary transition-colors">
+                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2 hover:opacity-80 transition-opacity">
                       <Link to={`/blog/${p._id}`}>{p.title}</Link>
                     </h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{p.excerpt}</p>

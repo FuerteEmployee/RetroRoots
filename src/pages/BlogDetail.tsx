@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Calendar, User, ArrowLeft, Loader2 } from "lucide-react";
 import { apiRequest } from "@/lib/api";
-import { staticPosts } from "@/data/blogData";
+
 
 const BlogDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,13 +12,7 @@ const BlogDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check static posts first
-    const staticPost = staticPosts.find(p => p._id === id);
-    if (staticPost) {
-      setPost(staticPost);
-      setLoading(false);
-      return;
-    }
+
 
     // Otherwise fetch from API
     apiRequest(`/blogs/${id}`)
@@ -70,9 +64,12 @@ const BlogDetail = () => {
 
           <div className="relative aspect-video rounded-2xl overflow-hidden mb-10 shadow-xl">
             <img
-              src={post.featuredImage?.url || post.image || "/placeholder.svg"}
+              src={post.image || post.featuredImage?.url || "/placeholder.svg"}
               alt={post.title}
               className="w-full h-full object-cover"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/placeholder.svg";
+              }}
             />
           </div>
 

@@ -31,9 +31,12 @@ const Products = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const cat = queryParams.get("category");
-    const type = queryParams.get("type");
+    const params = new URLSearchParams(location.search);
+    const cat = params.get("category");
+    const type = params.get("type");
     if (cat) setCatFilter(cat);
+    else setCatFilter("All");
+    
     if (type) setTypeFilter(type);
     else setTypeFilter("All");
   }, [location.search]);
@@ -52,29 +55,34 @@ const Products = () => {
     const categorySlug = typeof category === 'object' ? category?.slug : category;
 
     if (catFilter !== "All") {
-      if (categoryName !== catFilter && categorySlug !== catFilter && category?._id !== catFilter) {
+      const target = catFilter.toLowerCase();
+      const nameMatch = categoryName?.toLowerCase() === target;
+      const slugMatch = categorySlug?.toLowerCase() === target;
+      const idMatch = String(category?._id || category) === catFilter;
+      
+      if (!nameMatch && !slugMatch && !idMatch) {
         return false;
       }
     }
-    
+
     if (typeFilter !== "All") {
       const tags = p.industryTags || [];
-      const match = tags.some(t => 
-        t.toLowerCase().replace(/ /g, "-") === typeFilter.toLowerCase() || 
+      const match = tags.some(t =>
+        t.toLowerCase().replace(/ /g, "-") === typeFilter.toLowerCase() ||
         t.toLowerCase() === typeFilter.toLowerCase()
       );
       if (!match) return false;
     }
-    
+
     const industry = p.industryTags?.[0] || "All";
     if (indFilter !== "All" && industry !== indFilter) return false;
-    
+
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
   return (
-    <Layout title="Products" description="Explore Flexicore's dynamic product catalog of premium solid surfaces and tiles. Filter by category and industry. 3D viewer available.">
+    <Layout title="Products" description="Explore RetroRoots's dynamic product catalog of premium solid surfaces and tiles. Filter by category and industry. 3D viewer available.">
       <PageHeader title="Our Products" subtitle="Premium solid surfaces & tiles for every space" />
 
       <section className="section-padding">
@@ -93,12 +101,12 @@ const Products = () => {
                   <button key={c} onClick={() => setCatFilter(c)} className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${catFilter === c ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/10"}`}>{c}</button>
                 ))}
               </div>
-              <div className="flex items-center gap-2 flex-wrap">
+              {/* <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-sm text-muted-foreground mr-2">Industry:</span>
                 {industries.map(i => (
                   <button key={i} onClick={() => setIndFilter(i)} className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${indFilter === i ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/10"}`}>{i}</button>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -113,8 +121,8 @@ const Products = () => {
               {filtered.map(p => (
                 <Link to={`/product/${p._id}`} key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
                   <div className="relative aspect-square">
-                    <img 
-                      src={getImageUrl(p.images?.[0] || p.image)} 
+                    <img
+                      src={getImageUrl(p.images?.[0] || p.image)}
                       alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                     <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">

@@ -5,12 +5,12 @@ import { CheckCircle, ArrowRight } from "lucide-react";
 const benefits = ["Exclusive territory rights", "Marketing & branding support", "Training & technical assistance", "Competitive margins", "Priority stock allocation", "Dedicated relationship manager"];
 
 const Distributor = () => (
-  <Layout title="Become a Distributor" description="Partner with Flexicore as an authorized distributor. Apply now for exclusive territory rights and comprehensive support.">
+  <Layout title="Become a Distributor" description="Partner with RetroRoots as an authorized distributor. Apply now for exclusive territory rights and comprehensive support.">
     <PageHeader title="Become a Distributor" subtitle="Partner with India's leading solid surface manufacturer" />
     <section className="section-padding">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div>
-          <h2 className="text-2xl font-bold text-foreground mb-4">Why Partner With <span className="gold-text">Flexicore</span>?</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Why Partner With <span className="gold-text">RetroRoots</span>?</h2>
           <p className="text-muted-foreground mb-6">Join our growing network of distributors across India and international markets. We provide comprehensive support to help you succeed.</p>
           <div className="space-y-3 mb-8">
             {benefits.map(b => (

@@ -26,7 +26,7 @@ const Gallery = () => {
   };
 
   return (
-    <Layout title="Gallery" description="Explore Flexicore's visual portfolio — factory photos, product installations, events, and the Entry-to-Exit manufacturing journey.">
+    <Layout title="Gallery" description="Explore RetroRoots's visual portfolio — factory photos, product installations, events, and the Entry-to-Exit manufacturing journey.">
       <PageHeader title="Gallery" subtitle="A visual journey through our world of surfaces" />
       <section className="section-padding">
         <div className="container mx-auto">

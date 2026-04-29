@@ -328,7 +328,7 @@ const Navbar = () => {
         </div>
 
         {/* Mega menu dropdown - desktop */}
-        {hoveredCategory && (
+        {/* {hoveredCategory && (
           <div
             className="hidden lg:block absolute left-0 right-0 bg-white border-t border-border shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-300"
             onMouseEnter={() => setHoveredCategory(hoveredCategory)}
@@ -363,7 +363,7 @@ const Navbar = () => {
                 ))}
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Mobile Menu */}
         {mobileOpen && (

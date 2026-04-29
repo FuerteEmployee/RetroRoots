@@ -2,16 +2,16 @@ import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import heroImg from "@/assets/hero-1.jpg";
 
-const ViaFlexicore = () => (
-  <Layout title="Via Flexicore" description="Discover how Flexicore surfaces are made — innovation, technology, and craftsmanship behind every product.">
-    <PageHeader title="Via Flexicore" subtitle="The technology and innovation behind our surfaces" />
+const ViaRetroRoots = () => (
+  <Layout title="Via Retro Roots" description="Discover how Retro Roots furniture is made — innovation, technology, and craftsmanship behind every product.">
+    <PageHeader title="Via Retro Roots" subtitle="The technology and innovation behind our furniture" />
     <section className="section-padding">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Our Process</p>
             <h2 className="text-3xl font-bold text-foreground mb-4">How Our Surfaces Are <span className="gold-text">Made</span></h2>
-            <p className="text-muted-foreground mb-4">Every Flexicore surface begins with carefully selected raw materials sourced from trusted suppliers worldwide. Our proprietary mixing formulas create the perfect blend of durability, aesthetics, and performance.</p>
+            <p className="text-muted-foreground mb-4">Every RetroRoots surface begins with carefully selected raw materials sourced from trusted suppliers worldwide. Our proprietary mixing formulas create the perfect blend of durability, aesthetics, and performance.</p>
             <p className="text-muted-foreground mb-4">Using state-of-the-art casting technology, we transform raw materials into seamless surfaces that resist stains, scratches, and heat. Each piece is hand-finished by skilled craftsmen who bring decades of experience.</p>
             <p className="text-muted-foreground">Our multi-point quality control ensures every product that leaves our factory meets international standards — from ISO compliance to CE marking for European markets.</p>
           </div>
@@ -31,4 +31,4 @@ const ViaFlexicore = () => (
   </Layout>
 );
 
-export default ViaFlexicore;
+export default ViaRetroRoots;

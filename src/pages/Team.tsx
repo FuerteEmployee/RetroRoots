@@ -3,19 +3,19 @@ import PageHeader from "@/components/PageHeader";
 import { Linkedin } from "lucide-react";
 
 const members = [
-  { name: "Founder & CEO", role: "Visionary Leader", bio: "Over 15 years of experience in the solid surface industry. Founded Flexicore with a vision to bring world-class surfaces to every home." },
+  { name: "Founder & CEO", role: "Visionary Leader", bio: "Over 15 years of experience in the solid surface industry. Founded RetroRoots with a vision to bring world-class surfaces to every home." },
   { name: "Head of Design", role: "Creative Director", bio: "Leading the design team in creating innovative patterns and finishes that set industry trends." },
   { name: "Production Manager", role: "Operations Head", bio: "Ensures seamless manufacturing operations and adherence to the highest quality standards." },
-  { name: "Export Director", role: "International Sales", bio: "Driving Flexicore's global expansion across 25+ countries with strategic partnerships." },
-  { name: "Marketing Head", role: "Brand Strategy", bio: "Building the Flexicore brand through digital-first strategies and customer engagement." },
+  { name: "Export Director", role: "International Sales", bio: "Driving RetroRoots's global expansion across 25+ countries with strategic partnerships." },
+  { name: "Marketing Head", role: "Brand Strategy", bio: "Building the RetroRoots brand through digital-first strategies and customer engagement." },
   { name: "Quality Manager", role: "QC & Compliance", bio: "Maintaining ISO standards and ensuring every product meets rigorous quality benchmarks." },
   { name: "R&D Lead", role: "Innovation", bio: "Developing new surface materials and finishes through continuous research." },
-  { name: "HR Manager", role: "People & Culture", bio: "Building a talented, motivated team aligned with Flexicore's values and vision." },
+  { name: "HR Manager", role: "People & Culture", bio: "Building a talented, motivated team aligned with RetroRoots's values and vision." },
 ];
 
 const Team = () => (
-  <Layout title="Our Team" description="Meet the talented people behind Flexicore's success — from leadership to design, production, and sales.">
-    <PageHeader title="Our Team" subtitle="The people who make Flexicore exceptional" />
+  <Layout title="Our Team" description="Meet the talented people behind RetroRoots's success — from leadership to design, production, and sales.">
+    <PageHeader title="Our Team" subtitle="The people who make RetroRoots exceptional" />
     <section className="section-padding">
       <div className="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {members.map((m, i) => (

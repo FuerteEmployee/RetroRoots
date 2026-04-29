@@ -7,7 +7,7 @@ const Category = require("../models/Category");
 async function run() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    const p = await Product.findOne({ name: { $regex: 'RR-', $options: 'i' } }).populate('category');
+    const p = await Product.findOne({ name: /^RR-7/ }).populate('category');
     console.log(JSON.stringify(p, null, 2));
   } catch (err) {
     console.error(err);

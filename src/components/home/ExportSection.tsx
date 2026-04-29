@@ -12,7 +12,7 @@ const ExportSection = () => (
     <div className="container mx-auto text-center">
       <Globe className="w-10 h-10 text-primary mx-auto mb-4" />
       <h2 className="text-3xl md:text-4xl font-bold text-foreground">Global <span className="gold-text">Exports</span></h2>
-      <p className="text-muted-foreground mt-3 mb-8 max-w-xl mx-auto">Flexicore surfaces grace projects in 25+ countries across 5 continents</p>
+      <p className="text-muted-foreground mt-3 mb-8 max-w-xl mx-auto">RetroRoots surfaces grace projects in 25+ countries across 5 continents</p>
       <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
         {countries.map(c => (
           <span key={c} className="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-primary hover:bg-primary/5 transition-colors cursor-default">{c}</span>

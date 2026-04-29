@@ -82,11 +82,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="mt-12">
-                 <a href="https://wa.me/919662496622" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#25D366] hover:underline">
-                    <MessageCircle className="w-5 h-5" /> Quick Chat on WhatsApp
-                 </a>
-              </div>
+
             </div>
 
             {/* Form Side */}

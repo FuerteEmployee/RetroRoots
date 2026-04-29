@@ -3,16 +3,16 @@ import PageHeader from "@/components/PageHeader";
 import { ExternalLink, Calendar } from "lucide-react";
 
 const news = [
-  { title: "Flexicore Featured in Economic Times — 'Rising Stars of Gujarat Manufacturing'", date: "Mar 2026", source: "Economic Times", type: "Press" },
-  { title: "Flexicore Expands Export Operations to 5 New African Markets", date: "Feb 2026", source: "Company News", type: "News" },
+  { title: "RetroRoots Featured in Economic Times — 'Rising Stars of Gujarat Manufacturing'", date: "Mar 2026", source: "Economic Times", type: "Press" },
+  { title: "RetroRoots Expands Export Operations to 5 New African Markets", date: "Feb 2026", source: "Company News", type: "News" },
   { title: "CEO Interview: Building India's Premium Surface Brand", date: "Jan 2026", source: "Business Standard", type: "Press" },
-  { title: "Flexicore Wins Best Innovation Award at Ceramica India 2025", date: "Mar 2025", source: "Industry Award", type: "Award" },
+  { title: "RetroRoots Wins Best Innovation Award at Ceramica India 2025", date: "Mar 2025", source: "Industry Award", type: "Award" },
   { title: "New Manufacturing Line Increases Production Capacity by 40%", date: "Dec 2024", source: "Company News", type: "News" },
   { title: "CNBC Coverage: Rajkot's Manufacturing Revolution", date: "Nov 2024", source: "CNBC India", type: "Press" },
 ];
 
 const PRNews = () => (
-  <Layout title="PR & News" description="Latest press coverage, media mentions, and company news from Flexicore.">
+  <Layout title="PR & News" description="Latest press coverage, media mentions, and company news from RetroRoots.">
     <PageHeader title="PR & News" subtitle="Media coverage, press releases, and company updates" />
     <section className="section-padding">
       <div className="container mx-auto space-y-4">
