@@ -12,7 +12,7 @@ import catDiningChair from "@/assets/category-dining-chair.png";
 import catLounger from "@/assets/category-lounger.png";
 import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 
-const categories = [
+const staticCategories = [
   {
     label: "Sofa",
     image: catSofa,
@@ -68,7 +68,37 @@ const Navbar = () => {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [categories, setCategories] = useState<any[]>([]);
   const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const activeCategory = queryParams.get('category');
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api'}/categories`)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const filtered = data.filter((c: any) => c.type === "category");
+          const mapped = filtered.map((c: any) => ({
+            label: c.name,
+            slug: c.slug || c._id,
+            image: typeof c.image === 'object' ? c.image?.url : c.image,
+            _id: c._id
+          }));
+          setCategories(mapped.length > 0 ? mapped : staticCategories);
+        } else {
+          setCategories(staticCategories);
+        }
+      })
+      .catch(() => setCategories(staticCategories));
+  }, []);
+
+  const getImageUrl = (image: any) => {
+    if (!image) return "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
+    if (typeof image === 'string' && (image.includes('http') || image.startsWith('/src'))) return image;
+    return `${(import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api').replace('/api', '')}/uploads/${image}`;
+  };
 
   // useEffect(() => {
   //   const onScroll = () => setScrolled(window.scrollY > 40);
@@ -183,7 +213,7 @@ const Navbar = () => {
             <img
               src="/logo.png"
               alt="Retro Roots"
-              className={`transition-all duration-300 object-contain ${scrolled ? "h-10" : "h-16"}`}
+              className={`transition-all duration-300 object-contain ${scrolled ? "h-20" : "h-24"}`}
             />
           </Link>
 
@@ -249,7 +279,7 @@ const Navbar = () => {
                           className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group/item"
                         >
                           <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 group-/item:border-primary">
-                            <img src={cat.image} className="w-full h-full object-cover" alt="" />
+                            <img src={getImageUrl(cat.image)} className="w-full h-full object-cover" alt="" />
                           </div>
                           <span className="text-sm font-bold text-gray-700 group-hover/item:text-gray-900">{cat.label}</span>
                         </Link>
@@ -277,7 +307,7 @@ const Navbar = () => {
               {/* SALE ITEM */}
               <div className="relative group">
                 <Link to="/products?on_sale=true" className={`flex flex-col items-center ${scrolled ? "gap-0 px-2" : "gap-1.5"}`}>
-                  <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 border-red-500 flex items-center justify-center bg-red-600 text-white text-center p-1 ${scrolled ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0" : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 shadow-lg shadow-red-200"
+                  <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 border-black flex items-center justify-center bg-black text-white text-center p-1 ${scrolled ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0" : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 shadow-lg shadow-black/20"
                     }`}>
                     <div className="flex flex-col items-center">
                       <span className="text-[7px] uppercase font-bold leading-tight">Clearance</span>
@@ -285,7 +315,7 @@ const Navbar = () => {
                       <span className="text-[8px] font-bold leading-none">40-80%</span>
                     </div>
                   </div>
-                  <span className={`font-bold transition-all duration-300 ${scrolled ? "text-[11px] text-red-600 uppercase tracking-widest" : "text-[11px] uppercase text-red-600 tracking-tighter"}`}>
+                  <span className={`font-bold transition-all duration-300 ${scrolled ? "text-[11px] text-black uppercase tracking-widest" : "text-[11px] uppercase text-black tracking-tighter"} ${new URLSearchParams(location.search).get('on_sale') === 'true' ? 'text-primary' : 'group-hover:text-black/70'}`}>
                     Sale
                   </span>
                 </Link>
@@ -300,24 +330,29 @@ const Navbar = () => {
                 >
                   <Link
                     to={`/products?category=${cat.slug}`}
-                    className={`flex flex-col items-center group transition-all duration-300 ${scrolled ? "gap-0 px-2" : "gap-1.5"}`}
+                    className={`flex flex-col items-center group transition-all duration-300 ${scrolled ? "gap-0 px-2" : "gap-1.5"
+                      }`}
                   >
-                    <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 ${scrolled
-                      ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0"
-                      : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 border-border group-hover:border-primary/60"
-                      }`}>
+                    <div
+                      className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 ${scrolled
+                        ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0"
+                        : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 border-border group-hover:border-primary"
+                        } ${activeCategory === cat.slug ? 'border-gray-500' : ''}`} // Border turns blue
+                    >
                       <img
-                        src={cat.image}
+                        src={getImageUrl(cat.image)}
                         alt={cat.label}
                         className="w-full h-full object-cover"
-                        loading="lazy"
-                        width={72}
-                        height={72}
                       />
                     </div>
-                    <span className={`font-bold text-center leading-tight transition-all duration-300 ${scrolled ? "text-[11px] uppercase tracking-widest" : "text-[11px] uppercase tracking-tighter"
-                      } ${hoveredCategory === cat.label ? "text-black" : "text-foreground group-hover:text-black"
-                      }`}>
+
+                    <span
+                      className={`font-bold text-center leading-tight transition-all duration-300 ${scrolled ? "text-[11px] uppercase tracking-widest" : "text-[11px] uppercase tracking-tighter"
+                        } ${activeCategory === cat.slug // Logical Check for active state
+                          ? "text-gray-400" // Hardcoded blue or use "text-primary"
+                          : "text-foreground group-hover:text-black/70"
+                        }`}
+                    >
                       {cat.label}
                     </span>
                   </Link>
@@ -371,17 +406,17 @@ const Navbar = () => {
             <div className="p-4">
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-border">
                 <Link to="/products?on_sale=true" className="flex flex-col items-center gap-1.5">
-                  <div className="w-16 h-16 rounded-full flex items-end justify-center bg-red-600 text-white border-2 border-red-500 shadow-md">
+                  <div className={`w-16 h-16 rounded-full flex items-end justify-center bg-black text-white border-2 border-black shadow-md ${new URLSearchParams(location.search).get('on_sale') === 'true' ? 'border-primary' : ''}`}>
                     <span className="text-[10px] font-black italic uppercase">Sale</span>
                   </div>
-                  <span className="text-[10px] font-bold text-red-600 uppercase">Sale</span>
+                  <span className={`text-[10px] font-bold uppercase ${new URLSearchParams(location.search).get('on_sale') === 'true' ? 'text-primary' : 'text-black'}`}>Sale</span>
                 </Link>
                 {categories.map((cat) => (
                   <Link key={cat.label} to={`/products?category=${cat.slug}`} className="flex flex-col items-center gap-1.5">
-                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-border shadow-sm">
-                      <img src={cat.image} alt={cat.label} className="w-full h-full object-cover" loading="lazy" width={64} height={64} />
+                    <div className={`w-16 h-16 rounded-full overflow-hidden border-2 shadow-sm ${new URLSearchParams(location.search).get('category') === cat.slug ? 'border-primary' : 'border-border'}`}>
+                      <img src={getImageUrl(cat.image)} alt={cat.label} className="w-full h-full object-cover" loading="lazy" width={64} height={64} />
                     </div>
-                    <span className="text-[10px] font-bold uppercase text-foreground leading-tight tracking-tighter">{cat.label}</span>
+                    <span className={`text-[10px] font-bold uppercase leading-tight tracking-tighter ${new URLSearchParams(location.search).get('category') === cat.slug ? 'text-primary' : 'text-foreground'}`}>{cat.label}</span>
                   </Link>
                 ))}
               </div>

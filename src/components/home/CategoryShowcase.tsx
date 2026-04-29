@@ -22,7 +22,8 @@ const CategoryShowcase = () => {
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
-          setCategories(data);
+          const filtered = data.filter((c: any) => c.type === "category");
+          setCategories(filtered.length > 0 ? filtered : dummyCategories);
         } else {
           setCategories(dummyCategories);
         }
@@ -40,9 +41,15 @@ const CategoryShowcase = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
-          {categories.slice(0, 5).map((cat, idx) => {
+          {categories.slice(0, 10).map((cat, idx) => {
             const rawImage = typeof cat.image === 'object' ? cat.image?.url : cat.image;
-            const imgUrl = (rawImage?.includes('http') || String(rawImage || '').includes('data:image') || String(rawImage || '').startsWith('/src') || !cat._id) ? rawImage : `${API_BASE_URL.replace('/api', '')}/uploads/${rawImage}`;
+            const fallbackImg = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
+            
+            let imgUrl = rawImage || fallbackImg;
+            if (rawImage && !rawImage.includes('http') && !rawImage.includes('data:image') && !rawImage.startsWith('/src')) {
+              imgUrl = `${API_BASE_URL.replace('/api', '')}/uploads/${rawImage}`;
+            }
+
             return (
               <Link key={cat.name || idx} to={`/products?category=${cat.slug || cat._id}`} className="flex flex-col items-center gap-4 group">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-primary transition-all duration-500 shadow-lg group-hover:shadow-primary/20">

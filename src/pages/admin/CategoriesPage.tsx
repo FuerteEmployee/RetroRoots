@@ -12,19 +12,42 @@ const CategoriesPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ name: "", type: "category", description: "" });
+  const [form, setForm] = useState<any>({ name: "", type: "category", description: "", image: { url: "", publicId: "" } });
+  const [uploading, setUploading] = useState(false);
 
   const fetchData = () => {
     apiRequest("/categories").then(setCategories).catch(() => {}).finally(() => setLoading(false));
   };
   useEffect(() => { fetchData(); }, []);
 
-  const resetForm = () => { setForm({ name: "", type: "category", description: "" }); setEditing(null); setShowForm(false); };
+  const resetForm = () => { setForm({ name: "", type: "category", description: "", image: { url: "", publicId: "" } }); setEditing(null); setShowForm(false); };
 
   const handleEdit = (c: any) => {
     setEditing(c);
-    setForm({ name: c.name, type: c.type, description: c.description || "" });
+    setForm({ 
+      name: c.name, 
+      type: c.type, 
+      description: c.description || "",
+      image: c.image || { url: "", publicId: "" }
+    });
     setShowForm(true);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await apiRequest("/upload/image", { method: "POST", body: formData });
+      setForm({ ...form, image: res });
+      toast({ title: "Image uploaded" });
+    } catch (err: any) {
+      toast({ title: "Upload failed", description: err.message, variant: "destructive" });
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,6 +93,33 @@ const CategoriesPage = () => {
               </select>
             </div>
             <div><Label>Description</Label><Input value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="mt-1" /></div>
+            <div className="md:col-span-3">
+              <Label>Category Image</Label>
+              <div className="mt-1 flex items-center gap-4">
+                {form.image?.url && (
+                  <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-border">
+                    <img src={form.image.url} alt="Preview" className="w-full h-full object-cover" />
+                    <button 
+                      type="button" 
+                      onClick={() => setForm({ ...form, image: { url: "", publicId: "" } })}
+                      className="absolute top-0 right-0 p-1 bg-destructive text-white rounded-bl-lg"
+                    >
+                      <X size={12} />
+                    </button>
+                  </div>
+                )}
+                <div className="flex-1">
+                  <Input 
+                    type="file" 
+                    onChange={handleImageUpload} 
+                    accept="image/*" 
+                    disabled={uploading}
+                    className="cursor-pointer"
+                  />
+                  {uploading && <p className="text-xs text-muted-foreground mt-1 flex items-center gap-2"><Loader2 size={12} className="animate-spin" /> Uploading...</p>}
+                </div>
+              </div>
+            </div>
             <div className="md:col-span-3 flex gap-3">
               <Button type="submit" disabled={saving}>{saving ? <Loader2 size={16} className="animate-spin" /> : editing ? "Update" : "Add"}</Button>
               <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>
@@ -84,6 +134,11 @@ const CategoriesPage = () => {
           <div className="divide-y divide-border">
             {cats.map(c => (
               <div key={c._id} className="p-3 flex items-center gap-3">
+                {c.image?.url ? (
+                  <img src={c.image.url} alt="" className="w-10 h-10 rounded-full object-cover border border-border" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-[10px] text-muted-foreground">No Img</div>
+                )}
                 <span className="flex-1 text-sm text-card-foreground">{c.name}</span>
                 <button onClick={() => handleEdit(c)} className="p-1 text-muted-foreground hover:text-primary"><Pencil size={14} /></button>
                 <button onClick={() => handleDelete(c._id)} className="p-1 text-muted-foreground hover:text-destructive"><Trash2 size={14} /></button>

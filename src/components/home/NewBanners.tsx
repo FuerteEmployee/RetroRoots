@@ -6,13 +6,17 @@ import catLounger from "@/assets/category-lounger.png";
 import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 import heroBar from "@/assets/hero-bar.jpg";
 import showcase from "@/assets/products-showcase.jpg";
+import bannerLuxury from "@/assets/banner-luxury.png";
+import centreTable from "@/assets/centre-table.png";
+import shoeRack from "@/assets/shoe-rack.png";
+import reclinerImg from "@/assets/recliner.png";
 
 const categories = [
   { name: "Sofa", image: catSofa },
   { name: "Dining Chair", image: catDiningChair },
   { name: "Lounger (Diwaan)", image: catLounger },
   { name: "Lounger Chair", image: catLoungeChair },
-  { name: "Recliners", image: heroBar },
+  { name: "Recliners", image: reclinerImg },
 ];
 
 const NewBanners = () => {
@@ -92,7 +96,7 @@ const NewBanners = () => {
       <section className="py-8">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="relative rounded-2xl overflow-hidden h-[220px] md:h-[320px] mb-4">
-            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=1200&h=400" alt="Lifestyle" className="w-full h-full object-cover" />
+            <img src={bannerLuxury} alt="Lifestyle" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent flex items-center px-8">
               <div className="max-w-sm text-white">
                 <h2 className="text-3xl md:text-4xl font-serif italic mb-4 leading-tight">Bring home comfort that never fades.</h2>
@@ -125,7 +129,7 @@ const NewBanners = () => {
           </div>
 
           <div className="relative rounded-2xl overflow-hidden h-36 md:h-48 group">
-            <img src={heroBar} alt="Custom Furniture" className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition-transform duration-1000" />
+            <img src={bannerLuxury} alt="Custom Furniture" className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition-transform duration-1000" />
             <div className="absolute inset-0 flex items-center justify-end px-8">
               <div className="bg-white/95 p-4 md:p-6 text-center rounded-sm shadow-xl max-w-[250px] border-t-4 border-primary transform group-hover:-translate-y-1 transition-transform">
                 <p className="text-gray-500 uppercase text-[10px] tracking-[0.3em] mb-1 font-bold">Bespoke Design</p>
@@ -178,8 +182,8 @@ const NewBanners = () => {
               { name: "King Beds", img: catLounger },
               { name: "Dining Chairs", img: catDiningChair },
               { name: "Study & Work", img: catLoungeChair },
-              { name: "Centre Tables", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=800&h=600" },
-              { name: "Shoe Racks", img: heroBar }
+              { name: "Centre Tables", img: centreTable },
+              { name: "Shoe Racks", img: shoeRack }
             ].map((item) => (
               <div key={item.name} className="group cursor-pointer">
                 <div className="aspect-[4/3] rounded-sm overflow-hidden mb-2 bg-muted border border-gray-50">
@@ -258,23 +262,23 @@ const NewBanners = () => {
             </div>
           </div>
 
-          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10 shadow-lg transform hover:scale-[1.005] transition-transform">
+          {/* <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10 shadow-lg transform hover:scale-[1.005] transition-transform">
             <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight py-1">Furniture New Launches</h2>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* 10. Final Pricing Grid (6 items) */}
-      <section className="py-12 bg-gray-50">
+      {/* <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {[
-              { name: "Single Recliner", price: "15,999", img: heroBar },
-              { name: "TV Media Units", price: "5,999", img: showcase },
+              { name: "Single Recliner", price: "15,999", img: reclinerImg },
+              { name: "TV Media Units", price: "5,999", img: centreTable },
               { name: "Bedside Tables", price: "1,999", img: catLoungeChair },
               { name: "Single Beds", price: "7,999", img: catLounger },
-              { name: "Crockery Units", price: "5,999", img: heroBar },
-              { name: "Bar Furniture", price: "3,999", img: heroBar }
+              { name: "Crockery Units", price: "5,999", img: shoeRack },
+              { name: "Bar Furniture", price: "3,999", img: catLoungeChair }
             ].map((item) => (
               <div key={item.name} className="group cursor-pointer">
                 <div className="aspect-square rounded-sm overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-shadow">
@@ -288,10 +292,10 @@ const NewBanners = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 11. Luxury Collections Grid (3 items) */}
-      <section className="py-10">
+      {/* <section className="py-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -308,10 +312,10 @@ const NewBanners = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 12. Rewards Banner */}
-      <section className="py-6">
+      {/* <section className="py-6">
         <div className="container mx-auto px-4">
           <div className="bg-[#000000] text-white rounded-sm overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-8 relative">
             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 relative z-10 w-full text-center md:text-left">
@@ -335,7 +339,7 @@ const NewBanners = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 13. Brands In Spotlight */}
       <section className="py-12">
@@ -349,9 +353,9 @@ const NewBanners = () => {
               { name: "Prestige", discount: "10%", img: catDiningChair },
               { name: "Royal", discount: "15%", img: catLounger },
               { name: "Velvet", discount: "75%", img: catLoungeChair },
-              { name: "Craft", discount: "60%", img: heroBar },
-              { name: "Handmade", discount: "65%", img: showcase },
-              { name: "Classic", discount: "70%", img: heroBar },
+              { name: "Craft", discount: "60%", img: centreTable },
+              { name: "Handmade", discount: "65%", img: shoeRack },
+              { name: "Classic", discount: "70%", img: reclinerImg },
               { name: "Heritage", discount: "65%", img: catSofa },
             ].map((brand) => (
               <div key={brand.name} className="group cursor-pointer relative overflow-hidden">

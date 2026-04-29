@@ -16,12 +16,12 @@ const Index = () => (
     <HeroSlider />
     <DailyUpdates />
     <CategoryShowcase />
-    
+
     {/* Middle Sections */}
     <ProductsSection />
     <NewBanners />
     <AboutTeaser />
-    
+
     {/* Final Flow */}
     <InstagramGrid />
     <FAQSection />

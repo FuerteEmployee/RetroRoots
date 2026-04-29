@@ -526,45 +526,20 @@ import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, Twitter, A
 
 const Footer = () => (
   <footer className="bg-white text-black font-sans">
-    {/* Top Section: Subscribe & Download */}
+    {/* Top Section: Subscribe */}
     <div className="container mx-auto px-4 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        {/* Subscribe */}
-        <div className="space-y-4">
-          <h3 className="text-2xl font-bold">Subscribe to our awesome emails.</h3>
-          <p className="text-lg md:text-sm text-gray-500 leading-relaxed">Get our latest offers and news straight in your inbox.</p>
-          <div className="flex w-full max-w-md mt-6">
-            <input
-              type="email"
-              placeholder="Please enter an email address"
-              className="flex-grow bg-[#F5F5F5] px-4 py-4 text-lg md:text-sm focus:outline-none placeholder:text-gray-400"
-            />
-            <button className="bg-black text-white px-8 py-4 font-bold text-sm tracking-wider uppercase transition-colors hover:bg-gray-800">
-              Subscribe
-            </button>
-          </div>
-        </div>
-
-        {/* Download Apps */}
-        <div className="space-y-4 md:pl-12">
-          <h3 className="text-2xl font-bold">Download our apps</h3>
-          <p className="text-lg md:text-sm text-gray-500 leading-relaxed">Shop our products and offers on-the-go.</p>
-          <div className="flex gap-4 mt-6">
-            <button className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-800 transition-colors">
-              <Apple className="w-6 h-6 fill-current" />
-              <div className="text-left">
-                <p className="text-[10px] leading-tight opacity-70">Download on the</p>
-                <p className="text-sm font-semibold leading-tight">App Store</p>
-              </div>
-            </button>
-            <button className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-800 transition-colors">
-              <Send className="w-5 h-5 fill-current" />
-              <div className="text-left">
-                <p className="text-[10px] leading-tight opacity-70">GET IT ON</p>
-                <p className="text-sm font-semibold leading-tight">Google Play</p>
-              </div>
-            </button>
-          </div>
+      <div className="flex flex-col items-center text-center space-y-4">
+        <h3 className="text-2xl font-bold">Subscribe to our awesome emails.</h3>
+        <p className="text-lg md:text-sm text-gray-500 leading-relaxed">Get our latest offers and news straight in your inbox.</p>
+        <div className="flex w-full max-w-md mt-6">
+          <input
+            type="email"
+            placeholder="Please enter an email address"
+            className="flex-grow bg-[#F5F5F5] px-4 py-4 text-lg md:text-sm focus:outline-none placeholder:text-gray-400"
+          />
+          <button className="bg-black text-white px-8 py-4 font-bold text-sm tracking-wider uppercase transition-colors hover:bg-gray-800">
+            Subscribe
+          </button>
         </div>
       </div>
     </div>
@@ -614,38 +589,16 @@ const Footer = () => (
                 <Mail className="w-5 h-5 text-black flex-shrink-0" />
                 <span>info@retroroots.co.in</span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* Contact Bar Section */}
-    <div className="border-t border-gray-100 py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
-          <div className="flex flex-wrap  lg:justify-start gap-12">
-
-            {/* Helpcentre */}
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-10 rounded-full border border-gray-200 flex items-start justify-between">
-                <HelpCircle className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <p className="text-xl md:text-xs text-gray-500">Helpcentre</p>
-                <p className="text-2xl md:text-base font-bold underline cursor-pointer">retroroots.in/help</p>
+              
+              {/* Socials moved here */}
+              <div className="flex gap-4 mt-2">
+                {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
+                  <a key={i} href="#" className="text-black hover:text-primary transition-colors">
+                    <Icon className="w-5 h-5" />
+                  </a>
+                ))}
               </div>
             </div>
-
-          </div>
-
-          {/* Socials */}
-          <div className="flex gap-5">
-            {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
-              <a key={i} href="#" className="text-black hover:opacity-70 transition-opacity">
-                <Icon className="w-6 h-6" />
-              </a>
-            ))}
           </div>
         </div>
       </div>

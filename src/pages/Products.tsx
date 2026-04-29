@@ -7,7 +7,6 @@ import { Eye, Play, Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import { getProducts } from "@/lib/api";
 import { API_BASE_URL } from "@/contexts/AuthContext";
 
-const categories = ["All", "Sofa", "Dining Chair", "Lounger (Diwaan)", "Lounge Chair", "Recliners"];
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
 const getImageUrl = (img: any) => {
@@ -24,6 +23,7 @@ const Products = () => {
   const initialCategory = queryParams.get("category") || "All";
 
   const [allProducts, setAllProducts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<string[]>(["All"]);
   const [loading, setLoading] = useState(true);
   const [catFilter, setCatFilter] = useState(initialCategory);
   const [typeFilter, setTypeFilter] = useState(queryParams.get("type") || "All");
@@ -36,15 +36,22 @@ const Products = () => {
     const type = params.get("type");
     if (cat) setCatFilter(cat);
     else setCatFilter("All");
-    
+
     if (type) setTypeFilter(type);
     else setTypeFilter("All");
   }, [location.search]);
 
   useEffect(() => {
-    getProducts()
-      .then(data => setAllProducts(data))
-      .catch(err => console.error("Failed to fetch products:", err))
+    Promise.all([
+      getProducts(),
+      fetch(`${API_BASE_URL}/categories`).then(res => res.json())
+    ]).then(([products, cats]) => {
+      setAllProducts(products);
+      if (Array.isArray(cats)) {
+        const catNames = cats.filter(c => c.type === "category").map(c => c.name);
+        setCategories(["All", ...catNames]);
+      }
+    }).catch(err => console.error("Failed to fetch data:", err))
       .finally(() => setLoading(false));
   }, []);
 
@@ -59,7 +66,7 @@ const Products = () => {
       const nameMatch = categoryName?.toLowerCase() === target;
       const slugMatch = categorySlug?.toLowerCase() === target;
       const idMatch = String(category?._id || category) === catFilter;
-      
+
       if (!nameMatch && !slugMatch && !idMatch) {
         return false;
       }
@@ -82,8 +89,8 @@ const Products = () => {
   });
 
   return (
-    <Layout title="Products" description="Explore RetroRoots's dynamic product catalog of premium solid surfaces and tiles. Filter by category and industry. 3D viewer available.">
-      <PageHeader title="Our Products" subtitle="Premium solid surfaces & tiles for every space" />
+    <Layout title="Products" description="Explore RetroRoots's dynamic product catalog of premium customized Furniture. Filter by  3D viewer available.">
+      <PageHeader title="Our Products" subtitle="Premium Customized Furniture" />
 
       <section className="section-padding">
         <div className="container mx-auto">
@@ -125,9 +132,8 @@ const Products = () => {
                       src={getImageUrl(p.images?.[0] || p.image)}
                       alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
-                    <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                      <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground cursor-pointer"><Eye className="w-4 h-4" /></span>
-                      <span className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground cursor-pointer"><Play className="w-4 h-4" /></span>
+                    <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="w-12 h-12 rounded-full bg-card flex items-center justify-center text-foreground cursor-pointer shadow-lg hover:scale-110 transition-transform"><Eye className="w-5 h-5" /></span>
                     </div>
                   </div>
                   <div className="p-4">
@@ -135,7 +141,7 @@ const Products = () => {
                       <span className="text-xs text-primary font-medium">
                         {(typeof p.categoryId === 'object' ? p.categoryId?.name : p.categoryId) || (typeof p.category === 'object' ? p.category?.name : p.category)}
                       </span>
-                      <span className="text-xs text-muted-foreground">• {p.industryTags?.[0] || 'General'}</span>
+                      {/* <span className="text-xs text-muted-foreground">• {p.industryTags?.[0] || 'General'}</span> */}
                     </div>
                     <h3 className="font-semibold text-foreground text-sm line-clamp-1">{p.name}</h3>
                     <span className="mt-2 text-xs text-primary font-medium group-hover:underline block">View Details →</span>
