@@ -17,11 +17,12 @@ export const getImageUrl = (image: any) => {
   // If it's already a full URL or data URI, return as is
   if (typeof url === 'string' && (url.includes('http') || url.startsWith('data:'))) return url;
   
-  // If it's a local source path (for bundled assets)
-  if (typeof url === 'string' && url.startsWith('/src')) return url;
+  // If it's a local source path (bundled assets in dev or prod)
+  // Vite assets in production start with / and usually contain /assets/
+  if (typeof url === 'string' && (url.startsWith('/') || url.startsWith('/src'))) return url;
 
-  // Fallback: If it's just a filename (old data), try to get it from backend uploads
-  // Note: This only works if files exist on the server, which is usually only true for local dev
+  // Fallback: If it's just a filename (old data like "image.jpg"), 
+  // try to get it from backend uploads.
   const baseUrl = API_BASE_URL.replace('/api', '');
   return `${baseUrl}/uploads/${url}`;
 };
