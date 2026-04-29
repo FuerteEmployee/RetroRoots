@@ -46,8 +46,9 @@ const CategoryShowcase = () => {
             const fallbackImg = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
             
             let imgUrl = rawImage || fallbackImg;
-            if (rawImage && !rawImage.includes('http') && !rawImage.includes('data:image') && !rawImage.startsWith('/src')) {
-              imgUrl = `${API_BASE_URL.replace('/api', '')}/uploads/${rawImage}`;
+            if (rawImage && !rawImage.includes('http') && !rawImage.includes('data:image') && !rawImage.startsWith('/')) {
+              const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api';
+              imgUrl = `${baseUrl.replace('/api', '')}/uploads/${rawImage}`;
             }
 
             return (

@@ -96,8 +96,9 @@ const Navbar = () => {
 
   const getImageUrl = (image: any) => {
     if (!image) return "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
-    if (typeof image === 'string' && (image.includes('http') || image.startsWith('/src'))) return image;
-    return `${(import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api').replace('/api', '')}/uploads/${image}`;
+    if (typeof image === 'string' && (image.includes('http') || image.startsWith('/') || image.startsWith('data:'))) return image;
+    const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api';
+    return `${baseUrl.replace('/api', '')}/uploads/${image}`;
   };
 
   // useEffect(() => {

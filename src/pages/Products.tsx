@@ -9,12 +9,11 @@ import { API_BASE_URL } from "@/contexts/AuthContext";
 
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
-const getImageUrl = (img: any) => {
-  const url = typeof img === 'object' ? img?.url : img;
-  if (!url) return "/placeholder.svg";
-  if (typeof url !== 'string') return "/placeholder.svg";
-  if (url.includes('http') || url.includes('data:image') || url.startsWith('/src')) return url;
-  return `${API_BASE_URL.replace('/api', '')}/uploads/${url}`;
+const getImageUrl = (image: any) => {
+  if (!image) return "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400";
+  if (typeof image === 'string' && (image.includes('http') || image.startsWith('/') || image.startsWith('data:'))) return image;
+  const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api';
+  return `${baseUrl.replace('/api', '')}/uploads/${image}`;
 };
 
 const Products = () => {
