@@ -44,7 +44,7 @@ app.use("/api/seo", require("./routes/seo"));
 app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/api/upload", require("./routes/upload"));
 
-app.get("/", (req, res) => res.json({ message: "Flexicore CMS API Running" }));
+app.get("/", (req, res) => res.json({ message: "RetroRoots CMS API Running" }));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

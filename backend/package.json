@@ -1,7 +1,7 @@
 {
-  "name": "flexicore-cms-backend",
+  "name": "retroroots-cms-backend",
   "version": "1.0.0",
-  "description": "Flexicore Admin Panel CMS Backend - Express + MongoDB",
+  "description": "RetroRoots Admin Panel CMS Backend - Express + MongoDB",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

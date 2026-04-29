@@ -1,4 +1,4 @@
-# Flexicore CMS Backend
+# RetroRoots CMS Backend
 
 ## Setup
 

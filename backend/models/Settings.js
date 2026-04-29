@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const settingsSchema = new mongoose.Schema({
   whatsappNumber: { type: String },
-  whatsappMessage: { type: String, default: "Hi, I want to know more about Flexicore products." },
+  whatsappMessage: { type: String, default: "Hi, I want to know more about RetroRoots products." },
   socialLinks: {
     facebook: String,
     instagram: String,
