@@ -12,8 +12,15 @@ export const apiRequest = async (endpoint: string, options: RequestInit = {}) =>
 
   const res = await fetch(`${API_BASE_URL}${endpoint}`, { ...options, headers });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ message: "Request failed" }));
-    throw new Error(err.message);
+    const errorText = await res.text();
+    let errMessage = "Request failed";
+    try {
+      const errJson = JSON.parse(errorText);
+      errMessage = errJson.message || errMessage;
+    } catch {
+      errMessage = errorText ? `Error ${res.status}: ${errorText.substring(0, 50)}...` : `Request failed with status ${res.status}`;
+    }
+    throw new Error(errMessage);
   }
   if (res.headers.get("content-type")?.includes("text/csv")) {
     return res.blob();
