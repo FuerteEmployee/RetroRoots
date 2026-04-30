@@ -522,7 +522,7 @@
 // export default Footer;
 
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, Twitter, Apple, Send, HelpCircle } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, Twitter, Apple, Send, HelpCircle, MessageCircle } from "lucide-react";
 
 const Footer = () => (
   <footer className="bg-white text-black font-sans">
@@ -589,11 +589,23 @@ const Footer = () => (
                 <Mail className="w-5 h-5 text-black flex-shrink-0" />
                 <span>info@retroroots.co.in</span>
               </div>
-              
+
               {/* Socials moved here */}
               <div className="flex gap-4 mt-2">
-                {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
-                  <a key={i} href="#" className="text-black hover:text-primary transition-colors">
+                {[
+                  { Icon: Facebook, url: "https://www.facebook.com/retrorootsofficial" },
+                  { Icon: Instagram, url: "https://www.instagram.com/retro_roots.in/" },
+                  { Icon: MessageCircle, url: "https://api.whatsapp.com/send/?phone=919998388321&text&type=phone_number&app_absent=0" },
+                  { Icon: Linkedin, url: "#" },
+                  { Icon: Youtube, url: "#" }
+                ].map(({ Icon, url }, i) => (
+                  <a
+                    key={i}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black :text-primary transition-colors"
+                  >
                     <Icon className="w-5 h-5" />
                   </a>
                 ))}
