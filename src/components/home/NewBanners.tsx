@@ -33,9 +33,9 @@ const NewBanners = () => {
           </div>
 
           <div className="relative group">
-            <div className="flex overflow-x-auto pb-3 gap-4 no-scrollbar snap-x">
+            <div className="flex overflow-x-auto pb-3 gap-2  no-scrollbar snap-x">
               {categories.map((cat) => (
-                <div key={cat.name} className="flex-shrink-0 w-40 snap-start">
+                <div key={cat.name} className="flex-shrink-0 w-60 snap-center">
                   <div className="aspect-square rounded-xl overflow-hidden bg-muted mb-2 shadow-sm hover:shadow-md transition-shadow">
                     <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
                   </div>
@@ -43,9 +43,9 @@ const NewBanners = () => {
                 </div>
               ))}
             </div>
-            <button className="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 z-20 hidden md:block group-hover:block transition-all hover:scale-110">
+            {/* <button className="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 z-20 hidden md:block group-hover:block transition-all hover:scale-110">
               <ChevronRight className="w-5 h-5 text-primary" />
-            </button>
+            </button> */}
           </div>
         </div>
       </section>
