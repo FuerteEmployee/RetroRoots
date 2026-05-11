@@ -117,17 +117,23 @@ const ProductDetail = () => {
 
   return (
     <Layout title={`${product.name} | Retro Roots`} description={product.description || `View details for ${product.name}`}>
-      <PageHeader title="Product Details" subtitle="Discover premium craftsmanship" />
+      <div className="relative py-10 md:py-14 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-black/80 z-0" />
+        <div className="relative z-10 container mx-auto px-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Product Details</h1>
+          <p className="text-white/70 text-sm max-w-2xl mx-auto">Discover premium craftsmanship</p>
+        </div>
+      </div>
       
-      <section className="py-8 bg-background">
+      <section className="py-4 bg-background">
         <div className="container mx-auto px-4 max-w-7xl">
           
           {/* Top Section: Images and Summary */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
             
             {/* Left Side: Image Gallery */}
-            <div className="w-full lg:w-[45%] flex flex-col gap-4 lg:sticky lg:top-24 h-fit relative z-10">
-              <div className="w-full aspect-square bg-white rounded-xl border border-border flex items-center justify-center p-4 shadow-sm group">
+            <div className="w-full lg:w-[30%] flex flex-col gap-4 lg:sticky lg:top-24 h-fit relative z-10">
+              <div className="w-full aspect-square max-h-[380px] bg-white rounded-xl border border-border flex items-center justify-center p-4 shadow-sm group">
                 <ImageMagnifier 
                   src={selectedImage} 
                   zoomSrc={selectedImage} 
@@ -156,7 +162,7 @@ const ProductDetail = () => {
             </div>
             
             {/* Right Side: Info and Buy Box */}
-            <div className="w-full lg:w-[55%] flex flex-col md:flex-row gap-8">
+            <div className="w-full lg:w-[70%] flex flex-col md:flex-row gap-8">
               
               {/* Product Info */}
               <div className="flex-1 flex flex-col justify-start">
