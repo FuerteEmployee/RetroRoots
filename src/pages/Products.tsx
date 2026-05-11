@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Link } from "react-router-dom";
@@ -10,20 +10,29 @@ import { getImageUrl } from "@/lib/utils";
 
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
-
-
 const Products = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const initialCategory = queryParams.get("category") || "All";
 
   const [allProducts, setAllProducts] = useState<any[]>([]);
-  const [categories, setCategories] = useState<string[]>(["All"]);
+  const [categories, setCategories] = useState<{ name: string; slug: string }[]>([{ name: "All", slug: "All" }]);
   const [loading, setLoading] = useState(true);
   const [catFilter, setCatFilter] = useState(initialCategory);
   const [typeFilter, setTypeFilter] = useState(queryParams.get("type") || "All");
   const [indFilter, setIndFilter] = useState("All");
   const [search, setSearch] = useState("");
+
+  const handleCategoryChange = (slug: string) => {
+    const params = new URLSearchParams(location.search);
+    if (slug === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", slug);
+    }
+    navigate({ search: params.toString() });
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -43,8 +52,11 @@ const Products = () => {
     ]).then(([products, cats]) => {
       setAllProducts(products);
       if (Array.isArray(cats)) {
-        const catNames = cats.filter(c => c.type === "category").map(c => c.name);
-        setCategories(["All", ...catNames]);
+        const catData = cats.filter(c => c.type === "category").map(c => ({
+          name: c.name,
+          slug: c.slug || c.name
+        }));
+        setCategories([{ name: "All", slug: "All" }, ...catData]);
       }
     }).catch(err => console.error("Failed to fetch data:", err))
       .finally(() => setLoading(false));
@@ -100,7 +112,13 @@ const Products = () => {
                 <SlidersHorizontal className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground mr-2">Category:</span>
                 {categories.map(c => (
-                  <button key={c} onClick={() => setCatFilter(c)} className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${catFilter === c ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/10"}`}>{c}</button>
+                  <button
+                    key={c.slug}
+                    onClick={() => handleCategoryChange(c.slug)}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${catFilter.toLowerCase() === c.slug.toLowerCase() ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/10"}`}
+                  >
+                    {c.name}
+                  </button>
                 ))}
               </div>
               {/* <div className="flex items-center gap-2 flex-wrap">

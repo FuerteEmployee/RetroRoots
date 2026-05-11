@@ -2,7 +2,7 @@ const router = require("express").Router();
 const auth = require("../middleware/auth");
 const createCrud = require("../utils/crudFactory");
 const Product = require("../models/Product");
-const crud = createCrud(Product, "category");
+const crud = createCrud(Product, "category", "name");
 
 router.get("/", crud.getAll);
 router.get("/:id", crud.getOne);

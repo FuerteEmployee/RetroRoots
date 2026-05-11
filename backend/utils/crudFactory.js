@@ -1,10 +1,10 @@
-const createCrud = (Model, populateFields = "") => {
+const createCrud = (Model, populateFields = "", defaultSort = "-createdAt") => {
   const getAll = async (req, res) => {
     try {
       const query = Model.find(req.query.filter ? JSON.parse(req.query.filter) : {});
       if (populateFields) query.populate(populateFields);
       if (req.query.sort) query.sort(JSON.parse(req.query.sort));
-      else query.sort("-createdAt");
+      else query.sort(defaultSort);
       const docs = await query;
       res.json(docs);
     } catch (err) { res.status(500).json({ message: err.message }); }
