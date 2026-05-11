@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
   sku: { type: String },
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
   industryTags: [String],
-  description: { type: String },
+  description: { type: String, default: "Crafted with premium quality materials and timeless design, this piece adds comfort, elegance, and functionality to any modern living space. Designed for durability and everyday use, it blends perfectly with contemporary and classic interiors." },
   aiMetaDescription: { type: String },
   images: [{ url: String, publicId: String }],
   modelFile: { url: String, publicId: String },
