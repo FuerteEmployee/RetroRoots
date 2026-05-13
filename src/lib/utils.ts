@@ -26,3 +26,11 @@ export const getImageUrl = (image: any) => {
   const baseUrl = API_BASE_URL.replace('/api', '');
   return `${baseUrl}/uploads/${url}`;
 };
+
+export const toSlug = (text: string) => {
+  if (!text) return "";
+  return text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-");
+};

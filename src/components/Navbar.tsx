@@ -449,7 +449,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { API_BASE_URL } from "@/contexts/AuthContext";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, toSlug } from "@/lib/utils";
 import {
   Menu, X, Search, Phone, ChevronDown,
   Heart, ShoppingBasket, MoreHorizontal,
@@ -532,7 +532,7 @@ const Navbar = () => {
           const filtered = data.filter((c: any) => c.type === "category");
           const mapped = filtered.map((c: any) => ({
             label: c.name,
-            slug: c.slug || c._id,
+            slug: c.slug || toSlug(c.name),
             image: typeof c.image === 'object' ? c.image?.url : c.image,
             _id: c._id
           }));
@@ -777,7 +777,7 @@ const Navbar = () => {
                     <div className={`rounded-full overflow-hidden transition-all duration-500 ease-in-out border-2 ${scrolled
                       ? "w-0 h-0 opacity-0 mb-0 scale-0 border-0"
                       : "w-16 h-16 xl:w-[72px] xl:h-[72px] mb-1.5 opacity-100 scale-100 border-border group-hover:border-primary"
-                      } ${activeCategory === cat.slug ? "border-gray-500" : ""}`}>
+                      } ${toSlug(activeCategory || "") === toSlug(cat.slug) ? "border-gray-500" : ""}`}>
                       <img
                         src={getImageUrl(cat.image)}
                         alt={cat.label}
@@ -785,7 +785,7 @@ const Navbar = () => {
                       />
                     </div>
                     <span className={`font-bold text-center leading-tight transition-all duration-300 ${scrolled ? "text-[11px] uppercase tracking-widest" : "text-[11px] uppercase tracking-tighter"
-                      } ${activeCategory === cat.slug
+                      } ${toSlug(activeCategory || "") === toSlug(cat.slug)
                         ? "text-gray-400"
                         : "text-foreground group-hover:text-black/70"
                       }`}>
@@ -814,7 +814,7 @@ const Navbar = () => {
 
                 {categories.map((cat) => (
                   <Link key={cat.label} to={`/products?category=${cat.slug}`} className="flex flex-col items-center gap-1.5">
-                    <div className={`w-16 h-16 rounded-full overflow-hidden border-2 shadow-sm ${new URLSearchParams(location.search).get('category') === cat.slug
+                    <div className={`w-16 h-16 rounded-full overflow-hidden border-2 shadow-sm ${toSlug(new URLSearchParams(location.search).get('category') || "") === toSlug(cat.slug)
                       ? 'border-primary'
                       : 'border-border'
                       }`}>

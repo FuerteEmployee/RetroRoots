@@ -31,6 +31,7 @@ const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/admin" },
   { label: "Products", icon: Package, path: "/admin/products" },
   { label: "Categories", icon: Layers, path: "/admin/categories" },
+  { label: "Inventory", icon: Package, path: "/admin/inventory" },
   { label: "Blogs", icon: FileText, path: "/admin/blogs" },
   { label: "Daily Updates", icon: RefreshCw, path: "/admin/daily-updates" },
   { label: "Distributors", icon: Users, path: "/admin/distributors" },

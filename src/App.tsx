@@ -25,6 +25,7 @@ import PressPage from "@/pages/admin/PressPage";
 import TrustedByPage from "@/pages/admin/TrustedByPage";
 import CareersPage from "@/pages/admin/CareersPage";
 import EnquiriesPage from "@/pages/admin/EnquiriesPage";
+import InventoryPage from "@/pages/admin/InventoryPage";
 import SettingsPage from "@/pages/admin/SettingsPage";
 import SeoPage from "@/pages/admin/SeoPage";
 
@@ -108,6 +109,7 @@ const App = () => (
                 <Route path="trusted-by" element={<TrustedByPage />} />
                 <Route path="careers" element={<CareersPage />} />
                 <Route path="enquiries" element={<EnquiriesPage />} />
+                <Route path="inventory" element={<InventoryPage />} />
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="seo" element={<SeoPage />} />
               </Route>

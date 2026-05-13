@@ -18,7 +18,7 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   const handleMouseEnter = () => {
-    if (window.innerWidth < 1024) return;
+    if (window.innerWidth < 768) return;
     setShowMagnifier(true);
   };
 
@@ -27,7 +27,7 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
   };
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (window.innerWidth < 1024) return;
+    if (window.innerWidth < 768) return;
     const elem = imgRef.current;
     if (!elem) return;
     
@@ -63,43 +63,43 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      <img
-        ref={imgRef}
-        src={src}
-        alt={alt}
-        className="w-full h-full object-contain"
-      />
-
-      {/* Lens indicator over the image */}
-      {showMagnifier && (
-        <div 
-          className="absolute pointer-events-none bg-blue-500/10 border border-blue-500/30 shadow-[0_0_0_9999px_rgba(255,255,255,0.4)]"
-          style={{
-            width: `${lensSize}%`,
-            height: `${lensSize}%`,
-            top: `${lensTop}%`,
-            left: `${lensLeft}%`,
-          }}
+      <div className="relative w-full h-full overflow-hidden rounded-xl">
+        <img
+          ref={imgRef}
+          src={src}
+          alt={alt}
+          className="w-full h-full object-contain"
         />
-      )}
+
+        {/* Lens indicator over the image */}
+        {showMagnifier && (
+          <div 
+            className="absolute pointer-events-none bg-blue-500/10 border border-blue-500/30 shadow-[0_0_0_9999px_rgba(255,255,255,0.4)]"
+            style={{
+              width: `${lensSize}%`,
+              height: `${lensSize}%`,
+              top: `${lensTop}%`,
+              left: `${lensLeft}%`,
+            }}
+          />
+        )}
+      </div>
 
       {/* The large zoomed container to the right */}
       {showMagnifier && (
         <div
-          className="absolute z-[100] bg-white border border-border shadow-2xl pointer-events-none overflow-hidden"
+          className="absolute z-[100] bg-white border border-border shadow-2xl pointer-events-none overflow-hidden hidden lg:block"
           style={{
             top: 0,
             left: 'calc(100% + 24px)', // 24px gap between image and zoom box
-            // We scale up the output box proportionally so the aspect ratio matches the main image exactly
-            width: '150%', 
-            height: '150%',
+            width: '120%', 
+            height: '120%',
             backgroundImage: `url('${activeSrc}')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: `${zoomLevel * 100}% ${zoomLevel * 100}%`,
-            // Use the perfectly mapped lens coordinates
             backgroundPositionX: `${bgPosX}%`,
             backgroundPositionY: `${bgPosY}%`,
-            borderRadius: '0.5rem',
+            borderRadius: '1rem',
           }}
         />
       )}

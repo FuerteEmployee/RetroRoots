@@ -7,15 +7,16 @@ interface StatCardProps {
   icon: React.ReactNode;
   trend?: string;
   className?: string;
+  color?: string;
 }
 
-const StatCard = ({ title, value, icon, trend, className }: StatCardProps) => (
+const StatCard = ({ title, value, icon, trend, className, color }: StatCardProps) => (
   <div className={cn("bg-card rounded-xl border border-border p-5 flex items-start gap-4", className)}>
     <div className="p-3 rounded-lg bg-primary/10 text-primary">{icon}</div>
     <div className="flex-1">
       <p className="text-sm text-muted-foreground font-medium">{title}</p>
-      <p className="text-2xl font-bold text-card-foreground mt-1">{value}</p>
-      {trend && <p className="text-xs text-success mt-1">{trend}</p>}
+      <p className={cn("text-2xl font-bold text-card-foreground mt-1", color)}>{value}</p>
+      {trend && <p className="text-xs text-muted-foreground mt-1">{trend}</p>}
     </div>
   </div>
 );

@@ -11,6 +11,7 @@ interface DashboardData {
   distributors: number;
   pendingDistributors: number;
   recentEnquiries: any[];
+  lowStockCount: number;
 }
 
 const DashboardPage = () => {
@@ -29,7 +30,7 @@ const DashboardPage = () => {
       <div className="space-y-6">
         <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[...Array(4)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <div key={i} className="bg-card rounded-xl border border-border p-5 h-24 animate-pulse" />
           ))}
         </div>
@@ -40,11 +41,12 @@ const DashboardPage = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         <StatCard title="Total Products" value={data?.products || 0} icon={<Package size={20} />} />
         <StatCard title="Blog Posts" value={data?.blogs || 0} icon={<FileText size={20} />} />
         <StatCard title="Enquiries" value={data?.enquiries || 0} icon={<MessageSquare size={20} />} trend={`${data?.unreadEnquiries || 0} unread`} />
         <StatCard title="Distributors" value={data?.distributors || 0} icon={<Users size={20} />} trend={`${data?.pendingDistributors || 0} pending`} />
+        <StatCard title="Low Stock" value={data?.lowStockCount || 0} icon={<AlertCircle size={20} />} trend="Action required" color="text-amber-600" />
       </div>
 
       <div className="bg-card rounded-xl border border-border">

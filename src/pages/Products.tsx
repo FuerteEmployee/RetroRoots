@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Eye, Play, Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import { getProducts } from "@/lib/api";
 import { API_BASE_URL } from "@/contexts/AuthContext";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, toSlug } from "@/lib/utils";
 
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
@@ -54,7 +54,7 @@ const Products = () => {
       if (Array.isArray(cats)) {
         const catData = cats.filter(c => c.type === "category").map(c => ({
           name: c.name,
-          slug: c.slug || c.name
+          slug: c.slug || toSlug(c.name)
         }));
         setCategories([{ name: "All", slug: "All" }, ...catData]);
       }
@@ -70,8 +70,8 @@ const Products = () => {
 
     if (catFilter !== "All") {
       const target = catFilter.toLowerCase();
-      const nameMatch = categoryName?.toLowerCase() === target;
-      const slugMatch = categorySlug?.toLowerCase() === target;
+      const nameMatch = categoryName?.toLowerCase() === target || toSlug(categoryName || "") === target;
+      const slugMatch = categorySlug?.toLowerCase() === target || toSlug(categorySlug || "") === target;
       const idMatch = String(category?._id || category) === catFilter;
 
       if (!nameMatch && !slugMatch && !idMatch) {
@@ -82,7 +82,7 @@ const Products = () => {
     if (typeFilter !== "All") {
       const tags = p.industryTags || [];
       const match = tags.some(t =>
-        t.toLowerCase().replace(/ /g, "-") === typeFilter.toLowerCase() ||
+        toSlug(t) === typeFilter.toLowerCase() ||
         t.toLowerCase() === typeFilter.toLowerCase()
       );
       if (!match) return false;
