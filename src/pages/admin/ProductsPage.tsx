@@ -19,6 +19,9 @@ interface Product {
   videoUrl: string;
   specPdf: { url: string; publicId: string } | null;
   priceRange: string;
+  sizes: string[];
+  seats: string[];
+  colors: string[];
   isVisible: boolean;
 }
 

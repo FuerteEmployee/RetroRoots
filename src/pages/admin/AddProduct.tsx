@@ -16,10 +16,11 @@ const AddProduct = () => {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
     name: "", sku: "", category: "", industryTags: "",
-    description: "", aiMetaDescription: "", videoUrl: "", priceRange: "", isVisible: true,
+    description: "", aiMetaDescription: "", videoUrl: "", priceRange: "", 
+    sizes: "", seats: "", colors: "", isVisible: true,
   });
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [existingImages, setExistingImages] = useState<{ url: string; publicId: string }[]>([]);
+  const [existingImages, setExistingImages] = useState<{ url: string; publicId: string; label?: string }[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +34,11 @@ const AddProduct = () => {
             name: p.name, sku: p.sku || "", category: p.category?._id || p.category || "",
             industryTags: p.industryTags?.join(", ") || "", description: p.description || "",
             aiMetaDescription: p.aiMetaDescription || "", videoUrl: p.videoUrl || "",
-            priceRange: p.priceRange || "", isVisible: p.isVisible,
+            priceRange: p.priceRange || "", 
+            sizes: p.sizes?.join(", ") || "",
+            seats: p.seats?.join(", ") || "",
+            colors: p.colors?.join(", ") || "",
+            isVisible: p.isVisible,
           });
           setExistingImages(p.images || []);
         }
@@ -63,6 +68,9 @@ const AddProduct = () => {
       const body = {
         ...form,
         industryTags: form.industryTags.split(",").map(t => t.trim()).filter(Boolean),
+        sizes: form.sizes.split(",").map(t => t.trim()).filter(Boolean),
+        seats: form.seats.split(",").map(t => t.trim()).filter(Boolean),
+        colors: form.colors.split(",").map(t => t.trim()).filter(Boolean),
         images,
         category: form.category || undefined,
       };
@@ -134,14 +142,38 @@ const AddProduct = () => {
             <Label>Price Range</Label>
             <Input value={form.priceRange} onChange={e => setForm({ ...form, priceRange: e.target.value })} className="mt-1" />
           </div>
+          <div>
+            <Label>Sizes (comma separated)</Label>
+            <Input value={form.sizes} onChange={e => setForm({ ...form, sizes: e.target.value })} className="mt-1" placeholder="200*200, 200*400" />
+          </div>
+          <div>
+            <Label>Seating Capacity (comma separated)</Label>
+            <Input value={form.seats} onChange={e => setForm({ ...form, seats: e.target.value })} className="mt-1" placeholder="1 Seater, 2 Seater, 3 Seater, L Shape, Recliner" />
+          </div>
+          <div>
+            <Label>Colors (comma separated)</Label>
+            <Input value={form.colors} onChange={e => setForm({ ...form, colors: e.target.value })} className="mt-1" placeholder="Beige, Grey, Black & White, Cream / Brown" />
+          </div>
           <div className="md:col-span-2">
             <Label>Images</Label>
             {existingImages.length > 0 && (
               <div className="flex flex-wrap gap-3 my-3">
                 {existingImages.map((img, i) => (
-                  <div key={i} className="relative w-24 h-24 rounded-lg overflow-hidden border border-border group">
-                    <img src={img.url} className="w-full h-full object-cover" alt="" />
-                    <button type="button" onClick={() => setExistingImages(existingImages.filter((_, j) => j !== i))} className="absolute top-1 right-1 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"><X size={12} /></button>
+                  <div key={i} className="relative w-32 group">
+                    <div className="w-32 h-32 rounded-lg overflow-hidden border border-border">
+                      <img src={img.url} className="w-full h-full object-cover" alt="" />
+                      <button type="button" onClick={() => setExistingImages(existingImages.filter((_, j) => j !== i))} className="absolute top-1 right-1 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"><X size={12} /></button>
+                    </div>
+                    <Input 
+                      placeholder="Label (e.g. Black)" 
+                      value={img.label || ""} 
+                      onChange={e => {
+                        const newImages = [...existingImages];
+                        newImages[i].label = e.target.value;
+                        setExistingImages(newImages);
+                      }}
+                      className="mt-1 h-7 text-[10px] px-2"
+                    />
                   </div>
                 ))}
               </div>

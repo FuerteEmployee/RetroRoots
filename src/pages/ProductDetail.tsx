@@ -7,6 +7,7 @@ import { API_BASE_URL } from "@/contexts/AuthContext";
 import { getImageUrl } from "@/lib/utils";
 import ImageMagnifier from "@/components/ImageMagnifier";
 import { Loader2, AlertCircle, ShoppingCart, Star, CheckCircle, Truck } from "lucide-react";
+import { Label } from "@/components/ui/label";
 import catSofa from "@/assets/category-sofa.jpg";
 import catDiningChair from "@/assets/category-dining-chair.png";
 import catLounger from "@/assets/category-lounger.png";
@@ -27,12 +28,17 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedImage, setSelectedImage] = useState<string>("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSeat, setSelectedSeat] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [isAvailable, setIsAvailable] = useState(true);
 
   useEffect(() => {
     if (!id) return;
-    
+
     setLoading(true);
-    
+
     if (dummyProductsMap[id]) {
       const dummy = dummyProductsMap[id];
       setProduct(dummy);
@@ -50,6 +56,10 @@ const ProductDetail = () => {
         } else {
           setSelectedImage("/placeholder.svg");
         }
+
+        if (data.sizes?.length > 0) setSelectedSize(data.sizes[0]);
+        if (data.seats?.length > 0) setSelectedSeat(data.seats[0]);
+        if (data.colors?.length > 0) setSelectedColor(data.colors[0]);
       })
       .catch(err => {
         console.error("Failed to fetch product:", err);
@@ -84,20 +94,20 @@ const ProductDetail = () => {
     );
   }
 
-  const categoryName = (typeof product.categoryId === 'object' ? product.categoryId?.name : product.categoryId) || 
-                       (typeof product.category === 'object' ? product.category?.name : product.category) || 
-                       product.categoryName || "General";
-                       
+  const categoryName = (typeof product.categoryId === 'object' ? product.categoryId?.name : product.categoryId) ||
+    (typeof product.category === 'object' ? product.category?.name : product.category) ||
+    product.categoryName || "General";
+
   const imagesList = product.images && product.images.length > 0 ? product.images : (product.image ? [product.image] : []);
 
   // Fallbacks for rich data
   const currentPrice = product.price || 0;
   const originalPrice = product.mrp || Math.floor(currentPrice * 1.15); // 15% markup if MRP is missing
   const discount = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
-  
+
   const rating = product.rating || 4.5;
   const reviewsCount = product.reviews || Math.floor(Math.random() * 200) + 50;
-  
+
   const inStock = product.stock !== undefined ? product.stock > 0 : true;
 
   const features = product.features && product.features.length > 0 ? product.features : [
@@ -115,6 +125,56 @@ const ProductDetail = () => {
     "Assembly": "Pre-assembled"
   };
 
+  // Smart image matcher
+  const findAndSetMatchingImage = (clickedOption: string) => {
+    const keyword = clickedOption.toLowerCase().trim();
+    
+    // Get all current selections
+    const currentSelections = {
+      size: selectedSize.toLowerCase().trim(),
+      seat: selectedSeat.toLowerCase().trim(),
+      color: selectedColor.toLowerCase().trim(),
+      clicked: keyword
+    };
+
+    // 1. Try to find the BEST match that has NO conflicts
+    let bestMatch = null;
+    let maxMatches = -1;
+
+    imagesList.forEach((img: any) => {
+      if (!img.label) return;
+      const labels = img.label.toLowerCase().split(",").map((l: string) => l.trim());
+      
+      // Check for conflicts: 
+      // If image has a label from a category, but it's not what the user selected, that's a conflict.
+      let hasConflict = false;
+      
+      // Check if image label mentions a different size/seat/color than selected
+      product.sizes?.forEach((s: string) => { if (labels.includes(s.toLowerCase()) && s.toLowerCase() !== currentSelections.size && currentSelections.size) hasConflict = true; });
+      product.seats?.forEach((s: string) => { if (labels.includes(s.toLowerCase()) && s.toLowerCase() !== currentSelections.seat && currentSelections.seat) hasConflict = true; });
+      product.colors?.forEach((c: string) => { if (labels.includes(c.toLowerCase()) && c.toLowerCase() !== currentSelections.color && currentSelections.color) hasConflict = true; });
+
+      if (hasConflict) return; // Skip this image
+
+      // Count matches for this non-conflicting image
+      const selectionsArray = [currentSelections.size, currentSelections.seat, currentSelections.color, currentSelections.clicked];
+      const matchCount = selectionsArray.filter(s => s && labels.includes(s)).length;
+      
+      if (matchCount > maxMatches) {
+        maxMatches = matchCount;
+        bestMatch = img;
+      }
+    });
+
+    if (bestMatch && maxMatches > 0) {
+      setSelectedImage(getImageUrl(bestMatch));
+      setIsAvailable(true);
+    } else {
+      // 2. Strict Check: If no non-conflicting image matches the clicked keyword, it's unavailable
+      setIsAvailable(false);
+    }
+  };
+
   return (
     <Layout title={`${product.name} | Retro Roots`} description={product.description || `View details for ${product.name}`}>
       <div className="relative py-10 md:py-14 text-center overflow-hidden">
@@ -124,30 +184,30 @@ const ProductDetail = () => {
           <p className="text-white/70 text-sm max-w-2xl mx-auto">Discover premium craftsmanship</p>
         </div>
       </div>
-      
+
       <section className="py-4 bg-background">
         <div className="container mx-auto px-4 max-w-7xl">
-          
+
           {/* Top Section: Images and Summary */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
-            
+
             {/* Left Side: Image Gallery */}
             <div className="w-full lg:w-[30%] flex flex-col gap-4 lg:sticky lg:top-24 h-fit relative z-10">
               <div className="w-full aspect-square max-h-[380px] bg-white rounded-xl border border-border flex items-center justify-center p-4 shadow-sm group">
-                <ImageMagnifier 
-                  src={selectedImage} 
-                  zoomSrc={selectedImage} 
+                <ImageMagnifier
+                  src={selectedImage}
+                  zoomSrc={selectedImage}
                   alt={product.name}
                   zoomLevel={2.5}
                 />
               </div>
-              
+
               {imagesList.length > 1 && (
                 <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
                   {imagesList.map((img: any, idx: number) => {
                     const url = getImageUrl(img);
                     return (
-                      <button 
+                      <button
                         key={idx}
                         onMouseEnter={() => setSelectedImage(url)}
                         onClick={() => setSelectedImage(url)}
@@ -160,10 +220,10 @@ const ProductDetail = () => {
                 </div>
               )}
             </div>
-            
+
             {/* Right Side: Info and Buy Box */}
             <div className="w-full lg:w-[70%] flex flex-col md:flex-row gap-8">
-              
+
               {/* Product Info */}
               <div className="flex-1 flex flex-col justify-start">
                 <Link to="/products" className="text-sm font-semibold text-primary hover:underline uppercase tracking-wider mb-2">
@@ -172,7 +232,7 @@ const ProductDetail = () => {
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground mb-3 leading-tight">
                   {product.name}
                 </h1>
-                
+
                 {/* Rating */}
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex items-center text-[#FFA41C]">
@@ -182,9 +242,9 @@ const ProductDetail = () => {
                   </div>
                   <span className="text-sm text-[#007185] hover:underline cursor-pointer">{rating} ({reviewsCount} ratings)</span>
                 </div>
-                
+
                 <hr className="my-4 border-border" />
-                
+
                 {/* Pricing */}
                 <div className="mb-6">
                   {discount > 0 && (
@@ -205,6 +265,82 @@ const ProductDetail = () => {
                     <span className="line-through decoration-1">₹{originalPrice.toLocaleString()}</span>
                   </div>
                   <p className="text-sm font-medium mt-1">Inclusive of all taxes</p>
+                </div>
+
+                <hr className="my-4 border-border" />
+
+                <div className="space-y-6 mb-6">
+                  {product.sizes && product.sizes.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-bold text-foreground mb-3">Select size</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {product.sizes.map((size: string, idx: number) => (
+                          <button
+                            key={size}
+                            onClick={() => {
+                              setSelectedSize(size);
+                              findAndSetMatchingImage(size);
+                            }}
+                            className={`px-4 py-2 text-sm font-medium rounded-md border transition-all ${selectedSize === size ? 'border-black bg-primary/5 text-black' : 'border-border hover:border-primary/50 text-foreground/70'}`}
+                          >
+                            {size}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {product.seats && product.seats.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-bold text-foreground mb-3">Seating Capacity</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {product.seats.map((seat: string, idx: number) => (
+                          <button
+                            key={seat}
+                            onClick={() => {
+                              setSelectedSeat(seat);
+                              findAndSetMatchingImage(seat);
+                            }}
+                            className={`px-4 py-2 text-sm font-medium rounded-md border transition-all ${selectedSeat === seat ? 'border-black bg-primary/5 text-black' : 'border-border hover:border-primary/50 text-foreground/70'}`}
+                          >
+                            {seat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {product.colors && product.colors.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-bold text-foreground mb-3">Color Options</h3>
+                      <div className="flex flex-wrap gap-3">
+                        {product.colors.map((color: string, idx: number) => {
+                          const dualColors = color.includes("&") ? color.split("&") : color.includes("/") ? color.split("/") : null;
+                          const bgStyle = dualColors 
+                            ? { background: `linear-gradient(135deg, ${dualColors[0].trim().toLowerCase()} 50%, ${dualColors[1].trim().toLowerCase()} 50%)` }
+                            : { backgroundColor: color.toLowerCase().replace(" ", "") };
+                            
+                          return (
+                            <button
+                              key={color}
+                              onClick={() => {
+                                setSelectedColor(color);
+                                findAndSetMatchingImage(color);
+                              }}
+                              title={color}
+                              className={`w-10 h-10 rounded-full border-2 transition-all flex items-center justify-center ${selectedColor === color ? 'border-primary p-0.5' : 'border-transparent hover:border-border'}`}
+                            >
+                              <span 
+                                className="w-full h-full rounded-full border border-black/10 shadow-inner" 
+                                style={bgStyle}
+                              />
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <p className="mt-2 text-xs font-medium text-muted-foreground capitalize">Selected: {selectedColor}</p>
+                    </div>
+                  )}
                 </div>
 
                 <hr className="my-4 border-border" />
@@ -232,21 +368,25 @@ const ProductDetail = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Buy Box (Amazon style right column) */}
               <div className="w-full md:w-[280px] shrink-0">
                 <div className="border border-border rounded-lg p-5 shadow-sm bg-white sticky top-24">
                   <span className="text-2xl font-semibold text-foreground flex items-start mb-4">
                     <span className="text-sm mt-1.5 mr-0.5">₹</span>{currentPrice.toLocaleString()}
                   </span>
-                  
+
                   <div className="text-sm text-foreground/80 mb-4 flex items-start gap-2">
                     <Truck className="w-5 h-5 text-muted-foreground shrink-0" />
                     <p>FREE delivery on eligible orders. Details</p>
                   </div>
-                  
+
                   <div className="mb-6">
-                    {inStock ? (
+                    {!isAvailable ? (
+                      <p className="text-lg font-medium text-destructive flex items-center gap-1.5 bg-destructive/10 p-3 rounded-md border border-destructive/20">
+                        <AlertCircle className="w-4 h-4" /> Not Available
+                      </p>
+                    ) : inStock ? (
                       <p className="text-lg font-medium text-[#007600] flex items-center gap-1.5">
                         <CheckCircle className="w-4 h-4" /> In stock
                       </p>
@@ -255,15 +395,36 @@ const ProductDetail = () => {
                     )}
                     <p className="text-xs text-muted-foreground mt-1">Sold by <span className="text-[#007185]">Retro Roots</span></p>
                   </div>
-                  
-                  <Link to="/contact" className="w-full py-3 mb-3 bg-[#FFD814] hover:bg-[#F7CA00] text-black text-sm font-medium rounded-full shadow-sm text-center flex items-center justify-center gap-2 transition-colors border border-[#FCD200]">
+
+                  <Link to="/contact" className={`w-full py-3 mb-3 bg-[#FFD814] hover:bg-[#F7CA00] text-black text-sm font-medium rounded-full shadow-sm text-center flex items-center justify-center gap-2 transition-colors border border-[#FCD200] ${!isAvailable ? 'opacity-50 pointer-events-none' : ''}`}>
                     <ShoppingCart className="w-4 h-4" />
                     Add to Cart
                   </Link>
-                  <Link to="/contact" className="w-full py-3 bg-[#FFA41C] hover:bg-[#FA8900] text-black text-sm font-medium rounded-full shadow-sm text-center flex items-center justify-center gap-2 transition-colors border border-[#FF8F00]">
+                  <Link to="/contact" className={`w-full py-3 bg-[#FFA41C] hover:bg-[#FA8900] text-black text-sm font-medium rounded-full shadow-sm text-center flex items-center justify-center gap-2 transition-colors border border-[#FF8F00] ${!isAvailable ? 'opacity-50 pointer-events-none' : ''}`}>
                     Buy Now
                   </Link>
-                  
+
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 block">Quantity</Label>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center border border-border rounded-lg overflow-hidden bg-muted/20">
+                        <button
+                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                          className="w-10 h-10 flex items-center justify-center hover:bg-muted transition-colors border-r border-border"
+                        >
+                          -
+                        </button>
+                        <span className="w-12 text-center font-semibold">{quantity}</span>
+                        <button
+                          onClick={() => setQuantity(quantity + 1)}
+                          className="w-10 h-10 flex items-center justify-center hover:bg-muted transition-colors border-l border-border"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="mt-4 flex items-center justify-center">
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <span className="inline-block w-3 h-4 bg-muted-foreground/20 rounded-sm"></span> Secure transaction
@@ -273,9 +434,9 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
-          
+
           <hr className="my-10 border-border" />
-          
+
           {/* Bottom Section: Detailed Description & Specs */}
           <div className="max-w-4xl">
             <div className="mb-12">
@@ -305,7 +466,7 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
-          
+
         </div>
       </section>
     </Layout>
