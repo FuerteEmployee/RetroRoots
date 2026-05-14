@@ -145,6 +145,9 @@ const Products = () => {
                       src={getImageUrl(p.images?.[0] || p.image)}
                       alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
+                    {p.variants && p.variants.length > 0 && p.variants.every((v: any) => (v.stock || 0) === 0) && (
+                      <span className="absolute top-3 right-3 px-3 py-1 text-[10px] font-black uppercase tracking-widest bg-destructive text-destructive-foreground rounded-full shadow-lg">Out of Stock</span>
+                    )}
                     <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <span className="w-12 h-12 rounded-full bg-card flex items-center justify-center text-foreground cursor-pointer shadow-lg hover:scale-110 transition-transform"><Eye className="w-5 h-5" /></span>
                     </div>

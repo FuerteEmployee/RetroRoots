@@ -56,6 +56,7 @@ const InventoryPage = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
+      console.log("DEBUG: Inventory API Data:", data);
       setInventory(data);
     } catch (error) {
       console.error("Error fetching inventory:", error);
@@ -255,8 +256,11 @@ const InventoryPage = () => {
                   </TableCell>
                 </TableRow>
               ) : (
-                filteredInventory.map((item) => (
-                  <TableRow key={item._id} className="group">
+                filteredInventory.map((item, index) => (
+                  <TableRow 
+                    key={`${item.productId}-${item._id || index}`} 
+                    className={`group ${item.stock === 0 ? "bg-rose-50/50" : item.stock <= 5 ? "bg-amber-50/50" : ""}`}
+                  >
                     <TableCell>
                       <div className="w-12 h-12 rounded-lg bg-muted border overflow-hidden">
                         <img 

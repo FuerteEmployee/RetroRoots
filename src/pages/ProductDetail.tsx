@@ -41,13 +41,12 @@ const ProductDetail = () => {
   useEffect(() => {
     if (product && product.variants?.length > 0) {
       // Find matching variant based on selections
-      const match = product.variants.find((v: any) => 
-        (v.seatingCapacity?.toLowerCase() === selectedSeat?.toLowerCase() || !selectedSeat) &&
-        (v.color?.toLowerCase() === selectedColor?.toLowerCase() || !selectedColor) &&
-        (v.size === selectedSize || !selectedSize) &&
-        (v.type?.toLowerCase() === selectedType?.toLowerCase() || !selectedType)
+      const match = product.variants.find((v: any) =>
+        (v.seatingCapacity?.toString().trim().toLowerCase() === selectedSeat?.toString().trim().toLowerCase() || !selectedSeat) &&
+        (v.color?.toString().trim().toLowerCase() === selectedColor?.toString().trim().toLowerCase() || !selectedColor) &&
+        (v.size?.toString().trim().toLowerCase() === selectedSize?.toString().trim().toLowerCase() || !selectedSize)
       );
-      
+
       if (match) {
         setSelectedVariant(match);
         if (match.images?.length > 0) {
@@ -86,9 +85,21 @@ const ProductDetail = () => {
           setSelectedImage("/placeholder.svg");
         }
 
-        if (data.sizes?.length > 0) setSelectedSize(data.sizes[0]);
-        if (data.seats?.length > 0) setSelectedSeat(data.seats[0]);
-        if (data.colors?.length > 0) setSelectedColor(data.colors[0]);
+        if (data.variants && data.variants.length > 0) {
+          const firstVariant = data.variants[0];
+          setSelectedSize(firstVariant.size || "");
+          setSelectedSeat(firstVariant.seatingCapacity || "");
+          setSelectedColor(firstVariant.color || "");
+          setSelectedType(firstVariant.type || "");
+
+          if (firstVariant.images && firstVariant.images.length > 0) {
+            setSelectedImage(getImageUrl(firstVariant.images[0]));
+          }
+        } else {
+          if (data.sizes?.length > 0) setSelectedSize(data.sizes[0]);
+          if (data.seats?.length > 0) setSelectedSeat(data.seats[0]);
+          if (data.colors?.length > 0) setSelectedColor(data.colors[0]);
+        }
       })
       .catch(err => {
         console.error("Failed to fetch product:", err);
@@ -131,7 +142,7 @@ const ProductDetail = () => {
   const findAndSetMatchingImage = (clickedOption: string) => {
     if (!clickedOption || !imagesList || imagesList.length === 0) return;
     const keyword = clickedOption.toLowerCase().trim();
-    
+
     const currentSelections = {
       size: (selectedSize || "").toLowerCase().trim(),
       seat: (selectedSeat || "").toLowerCase().trim(),
@@ -145,21 +156,21 @@ const ProductDetail = () => {
     imagesList.forEach((img: any) => {
       if (!img || !img.label || typeof img.label !== 'string') return;
       const labels = img.label.toLowerCase().split(",").map((l: string) => l.trim());
-      
+
       let hasConflict = false;
       if (product.sizes) {
-        product.sizes.forEach((s: string) => { 
-          if (labels.includes(s.toLowerCase()) && s.toLowerCase() !== currentSelections.size && currentSelections.size) hasConflict = true; 
+        product.sizes.forEach((s: string) => {
+          if (labels.includes(s.toLowerCase()) && s.toLowerCase() !== currentSelections.size && currentSelections.size) hasConflict = true;
         });
       }
       if (product.seats) {
-        product.seats.forEach((s: string) => { 
-          if (labels.includes(s.toLowerCase()) && s.toLowerCase() !== currentSelections.seat && currentSelections.seat) hasConflict = true; 
+        product.seats.forEach((s: string) => {
+          if (labels.includes(s.toLowerCase()) && s.toLowerCase() !== currentSelections.seat && currentSelections.seat) hasConflict = true;
         });
       }
       if (product.colors) {
-        product.colors.forEach((c: string) => { 
-          if (labels.includes(c.toLowerCase()) && c.toLowerCase() !== currentSelections.color && currentSelections.color) hasConflict = true; 
+        product.colors.forEach((c: string) => {
+          if (labels.includes(c.toLowerCase()) && c.toLowerCase() !== currentSelections.color && currentSelections.color) hasConflict = true;
         });
       }
 
@@ -167,7 +178,7 @@ const ProductDetail = () => {
 
       const selectionsArray = [currentSelections.size, currentSelections.seat, currentSelections.color, currentSelections.clicked];
       const matchCount = selectionsArray.filter(s => s && labels.includes(s)).length;
-      
+
       if (matchCount > maxMatches) {
         maxMatches = matchCount;
         bestMatch = img;
@@ -186,9 +197,9 @@ const ProductDetail = () => {
     product.categoryName || "General") : "General";
 
   const imagesList = product?.images && product?.images.length > 0 ? product.images : (product?.image ? [product.image] : []);
-  const variantPrice = (product?.variants && product.variants.length > 0) ? Number(product.variants[0].price) : 0;
-  const currentPrice = product ? (Number(product.price) || variantPrice || 0) : 0;
-  const inStock = product?.stock !== undefined ? Number(product.stock) > 0 : true;
+  const currentPrice = selectedVariant?.price || Number(product?.price) || (product?.variants?.[0]?.price) || 0;
+  const currentSKU = selectedVariant?.sku || product?.sku || (product?.variants?.[0]?.sku) || "";
+  const inStock = selectedVariant ? Number(selectedVariant.stock) > 0 : (product?.stock !== undefined ? Number(product.stock) > 0 : true);
 
   const getStockStatusLabel = () => {
     if (selectedVariant) {
@@ -203,7 +214,7 @@ const ProductDetail = () => {
   // Final safety check before complex render logic
   try {
     // Fallbacks for rich data
-    const originalPrice = Number(product.mrp) || Math.floor(currentPrice * 1.15); 
+    const originalPrice = Number(product.mrp) || Math.floor(currentPrice * 1.15);
     const discount = originalPrice > 0 ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100) : 0;
 
     const rating = Number(product.rating) || 4.5;
@@ -248,10 +259,10 @@ const ProductDetail = () => {
                     alt={product.name || "Product"}
                     zoomLevel={2.5}
                   />
-                  
+
                   {(!isAvailable || (selectedVariant ? selectedVariant.stock === 0 : !inStock)) && (
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-20 flex items-center justify-center pointer-events-none rounded-2xl">
-                      <div className="bg-rose-600 text-white px-8 py-3 rounded-full font-black text-xl shadow-2xl transform -rotate-12 border-4 border-white animate-pulse">
+                      <div className="bg-rose-600 text-black px-8 py-3 rounded-full font-black text-xl shadow-2xl transform -rotate-12 border-4 border-white animate-pulse">
                         OUT OF STOCK
                       </div>
                     </div>
@@ -298,7 +309,7 @@ const ProductDetail = () => {
                   </div>
 
                   <div className="flex items-end gap-3 mb-8">
-                    <span className="text-4xl font-bold text-foreground">₹{(selectedVariant?.price || currentPrice).toLocaleString()}</span>
+                    <span className="text-4xl font-bold text-foreground">₹{(selectedVariant?.price !== undefined ? selectedVariant.price : currentPrice).toLocaleString()}</span>
                     {discount > 0 && (
                       <>
                         <span className="text-lg text-muted-foreground line-through mb-1">₹{originalPrice.toLocaleString()}</span>
@@ -325,7 +336,7 @@ const ProductDetail = () => {
                               setSelectedSeat(seat);
                               findAndSetMatchingImage(seat);
                             }}
-                            className={`px-5 py-2.5 text-sm font-bold rounded-full border-2 transition-all duration-300 ${selectedSeat === seat ? 'border-primary bg-primary text-white shadow-lg shadow-primary/30' : 'border-border bg-white hover:border-primary/50 text-foreground/70'}`}
+                            className={`px-5 py-2.5 text-sm font-black rounded-full border-2 transition-all duration-300 ${selectedSeat === seat ? 'border-primary bg-primary text-black shadow-lg shadow-primary/30' : 'border-border bg-white hover:border-primary/50 text-foreground/70 text-black'}`}
                           >
                             {seat}
                           </button>
@@ -350,7 +361,7 @@ const ProductDetail = () => {
                             "Olive Green": "#808000"
                           };
                           const hex = colorMap[color] || color.toLowerCase();
-                          
+
                           return (
                             <button
                               key={color}
@@ -362,12 +373,12 @@ const ProductDetail = () => {
                               className={`group relative flex flex-col items-center gap-2`}
                             >
                               <div className={`w-12 h-12 rounded-full border-4 transition-all duration-300 flex items-center justify-center ${selectedColor === color ? 'border-primary scale-110 shadow-lg' : 'border-transparent hover:border-border scale-100'}`}>
-                                <span 
-                                  className="w-full h-full rounded-full border border-black/10 shadow-inner" 
+                                <span
+                                  className="w-full h-full rounded-full border border-black/10 shadow-inner"
                                   style={{ backgroundColor: hex }}
                                 />
                               </div>
-                              <span className={`text-[10px] font-bold uppercase transition-colors ${selectedColor === color ? 'text-primary' : 'text-muted-foreground'}`}>{color}</span>
+                              <span className={`text-[10px] font-bold uppercase transition-colors ${selectedColor === color ? 'text-black' : 'text-muted-foreground'}`}>{color}</span>
                             </button>
                           );
                         })}
@@ -387,7 +398,7 @@ const ProductDetail = () => {
                               setSelectedSize(size);
                               findAndSetMatchingImage(size);
                             }}
-                            className={`px-5 py-2.5 text-sm font-bold rounded-full border-2 transition-all duration-300 ${selectedSize === size ? 'border-primary bg-primary text-white shadow-lg shadow-primary/30' : 'border-border bg-white hover:border-primary/50 text-foreground/70'}`}
+                            className={`px-5 py-2.5 text-sm font-bold rounded-full border-2 transition-all duration-300 ${selectedSize === size ? 'border-primary bg-primary text-black shadow-lg shadow-primary/30' : 'border-border bg-white hover:border-primary/50 text-foreground/70 text-black'}`}
                           >
                             {size}
                           </button>
@@ -419,28 +430,26 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="flex-1 w-full space-y-4">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between p-4 bg-muted/30 rounded-2xl border border-border/50 mb-6">
                         <div className="flex flex-col">
-                          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Availability</span>
+                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-1">Availability</span>
                           {getStockStatusLabel()}
                         </div>
-                        {selectedVariant?.sku && (
-                          <div className="text-right">
-                            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">SKU</span>
-                            <p className="text-sm font-mono font-bold">{selectedVariant.sku}</p>
-                          </div>
-                        )}
+                        <div className="text-right">
+                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-1">SKU</span>
+                          <p className="text-sm font-mono font-bold text-primary">{currentSKU || "N/A"}</p>
+                        </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
-                        <Button 
+                        <Button
                           disabled={!isAvailable || (selectedVariant ? selectedVariant.stock === 0 : !inStock)}
                           className="h-14 rounded-full text-lg font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:bg-muted disabled:text-muted-foreground"
                         >
                           {(!isAvailable || (selectedVariant ? selectedVariant.stock === 0 : !inStock)) ? (
                             <>
                               <XCircle className="w-5 h-5 mr-2" />
-                              Sold Out
+                              Out of Stock
                             </>
                           ) : (
                             <>
@@ -449,7 +458,7 @@ const ProductDetail = () => {
                             </>
                           )}
                         </Button>
-                        <Button 
+                        <Button
                           variant="outline"
                           disabled={!isAvailable || (selectedVariant ? selectedVariant.stock === 0 : !inStock)}
                           className="h-14 rounded-full text-lg font-bold border-2 hover:bg-muted transition-all disabled:opacity-50"

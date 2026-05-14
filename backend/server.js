@@ -43,7 +43,9 @@ app.use("/api/settings", require("./routes/settings"));
 app.use("/api/seo", require("./routes/seo"));
 app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/api/inventory", require("./routes/inventory"));
+app.use("/api/orders", require("./routes/orders"));
 app.use("/api/upload", require("./routes/upload"));
+
 
 app.get("/", (req, res) => res.json({ message: "RetroRoots CMS API Running" }));
 

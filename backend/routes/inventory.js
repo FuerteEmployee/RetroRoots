@@ -6,22 +6,25 @@ const Product = require("../models/Product");
 router.get("/", auth, async (req, res) => {
   try {
     const products = await Product.find().populate("category", "name");
-    let allVariants = [];
+    console.log(`Inventory: Processing ${products.length} products`);
     
+    let allVariants = [];
     products.forEach(product => {
-      if (product.variants && product.variants.length > 0) {
-        product.variants.forEach(variant => {
+      const variants = product.variants || [];
+      if (Array.isArray(variants)) {
+        variants.forEach(variant => {
           allVariants.push({
+            ...(variant.toObject ? variant.toObject() : variant),
             productId: product._id,
             productName: product.name,
             category: product.category?.name || "Uncategorized",
-            productImages: product.images, // Fallback images
-            ...variant.toObject()
+            productImages: product.images
           });
         });
       }
     });
 
+    console.log(`Inventory: Total variants flattened: ${allVariants.length}`);
     res.json(allVariants);
   } catch (err) {
     res.status(500).json({ message: err.message });
