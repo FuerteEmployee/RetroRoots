@@ -805,12 +805,12 @@ const Navbar = () => {
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-border">
 
                 {/* ✅ FIX: Sale circle & text always black in mobile too */}
-                <Link to="/products?on_sale=true" className="flex flex-col items-center gap-1.5">
+                {/* <Link to="/products?on_sale=true" className="flex flex-col items-center gap-1.5">
                   <div className="w-16 h-16 rounded-full flex items-end justify-center bg-black text-white border-2 border-black shadow-md">
                     <span className="text-[10px] font-black italic uppercase pb-1">Sale</span>
                   </div>
                   <span className="text-[10px] font-bold uppercase text-black">Sale</span>
-                </Link>
+                </Link> */}
 
                 {categories.map((cat) => (
                   <Link key={cat.label} to={`/products?category=${cat.slug}`} className="flex flex-col items-center gap-1.5">
