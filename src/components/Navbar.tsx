@@ -631,9 +631,7 @@ const Navbar = () => {
             <span className="flex items-center gap-1.5 opacity-90 transition-opacity hover:opacity-100 cursor-pointer">
               <MapPin className="w-3 h-3 sm:w-4 sm:h-4" /> Delivering To
             </span>
-            <span className="hidden md:flex items-center gap-1.5 opacity-90 transition-opacity hover:opacity-100 cursor-pointer border-l border-white/20 pl-5">
-              Download Our Apps
-            </span>
+
             <span className="hidden md:flex items-center gap-1.5 opacity-90 transition-opacity hover:opacity-100 cursor-pointer border-l border-white/20 pl-5">
               Track Furniture Order
             </span>

@@ -5,18 +5,17 @@ import { Check, Mail, Sofa, Utensils, Home, Briefcase, Bed, Clock } from "lucide
 
 const stats = [
   { label: "Products Sold", value: "10K+" },
-  { label: "Years Service", value: "35" },
-  { label: "Outlets Worldwide", value: "450" },
+
   { label: "Satisfied Customers", value: "1000+" },
 ];
 
 const categories = [
-  { name: "Dining Room", icon: Utensils },
-  { name: "Living Room", icon: Sofa },
-  { name: "Kitchen", icon: Home },
-  { name: "Office", icon: Briefcase },
-  { name: "Bed Room", icon: Bed },
-  { name: "Waiting Hall", icon: Clock },
+  { name: "Dining Room", icon: Utensils, image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600" },
+  { name: "Living Room", icon: Sofa, image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=600" },
+  { name: "Kitchen", icon: Home, image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=600" },
+  { name: "Office", icon: Briefcase, image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=600" },
+  { name: "Bed Room", icon: Bed, image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=600" },
+  { name: "Waiting Hall", icon: Clock, image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=600" },
 ];
 
 const About = () => (
@@ -75,18 +74,18 @@ const About = () => (
 
       {/* Stats Bar */}
       <section className="relative h-64 flex items-center overflow-hidden">
-         <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=2000" alt="Background" className="absolute inset-0 w-full h-full object-cover brightness-[0.1]" />
-         <div className="absolute inset-0 bg-black/40" />
-         <div className="container mx-auto relative z-10 px-4 text-white">
-           <div className="grid grid-cols-2 lg:grid-cols-4 items-center">
-              {stats.map((stat, i) => (
-                <div key={stat.label} className={`flex flex-col items-center justify-center p-8 ${i !== stats.length -1 ? "lg:border-r border-white/20" : ""}`}>
-                  <span className="text-4xl font-bold mb-2 tracking-tighter">{stat.value}</span>
-                  <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-gray-300 text-center">{stat.label}</span>
-                </div>
-              ))}
-           </div>
-         </div>
+        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=2000" alt="Background" className="absolute inset-0 w-full h-full object-cover brightness-[0.1]" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="container mx-auto relative z-10 px-4 text-white ">
+          <div className="grid grid-cols-6 lg:grid-cols-2 items-center">
+            {stats.map((stat, i) => (
+              <div key={stat.label} className={`flex flex-col items-center justify-center p-8 ${i !== stats.length - 1 ? "lg:border-r border-white/20" : ""}`}>
+                <span className="text-4xl font-bold mb-2 tracking-tighter">{stat.value}</span>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-gray-300 text-center">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Customized Furniture Section */}
@@ -98,20 +97,26 @@ const About = () => (
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-            <div className="bg-white border border-gray-200 shadow-sm rounded-3xl p-8 flex items-center justify-center min-h-[400px]">
-               <div className="text-center">
-                  <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                    <p className="text-xs text-gray-400 font-bold tracking-widest">SHOWCASE</p>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Our Manufacturing Experience</p>
-               </div>
+            <div className="relative group bg-white border border-gray-200 shadow-sm rounded-3xl overflow-hidden flex items-center justify-center min-h-[400px]">
+              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200" alt="Manufacturing" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-75" />
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="text-center relative z-10">
+                <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mx-auto mb-6">
+                  <p className="text-xs text-white font-bold tracking-widest">SHOWCASE</p>
+                </div>
+                <p className="text-sm text-white font-medium drop-shadow-md">Our Manufacturing Experience</p>
+              </div>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               {categories.map((cat) => (
-                <div key={cat.name} className="bg-white border border-gray-100 p-8 rounded-2xl flex flex-col items-center justify-center hover:shadow-md transition-all cursor-pointer group hover:border-primary/20">
-                  <cat.icon className="w-8 h-8 text-primary mb-4 transition-transform group-hover:scale-110" />
-                  <span className="text-sm font-semibold tracking-wide text-gray-700">{cat.name}</span>
+                <div key={cat.name} className="relative overflow-hidden bg-black border border-gray-100 p-8 rounded-2xl flex flex-col items-center justify-center hover:shadow-xl transition-all cursor-pointer group min-h-[180px]">
+                  <img src={cat.image} alt={cat.name} className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="relative z-10 flex flex-col items-center text-center">
+                    <cat.icon className="w-8 h-8 text-white mb-4 transition-transform group-hover:scale-110" />
+                    <span className="text-sm font-bold tracking-wider text-white uppercase">{cat.name}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -121,24 +126,24 @@ const About = () => (
 
       {/* Newsletter / CTA Section */}
       <section className="py-32 relative overflow-hidden text-center bg-white">
-         <div className="container mx-auto relative z-10 px-4 max-w-2xl">
-            <p className="text-primary text-[10px] uppercase font-bold tracking-[0.4em] mb-4">Art of Comfort</p>
-            <h2 className="text-4xl md:text-5xl font-serif mb-12 text-black">Transforming Spaces,<br />Transforming Style</h2>
-            
-            <form className="relative max-w-md mx-auto mb-6">
-              <input 
-                type="email" 
-                placeholder="Enter your mail id here" 
-                className="w-full bg-gray-50 border border-gray-200 rounded-full py-4 px-8 pr-16 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
-              />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white p-2.5 rounded-full hover:opacity-90 transition-all shadow-lg">
-                <Mail className="w-5 h-5" />
-              </button>
-            </form>
-            <p className="text-[10px] text-muted-foreground font-medium">
-               Your email is safe with us, we dont spam. <Link to="/privacy" className="underline hover:text-primary">Privacy Policy</Link>
-            </p>
-         </div>
+        <div className="container mx-auto relative z-10 px-4 max-w-2xl">
+          <p className="text-primary text-[10px] uppercase font-bold tracking-[0.4em] mb-4">Art of Comfort</p>
+          <h2 className="text-4xl md:text-5xl font-serif mb-12 text-black">Transforming Spaces,<br />Transforming Style</h2>
+
+          <form className="relative max-w-md mx-auto mb-6">
+            <input
+              type="email"
+              placeholder="Enter your mail id here"
+              className="w-full bg-gray-50 border border-gray-200 rounded-full py-4 px-8 pr-16 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
+            />
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white p-2.5 rounded-full hover:opacity-90 transition-all shadow-lg">
+              <Mail className="w-5 h-5" />
+            </button>
+          </form>
+          <p className="text-[10px] text-muted-foreground font-medium">
+            Your email is safe with us, we dont spam. <Link to="/privacy" className="underline hover:text-primary">Privacy Policy</Link>
+          </p>
+        </div>
       </section>
     </div>
   </Layout>
