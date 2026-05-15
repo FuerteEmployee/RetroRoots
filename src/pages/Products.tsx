@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Eye, Play, Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import { getProducts } from "@/lib/api";
 import { API_BASE_URL } from "@/contexts/AuthContext";
-import { getImageUrl, toSlug } from "@/lib/utils";
+import { getImageUrl, toSlug, getProductDisplayImage } from "@/lib/utils";
 
 const industries = ["All", "Living Room", "Dining Room", "Bedroom", "Outdoor", "Office"];
 
@@ -140,10 +140,26 @@ const Products = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {filtered.map(p => (
                 <Link to={`/product/${p._id}`} key={p._id} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
-                  <div className="relative aspect-square">
-                    <img
-                      src={getImageUrl(p.images?.[0] || p.image)}
-                      alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
+                  <div className="relative aspect-square bg-muted">
+                    {(() => {
+                      const displayImage = getProductDisplayImage(p);
+                      if (!displayImage) {
+                        return (
+                          <div className="w-full h-full flex flex-col items-center justify-center bg-muted text-muted-foreground">
+                            <Eye className="w-8 h-8 opacity-20 mb-2" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider">No Image Available</span>
+                          </div>
+                        );
+                      }
+                      return (
+                        <img
+                          src={getImageUrl(displayImage)}
+                          alt={p.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                      );
+                    })()}
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                     {p.variants && p.variants.length > 0 && p.variants.every((v: any) => (v.stock || 0) === 0) && (
                       <span className="absolute top-3 right-3 px-3 py-1 text-[10px] font-black uppercase tracking-widest bg-destructive text-destructive-foreground rounded-full shadow-lg">Out of Stock</span>

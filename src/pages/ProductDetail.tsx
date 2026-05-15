@@ -601,11 +601,12 @@ const ProductDetail = () => {
 
       if (match) {
         setSelectedVariant(match);
-        if (match.images?.length > 0) {
+        if (match.images && match.images.length > 0) {
           setSelectedImage(getImageUrl(match.images[0]));
         } else {
           findAndSetMatchingImage(selectedColor || selectedSeat || selectedSize);
         }
+        setIsAvailable(match.isVisible !== false && match.stock > 0);
       } else {
         setSelectedVariant(null);
         setIsAvailable(false);
@@ -742,7 +743,9 @@ const ProductDetail = () => {
     (typeof product.category === 'object' ? product.category?.name : product.category) ||
     product.categoryName || "General") : "General";
 
-  const imagesList = product?.images && product?.images.length > 0 ? product.images : (product?.image ? [product.image] : []);
+  const imagesList = (selectedVariant?.images && selectedVariant.images.length > 0)
+    ? selectedVariant.images
+    : (product?.images && product?.images.length > 0 ? product.images : (product?.image ? [product.image] : []));
   const currentPrice = selectedVariant?.price || Number(product?.price) || (product?.variants?.[0]?.price) || 0;
   const currentSKU = selectedVariant?.sku || product?.sku || (product?.variants?.[0]?.sku) || "";
   const inStock = selectedVariant ? Number(selectedVariant.stock) > 0 : (product?.stock !== undefined ? Number(product.stock) > 0 : true);
@@ -899,10 +902,33 @@ const ProductDetail = () => {
                             "Brown": "#A52A2A",
                             "Black": "#000000",
                             "Cream": "#FFFDD0",
+                            "White": "#FFFFFF",
                             "Navy Blue": "#000080",
-                            "Olive Green": "#808000"
+                            "Olive Green": "#808000",
+                            "Red": "#CC0000",
+                            "Blue": "#1E40AF",
+                            "Green": "#166534",
+                            "Yellow": "#EAB308",
+                            "Orange": "#EA580C",
+                            "Pink": "#DB2777",
+                            "Purple": "#7C3AED",
                           };
-                          const hex = colorMap[color] || color.toLowerCase();
+
+                          // Parse dual/multi colors: "Black & Grey", "Black and Grey", "Black/Grey"
+                          const parseColors = (colorStr: string): string[] => {
+                            return colorStr
+                              .split(/\s*[&\/]\s*|\s+and\s+/i)
+                              .map(c => c.trim())
+                              .filter(Boolean);
+                          };
+
+                          const colorParts = parseColors(color);
+                          const isDual = colorParts.length >= 2;
+
+                          const resolveHex = (name: string) =>
+                            colorMap[name] ||
+                            colorMap[name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()] ||
+                            name.toLowerCase();
 
                           return (
                             <button
@@ -914,13 +940,34 @@ const ProductDetail = () => {
                               title={color}
                               className="group relative flex flex-col items-center gap-1"
                             >
-                              <div className={`w-9 h-9 rounded-full border-4 transition-all duration-300 flex items-center justify-center ${selectedColor === color ? 'border-primary scale-110 shadow-md' : 'border-transparent hover:border-border scale-100'}`}>
-                                <span
-                                  className="w-full h-full rounded-full border border-black/10 shadow-inner"
-                                  style={{ backgroundColor: hex }}
-                                />
+                              <div
+                                className={`w-9 h-9 rounded-full border-4 transition-all duration-300 flex items-center justify-center overflow-hidden
+                ${selectedColor === color
+                                    ? 'border-primary scale-110 shadow-md'
+                                    : 'border-transparent hover:border-border scale-100'}`}
+                              >
+                                {isDual ? (
+                                  // Dual color: left half + right half using conic-gradient
+                                  <span
+                                    className="w-full h-full rounded-full border border-black/10 shadow-inner"
+                                    style={{
+                                      background: `conic-gradient(
+                      ${resolveHex(colorParts[0])} 0deg 180deg,
+                      ${resolveHex(colorParts[1])} 180deg 360deg
+                    )`,
+                                    }}
+                                  />
+                                ) : (
+                                  // Single color
+                                  <span
+                                    className="w-full h-full rounded-full border border-black/10 shadow-inner"
+                                    style={{ backgroundColor: resolveHex(colorParts[0]) }}
+                                  />
+                                )}
                               </div>
-                              <span className="text-[9px] font-bold uppercase text-black">{color}</span>
+                              <span className="text-[9px] font-bold uppercase text-black text-center leading-tight max-w-[48px]">
+                                {color}
+                              </span>
                             </button>
                           );
                         })}

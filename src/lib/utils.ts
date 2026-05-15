@@ -27,6 +27,20 @@ export const getImageUrl = (image: any) => {
   return `${baseUrl}/uploads/${url}`;
 };
 
+export const getProductDisplayImage = (p: any) => {
+  if (!p) return null;
+  // 1. First variation image
+  if (p.variants && p.variants.length > 0 && p.variants[0].images && p.variants[0].images.length > 0) {
+    return p.variants[0].images[0];
+  }
+  // 2. Product featured image (new field)
+  if (p.images && p.images.length > 0) {
+    return p.images[0];
+  }
+  // 3. Fallback to legacy image field
+  return p.image;
+};
+
 export const toSlug = (text: string) => {
   if (!text) return "";
   return text

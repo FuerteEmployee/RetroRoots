@@ -6,7 +6,7 @@ import catLounger from "@/assets/category-lounger.png";
 import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 import { useState, useEffect } from "react";
 import { useAuth, API_BASE_URL } from "@/contexts/AuthContext";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, getProductDisplayImage } from "@/lib/utils";
 
 const dummyProducts = [
   { name: "Royal Velvet Sofa", categoryName: "Sofa", tag: "Bestseller", image: catSofa },
@@ -42,7 +42,7 @@ const ProductsSection = () => {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((p, idx) => {
-            const imgUrl = getImageUrl(p.images?.[0] || p.image);
+            const imgUrl = getImageUrl(getProductDisplayImage(p));
             const categoryName = p.category?.name || p.categoryId?.name || p.categoryName;
             return (
               <Link key={p._id || idx} to={`/product/${p._id || p.id || idx}`} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
