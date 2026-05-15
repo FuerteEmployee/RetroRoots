@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Link } from "react-router-dom";
 import { Eye, Play, Search, SlidersHorizontal, Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getProducts } from "@/lib/api";
 import { API_BASE_URL } from "@/contexts/AuthContext";
 import { getImageUrl, toSlug, getProductDisplayImage } from "@/lib/utils";
@@ -130,11 +131,19 @@ const Products = () => {
             </div>
           </div>
 
-          <p className="text-sm text-muted-foreground mb-6">{filtered.length} products found</p>
+          {!loading && <p className="text-sm text-muted-foreground mb-6">{filtered.length} products found</p>}
 
           {loading ? (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="space-y-4">
+                  <Skeleton className="aspect-square w-full rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-4 w-full" />
+                  </div>
+                </div>
+              ))}
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -164,16 +173,12 @@ const Products = () => {
                     {p.variants && p.variants.length > 0 && p.variants.every((v: any) => (v.stock || 0) === 0) && (
                       <span className="absolute top-3 right-3 px-3 py-1 text-[10px] font-black uppercase tracking-widest bg-destructive text-destructive-foreground rounded-full shadow-lg">Out of Stock</span>
                     )}
-                    <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="w-12 h-12 rounded-full bg-card flex items-center justify-center text-foreground cursor-pointer shadow-lg hover:scale-110 transition-transform"><Eye className="w-5 h-5" /></span>
-                    </div>
                   </div>
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs text-primary font-medium">
                         {(typeof p.categoryId === 'object' ? p.categoryId?.name : p.categoryId) || (typeof p.category === 'object' ? p.category?.name : p.category)}
                       </span>
-                      {/* <span className="text-xs text-muted-foreground">• {p.industryTags?.[0] || 'General'}</span> */}
                     </div>
                     <h3 className="font-semibold text-foreground text-sm line-clamp-1">{p.name}</h3>
                     <span className="mt-2 text-xs text-primary font-medium group-hover:underline block">View Details →</span>

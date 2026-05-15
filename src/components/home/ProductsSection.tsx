@@ -1,4 +1,5 @@
 import { Eye, Play } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
 import catSofa from "@/assets/category-sofa.jpg";
 import catDiningChair from "@/assets/category-dining-chair.png";
@@ -41,25 +42,34 @@ const ProductsSection = () => {
           <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">Featured Products</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {products.map((p, idx) => {
-            const imgUrl = getImageUrl(getProductDisplayImage(p));
-            const categoryName = p.category?.name || p.categoryId?.name || p.categoryName;
-            return (
-              <Link key={p._id || idx} to={`/product/${p._id || p.id || idx}`} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
-                <div className="relative aspect-square">
-                  <img src={imgUrl} alt={p.name} className="w-full h-full object-cover" loading="lazy" width={400} height={400} />
-                  {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
-                  <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="w-12 h-12 rounded-full bg-card flex items-center justify-center text-foreground shadow-lg hover:scale-110 transition-transform"><Eye className="w-5 h-5" /></span>
+          {loading ? (
+            [...Array(4)].map((_, i) => (
+              <div key={i} className="space-y-4">
+                <Skeleton className="aspect-square w-full rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-2/3" />
+                  <Skeleton className="h-4 w-full" />
+                </div>
+              </div>
+            ))
+          ) : (
+            products.map((p, idx) => {
+              const imgUrl = getImageUrl(getProductDisplayImage(p));
+              const categoryName = p.category?.name || p.categoryId?.name || p.categoryName;
+              return (
+                <Link key={p._id || idx} to={`/product/${p._id || p.id || idx}`} className="bg-card rounded-xl overflow-hidden border border-border card-hover group cursor-pointer block">
+                  <div className="relative aspect-square overflow-hidden">
+                    <img src={imgUrl} alt={p.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" width={400} height={400} />
+                    {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                   </div>
-                </div>
-                <div className="p-4">
-                  <p className="text-xs text-primary mb-1 font-medium">{categoryName}</p>
-                  <h3 className="font-semibold text-foreground text-sm">{p.name}</h3>
-                </div>
-              </Link>
-            )
-          })}
+                  <div className="p-4">
+                    <p className="text-xs text-primary mb-1 font-medium">{categoryName}</p>
+                    <h3 className="font-semibold text-foreground text-sm line-clamp-1">{p.name}</h3>
+                  </div>
+                </Link>
+              )
+            })
+          )}
         </div>
         <div className="text-center mt-8">
           <Link to="/products" className="inline-block px-8 py-3 border-2 border-black text-black font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
