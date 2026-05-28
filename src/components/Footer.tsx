@@ -522,7 +522,10 @@
 // export default Footer;
 
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, Twitter, Apple, Send, HelpCircle, MessageCircle } from "lucide-react";
+import { Facebook, Instagram, MapPin, Phone, Mail, Twitter, Apple, Send, HelpCircle, MessageCircle } from "lucide-react";
+import catSofa from "@/assets/category-sofa.jpg";
+import catLoungeChair from "@/assets/category-lounge-chair.jpg";
+import catLounger from "@/assets/category-lounger.png";
 
 const Footer = () => (
   <footer className="bg-white text-black font-sans">
@@ -545,36 +548,27 @@ const Footer = () => (
     </div>
 
     {/* Middle Section: Links */}
-    <div className="border-t border-gray-100">
+    <div className="border-t border-gray-100 px-10 ">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
           {/* Brand Column */}
-          <div className="lg:col-span-1">
-            <img src="/logo.png" alt="Retro Roots" className="h-12 mb-6 object-contain" />
+          <div className="lg:col-span-3">
+            <img src="/logo.png" alt="Retro Roots" className="h-20 mb-6 object-contain" />
             <p className="text-gray-500 text-xl md:text-sm leading-relaxed">
               At Retro Roots, every sofa is more than just furniture — it's a story of comfort, craftsmanship, and character.
             </p>
           </div>
 
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Navigate</h4>
             <div className="flex flex-col gap-4">
-              {[{ l: "Home", p: "/" }, { l: "About Us", p: "/about" }, { l: "Products", p: "/products" }, { l: "Gallery", p: "/gallery" }, { l: "Blog", p: "/blog" }, { l: "Contact", p: "/contact" }].map(({ l, p }) => (
+              {[{ l: "Home", p: "/" }, { l: "About Us", p: "/about" }, { l: "Products", p: "/products" }, { l: "Blog", p: "/blog" }, { l: "Contact", p: "/contact" }].map(({ l, p }) => (
                 <Link key={l} to={p} className="text-xl md:text-sm text-gray-400 hover:text-black transition-colors">{l}</Link>
               ))}
             </div>
           </div>
 
-          <div>
-            <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Business</h4>
-            <div className="flex flex-col gap-4">
-              {[{ l: "Become a Distributor", p: "/distributor" }, { l: "Find a Distributor", p: "/distributor-finder" }, { l: "Certificates", p: "/certificates" }, { l: "Expo & Events", p: "/expo" }, { l: "Careers", p: "/careers" }, { l: "PR & News", p: "/pr-news" }].map(({ l, p }) => (
-                <Link key={l} to={p} className="text-xl md:text-sm text-gray-400 hover:text-black transition-colors">{l}</Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
+          <div className="lg:col-span-4">
             <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Contact</h4>
             <div className="flex flex-col gap-4 text-xl md:text-sm text-gray-400">
               <div className="flex gap-3 items-start">
@@ -595,9 +589,7 @@ const Footer = () => (
                 {[
                   { Icon: Facebook, url: "https://www.facebook.com/retrorootsofficial" },
                   { Icon: Instagram, url: "https://www.instagram.com/retro_roots.in/" },
-                  { Icon: MessageCircle, url: "https://api.whatsapp.com/send/?phone=919998388321&text&type=phone_number&app_absent=0" },
-                  { Icon: Linkedin, url: "#" },
-                  { Icon: Youtube, url: "#" }
+                  { Icon: MessageCircle, url: "https://api.whatsapp.com/send/?phone=919998388321&text&type=phone_number&app_absent=0" }
                 ].map(({ Icon, url }, i) => (
                   <a
                     key={i}
@@ -610,6 +602,71 @@ const Footer = () => (
                   </a>
                 ))}
               </div>
+
+
+            </div>
+          </div>
+
+          {/* Instagram Column */}
+          <div className="lg:col-span-3">
+            <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Instagram</h4>
+            <div className="bg-[#121212] text-white p-4 rounded-xl flex items-center justify-between shadow-md mb-4 border border-white/5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 flex items-center justify-center p-0.5">
+                  <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                    <Instagram className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div className="text-left">
+                  <h5 className="font-bold text-xs leading-none">retro_roots.in</h5>
+                  <p className="text-[10px] text-gray-400 mt-1">Retro Roots</p>
+                </div>
+              </div>
+              <a
+                href="https://www.instagram.com/retro_roots.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#D4B785] hover:bg-[#cbb07a] text-black font-bold text-xs px-4 py-1.5 rounded-lg transition-colors shadow-sm"
+              >
+                Follow
+              </a>
+            </div>
+
+            {/* Instagram Posts Grid */}
+            <div className="grid grid-cols-3 gap-2">
+              <a
+                href="https://www.instagram.com/retro_roots.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
+              >
+                <img src={catSofa} alt="Calm Interiors" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-1 opacity-100 transition-opacity">
+                  <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Calm Interiors</span>
+                </div>
+              </a>
+              <a
+                href="https://www.instagram.com/retro_roots.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
+              >
+                <img src={catLoungeChair} alt="Comfort Seat" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/40 flex items-start justify-center p-1 opacity-100 transition-opacity pt-2">
+                  <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Comfort in Every Seat</span>
+                </div>
+              </a>
+              <a
+                href="https://www.instagram.com/retro_roots.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
+              >
+                <img src={catLounger} alt="Made For Unwinding" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/40 flex items-start justify-center p-1 opacity-100 transition-opacity pt-2">
+                  <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Made for Unwinding</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -618,20 +675,11 @@ const Footer = () => (
 
     {/* Bottom Bar: Copyright & Links */}
     <div className="border-t border-gray-100 bg-[#F9F9F9] py-8">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-8">
-          <img src="/logo.png" alt="Retro Roots" className="h-8 opacity-80" />
-          <p className="text-sm text-gray-500 font-medium tracking-wide leading-relaxed">
-            Terms & Conditions - Privacy Policy
-          </p>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <p className="text-sm text-gray-400">© 2026 RetroRoots. | All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link to="/privacy" className="text-sm text-gray-400 hover:text-black transition-colors underline decoration-gray-200">Privacy Policy</Link>
-            <Link to="/delivery" className="text-sm text-gray-400 hover:text-black transition-colors underline decoration-gray-200">Delivery Info</Link>
-          </div>
+      <div className="container mx-auto px-4 flex flex-col items-center justify-center gap-4 text-center">
+        <p className="text-sm text-gray-400">© 2026 RetroRoots. | All rights reserved.</p>
+        <div className="flex gap-6">
+          <Link to="/privacy" className="text-sm text-gray-400 hover:text-black transition-colors underline decoration-gray-200">Privacy Policy</Link>
+          <Link to="/delivery" className="text-sm text-gray-400 hover:text-black transition-colors underline decoration-gray-200">Delivery Info</Link>
         </div>
       </div>
     </div>

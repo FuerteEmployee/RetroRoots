@@ -8,7 +8,7 @@ import heroSofa from "@/assets/hero-sofa.jpg";
 const slides = [
   {
     image: heroBar,
-    tagline: "Unmatched Comfort",
+    // tagline: "Unmatched Comfort",
     heading: "Where Classic Design Meets Modern Living.",
     description: "Every sofa we craft is a story of comfort, craftsmanship, and character. Inspired by the timeless aesthetics of retro décor, we bring back the elegance of the past with the functionality and luxury of today.",
     cta: "Shop Now",
@@ -16,18 +16,18 @@ const slides = [
   },
   {
     image: heroChair,
-    tagline: "Ergonomic Luxury",
-    heading: "Enjoy With Style & Comfort",
-    description: "Feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam ut porttitor leo a diam sollicitudin. Nam at lectus urna duis convallis. At urna condimentum pretium lectus pretium lectus quam mattis pellentesque id nibh tortor id.",
+    // tagline: "Ergonomic Luxury",
+    heading: "Timeless Pieces For Modern Homes.",
+    description: "Discover our curated collection of premium furniture that blends classic craftsmanship with contemporary sensibility. Each piece tells a story of heritage and refined taste.",
     cta: "Explore More",
     link: "/products"
   },
   {
     image: heroSofa,
-    tagline: "Elegant Spaces",
-    heading: "Embrace The Beauty Of Fine Furniture",
-    description: "Ut placerat orci nulla pellentesque posuere lorem ipsum dolor. A condimentum vitae sapien pellentesque habitant morbi tristique senectus. Faucibus turpis in eu mi pellentesque posuere bibendum neque egestas. Maecenas accumsan lacus vel facilisis volutpat.",
-    cta: "Our Collection",
+    // tagline: "Elegant Spaces",
+    heading: "Crafted For Perfect Living.",
+    description: "Experience the art of fine furniture-making with our exclusive range. Handpicked materials, expert artisanship, and sophisticated design come together to transform your living space.",
+    cta: "Discover More",
     link: "/products"
   },
 ];
@@ -46,7 +46,7 @@ const HeroSlider = () => {
       ))}
       <div className="relative z-10 h-full flex items-center">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-2xl animate-fade-in-up">
+          <div className="max-w-2xl mx-auto text-center animate-fade-in-up">
             {slides[current].tagline && (
               <span className="inline-block text-white font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4">
                 {slides[current].tagline}
@@ -55,7 +55,7 @@ const HeroSlider = () => {
             <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-4">
               {slides[current].heading}
             </h1>
-            <p className="text-white/90 text-sm md:text-lg mb-8 leading-relaxed max-w-xl">
+            <p className="text-white/90 text-sm md:text-lg mb-8 leading-relaxed max-w-xl mx-auto">
               {slides[current].description}
             </p>
             <Link to={slides[current].link} className="inline-block px-10 py-4 gold-gradient text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-all hover:scale-105 transform duration-300 text-sm tracking-widest uppercase">

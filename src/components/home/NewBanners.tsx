@@ -51,7 +51,7 @@ const NewBanners = () => {
       </section>
 
       {/* 2. 2x2 grid promotions */}
-      <section className="py-8 bg-gray-50">
+      {/* <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-[#D4B785] p-6 md:p-10 text-center rounded-xl relative overflow-hidden group">
@@ -90,7 +90,7 @@ const NewBanners = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 3. Luxury Banner Segment */}
       <section className="py-8">
@@ -122,9 +122,9 @@ const NewBanners = () => {
             </div>
             <div className="group">
               <div className="aspect-video rounded-xl overflow-hidden mb-3 shadow-sm">
-                <img src={catDiningChair} alt="Elite Dining" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={catDiningChair} alt="Dining Chair" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <p className="text-center font-bold text-base text-gray-800 uppercase tracking-widest">Elite Dining</p>
+              <p className="text-center font-bold text-base text-gray-800 uppercase tracking-widest"> Dining Chair</p>
             </div>
           </div>
 
@@ -151,10 +151,10 @@ const NewBanners = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {[
-              { name: "Sofa Sets", price: "9,999", img: catSofa },
-              { name: "Dining Sets", price: "7,999", img: catDiningChair },
-              { name: "Loungers", price: "8,499", img: catLounger },
-              { name: "Armchairs", price: "4,999", img: catLoungeChair }
+              { name: "Sofa ", img: catSofa },
+              { name: "Dining chair", img: catDiningChair },
+              { name: "Loungers", img: catLounger },
+              { name: "recliners", img: catLoungeChair }
             ].map((item) => (
               <div key={item.name} className="text-center group">
                 <div className="aspect-square rounded-2xl overflow-hidden bg-white mb-3 shadow-sm border-2 border-white transition-all group-hover:-rotate-1">
@@ -166,15 +166,15 @@ const NewBanners = () => {
             ))}
           </div>
 
-          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mt-10 shadow-lg group">
+          {/* <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mt-10 shadow-lg group">
             <div className="absolute inset-x-0 top-0 h-0.5 bg-white/20"></div>
             <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight opacity-100 group-hover:scale-105 transition-transform leading-none py-2">Explore All Collections</h2>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* 6. Categories Selection Grid (6 items) */}
-      <section className="py-10">
+      {/* <section className="py-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {[
@@ -194,7 +194,7 @@ const NewBanners = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 7. Furniture Deals Banner */}
       <section className="py-4 overflow-hidden">
@@ -342,7 +342,7 @@ const NewBanners = () => {
       </section> */}
 
       {/* 13. Brands In Spotlight */}
-      <section className="py-12">
+      {/* <section className="py-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">Brands In Spotlight</h2>
           <div className="w-12 h-1 bg-primary/30 mx-auto mb-10 rounded-full"></div>
@@ -370,14 +370,13 @@ const NewBanners = () => {
               </div>
             ))}
 
-            {/* Explore card */}
             <div className="bg-[#000000] text-white p-4 flex flex-col items-center justify-center text-center aspect-square rounded-sm border-2 border-transparent hover:border-white/20 transition-all">
               <h3 className="text-sm md:text-base font-bold uppercase tracking-tight leading-tight mb-2">Explore more brands</h3>
               <div className="w-6 h-0.5 bg-white/30"></div>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
