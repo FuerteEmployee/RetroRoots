@@ -641,7 +641,7 @@ const Footer = () => (
                 className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
               >
                 <img src={catSofa} alt="Calm Interiors" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-1 opacity-100 transition-opacity">
+                <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-1 opacity-100 transition-opacity pt-2">
                   <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Calm Interiors</span>
                 </div>
               </a>

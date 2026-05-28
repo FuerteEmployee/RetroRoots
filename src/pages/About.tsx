@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Check, Mail, Sofa, Utensils, Home, Briefcase, Bed, Clock } from "lucide-react";
 
 const stats = [
-  { label: "Products Sold", value: "10K+" },
+  { label: "Years Service", value: "5" },
 
   { label: "Satisfied Customers", value: "1000+" },
 ];
