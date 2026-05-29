@@ -46,6 +46,9 @@ import ViaRetroRoots from "./pages/ViaRetroRoots";
 import Expo from "./pages/Expo";
 import Privacy from "./pages/Privacy";
 import Delivery from "./pages/Delivery";
+import RefundPolicy from "./pages/RefundPolicy";
+import ReturnPolicy from "./pages/ReturnPolicy";
+import Terms from "./pages/Terms";
 import PRNews from "./pages/PRNews";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
@@ -85,6 +88,9 @@ const App = () => (
               <Route path="/expo" element={<Expo />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/delivery" element={<Delivery />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
+              <Route path="/return-policy" element={<ReturnPolicy />} />
+              <Route path="/terms" element={<Terms />} />
               <Route path="/pr-news" element={<PRNews />} />
               <Route path="/cart" element={<Cart />} />
 
