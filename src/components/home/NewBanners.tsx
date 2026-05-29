@@ -1,23 +1,105 @@
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import catSofa from "@/assets/category-sofa.jpg";
-import catDiningChair from "@/assets/category-dining-chair.png";
-import catLounger from "@/assets/category-lounger.png";
-import catLoungeChair from "@/assets/category-lounge-chair.jpg";
+import { useState, useEffect, useRef } from "react";
+import { API_BASE_URL } from "@/contexts/AuthContext";
+import { getImageUrl, getProductDisplayImage } from "@/lib/utils";
+import topCatSofa from "@/assets/top-cat-sofa.png";
+import topCatDining from "@/assets/top-cat-dining.png";
+import topCatLounger from "@/assets/top-cat-lounger.png";
+import topCatLoungeChair from "@/assets/top-cat-lounge-chair.png";
+import topCatRecliner from "@/assets/top-cat-recliner.png";
+
+import bestSofa from "@/assets/best-sofa.png";
+import bestDining from "@/assets/best-dining.png";
+import bestLounger from "@/assets/best-lounger.png";
+import bestRecliner from "@/assets/best-recliner.png";
+
+import bannerRefresh1 from "@/assets/banner-refresh-1.png";
+import bannerRefresh2 from "@/assets/banner-refresh-2.png";
+import bannerRefresh3 from "@/assets/banner-refresh-3.png";
+
+import catSofa from "@/assets/cat-sofa-new.png";
+import catDiningChair from "@/assets/cat-dining-chair-new.png";
+import catLounger from "@/assets/cat-lounger-new.png";
+import catLoungeChair from "@/assets/cat-lounge-chair-new.png";
 import heroBar from "@/assets/hero-bar.jpg";
 import showcase from "@/assets/products-showcase.jpg";
 import bannerLuxury from "@/assets/banner-luxury.png";
 import centreTable from "@/assets/centre-table.png";
 import shoeRack from "@/assets/shoe-rack.png";
-import reclinerImg from "@/assets/recliner.png";
+import reclinerImg from "@/assets/cat-recliner-new.png";
 
 const categories = [
-  { name: "Sofa", image: catSofa },
-  { name: "Dining Chair", image: catDiningChair },
-  { name: "Lounger (Diwaan)", image: catLounger },
-  { name: "Lounger Chair", image: catLoungeChair },
-  { name: "Recliners", image: reclinerImg },
+  { name: "Sofa", image: topCatSofa },
+  { name: "Dining Chair", image: topCatDining },
+  { name: "Lounger (Diwaan)", image: topCatLounger },
+  { name: "Lounger Chair", image: topCatLoungeChair },
+  { name: "Recliners", image: topCatRecliner },
 ];
+
+const scrollerStyles = `
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scrollMarquee 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+`;
+
+const NewArrivalsScroller = () => {
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/products`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProducts(data.slice(0, 10));
+        }
+      })
+      .catch(() => { });
+  }, []);
+
+  if (products.length === 0) return null;
+
+  // Duplicate for seamless infinite loop
+  const displayProducts = [...products, ...products];
+
+  return (
+    <div className="overflow-hidden rounded-xl mb-8">
+      <style>{scrollerStyles}</style>
+      <div className="marquee-track">
+        {displayProducts.map((p, idx) => {
+          const imgUrl = getImageUrl(getProductDisplayImage(p));
+          return (
+            <Link
+              key={`${p._id || idx}-${idx}`}
+              to={`/product/${p._id || p.id || idx}`}
+              className="flex-shrink-0 w-[200px] md:w-[240px] mx-2 group"
+            >
+              <div className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={imgUrl}
+                    alt={p.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const NewBanners = () => {
   return (
@@ -28,7 +110,7 @@ const NewBanners = () => {
           <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10">
             <div className="relative z-10">
               <p className="text-white/80 text-xs md:text-sm mb-2 uppercase tracking-widest font-medium">Thoughtful touches for every corner—explore our</p>
-              <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight">Top Furniture Categories</h2>
+              <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight">Top Product Categories</h2>
             </div>
           </div>
 
@@ -95,8 +177,8 @@ const NewBanners = () => {
       {/* 3. Luxury Banner Segment */}
       <section className="py-8">
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="relative rounded-2xl overflow-hidden h-[220px] md:h-[320px] mb-4">
-            <img src={bannerLuxury} alt="Lifestyle" className="w-full h-full object-cover" />
+          <div className="relative rounded-2xl overflow-hidden h-[220px] md:h-[320px] mb-2">
+            <img src={bannerLuxury} alt="Lifestyle" className="w-full h-full object-cover object-[center_70%]" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent flex items-center px-8">
               <div className="max-w-sm text-white">
                 <h2 className="text-3xl md:text-4xl font-serif italic mb-4 leading-tight">Bring home comfort that never fades.</h2>
@@ -104,14 +186,17 @@ const NewBanners = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-10">
+          <div className="bg-[#000000] rounded-xl p-8 md:p-12 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[140px] mb-6">
             <h2 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight">New arrivals: in stock & ready to ship</h2>
           </div>
+
+          {/* Auto-scrolling new arrivals products */}
+          <NewArrivalsScroller />
         </div>
       </section>
 
-      {/* 4. Featured Styles Grid */}
-      <section className="py-8">
+      {/* 4. Featured Styles Grid - HIDDEN */}
+      {/* <section className="py-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="group">
@@ -139,7 +224,7 @@ const NewBanners = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 5. Bestsellers Segment */}
       <section className="py-8 bg-gray-50">
@@ -151,10 +236,10 @@ const NewBanners = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {[
-              { name: "Sofa ", img: catSofa },
-              { name: "Dining chair", img: catDiningChair },
-              { name: "Loungers", img: catLounger },
-              { name: "recliners", img: catLoungeChair }
+              { name: "Modern Velvet Chesterfield Sofa", price: "24,999", img: bestSofa },
+              { name: "Ergonomic Wood Dining Chair", price: "5,499", img: bestDining },
+              { name: "Classic Diwaan Daybed", price: "18,999", img: bestLounger },
+              { name: "Premium Leather Recliner", price: "21,999", img: bestRecliner }
             ].map((item) => (
               <div key={item.name} className="text-center group">
                 <div className="aspect-square rounded-2xl overflow-hidden bg-white mb-3 shadow-sm border-2 border-white transition-all group-hover:-rotate-1">
@@ -214,7 +299,7 @@ const NewBanners = () => {
           {/* Refresh Space */}
           <div className="flex flex-col lg:flex-row items-stretch bg-[#F4F1ED] rounded-lg overflow-hidden min-h-[220px]">
             <div className="lg:w-1/2 relative h-[180px] lg:h-auto">
-              <img src={catSofa} alt="Refresh" className="w-full h-full object-cover" />
+              <img src={bannerRefresh1} alt="Refresh" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 flex items-center justify-center p-6">
               <div className="border border-gray-300 p-4 md:p-5 text-center w-full h-full flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm">
@@ -231,7 +316,7 @@ const NewBanners = () => {
           {/* Wake Up to */}
           <div className="flex flex-col lg:flex-row-reverse items-stretch bg-[#F4F1ED] rounded-lg overflow-hidden min-h-[220px]">
             <div className="lg:w-1/2 relative h-[180px] lg:h-auto">
-              <img src={catLounger} alt="Wake Up" className="w-full h-full object-cover" />
+              <img src={bannerRefresh2} alt="Wake Up" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 flex items-center justify-center p-6">
               <div className="border border-gray-300 p-4 md:p-5 text-center w-full h-full flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm">
@@ -250,7 +335,7 @@ const NewBanners = () => {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="flex flex-col lg:flex-row items-stretch bg-[#F4F1ED] rounded-lg overflow-hidden min-h-[220px] mb-8 group">
             <div className="lg:w-1/2 relative h-[180px] lg:h-auto overflow-hidden">
-              <img src={catDiningChair} alt="Sunlit Meals" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+              <img src={bannerRefresh3} alt="Sunlit Meals" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
             </div>
             <div className="lg:w-1/2 flex items-center justify-center p-6">
               <div className="border border-gray-300 p-4 md:p-5 text-center w-full h-full flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm">

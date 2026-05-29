@@ -526,6 +526,16 @@ import { Facebook, Instagram, MapPin, Phone, Mail, Twitter, Apple, Send, HelpCir
 import catSofa from "@/assets/category-sofa.jpg";
 import catLoungeChair from "@/assets/category-lounge-chair.jpg";
 import catLounger from "@/assets/category-lounger.png";
+import insta1 from "@/assets/insta-1.png";
+import insta2 from "@/assets/insta-2.png";
+import insta3 from "@/assets/insta-3.png";
+import insta4 from "@/assets/insta-4.png";
+import insta5 from "@/assets/insta-5.png";
+import insta6 from "@/assets/insta-6.png";
+
+const instaPosts = [
+  insta1, insta2, insta3, insta4, insta5, insta6
+];
 
 const Footer = () => (
   <footer className="bg-white text-black font-sans">
@@ -550,12 +560,12 @@ const Footer = () => (
     {/* Middle Section: Links */}
     <div className="border-t border-gray-100 px-10 ">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(15,minmax(0,1fr))] gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-3">
             <img src="/logo.png" alt="Retro Roots" className="h-20 mb-6 object-contain" />
             <p className="text-gray-500 text-xl md:text-sm leading-relaxed">
-              At Retro Roots, every sofa is more than just furniture — it's a story of comfort, craftsmanship, and character.
+              At Retro Roots, every sofa is more than just furniture - its a story of comfort, craftsmanship, and character.
             </p>
           </div>
 
@@ -568,7 +578,16 @@ const Footer = () => (
             </div>
           </div>
 
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-2">
+            <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Useful</h4>
+            <div className="flex flex-col gap-4">
+              {[{ l: "Privacy Policy", p: "/privacy" }, { l: "Refund Policy", p: "/refund-policy" }, { l: "Return Policy", p: "/return-policy" }, { l: "Terms & Conditions", p: "/terms" }].map(({ l, p }) => (
+                <Link key={l} to={p} className="text-xl md:text-sm text-gray-400 hover:text-black transition-colors">{l}</Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 ms-0 ps-0">
             <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Contact</h4>
             <div className="flex flex-col gap-4 text-xl md:text-sm text-gray-400">
               <div className="flex gap-3 items-start">
@@ -608,7 +627,7 @@ const Footer = () => (
           </div>
 
           {/* Instagram Column */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             <h4 className="font-bold mb-6 text-sm tracking-widest uppercase">Instagram</h4>
             <div className="bg-[#121212] text-white p-4 rounded-xl flex items-center justify-between shadow-md mb-4 border border-white/5">
               <div className="flex items-center gap-3">
@@ -632,41 +651,22 @@ const Footer = () => (
               </a>
             </div>
 
-            {/* Instagram Posts Grid */}
+            {/* Instagram Posts Grid - 6 posts */}
             <div className="grid grid-cols-3 gap-2">
-              <a
-                href="https://www.instagram.com/retro_roots.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
-              >
-                <img src={catSofa} alt="Calm Interiors" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-1 opacity-100 transition-opacity pt-2">
-                  <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Calm Interiors</span>
-                </div>
-              </a>
-              <a
-                href="https://www.instagram.com/retro_roots.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
-              >
-                <img src={catLoungeChair} alt="Comfort Seat" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/40 flex items-start justify-center p-1 opacity-100 transition-opacity pt-2">
-                  <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Comfort in Every Seat</span>
-                </div>
-              </a>
-              <a
-                href="https://www.instagram.com/retro_roots.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
-              >
-                <img src={catLounger} alt="Made For Unwinding" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/40 flex items-start justify-center p-1 opacity-100 transition-opacity pt-2">
-                  <span className="text-[7px] md:text-[8px] font-bold tracking-tight text-white uppercase text-center leading-tight">Made for Unwinding</span>
-                </div>
-              </a>
+              {instaPosts.map((img, i) => (
+                <a
+                  key={i}
+                  href="https://www.instagram.com/retro_roots.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative aspect-square rounded-lg overflow-hidden group border border-white/5"
+                >
+                  <img src={img} alt="Instagram" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all duration-300">
+                    <Instagram className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -675,7 +675,7 @@ const Footer = () => (
 
     {/* Bottom Bar: Copyright & Links */}
     <div className="border-t border-gray-100 bg-[#F9F9F9] py-8">
-      <div className="container mx-auto px-4 flex flex-col items-center justify-center gap-4 text-center">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-gray-400">© 2026 RetroRoots. | All rights reserved.</p>
         <div className="flex gap-6">
           <Link to="/privacy" className="text-sm text-gray-400 hover:text-black transition-colors underline decoration-gray-200">Privacy Policy</Link>

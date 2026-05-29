@@ -62,10 +62,6 @@ const ProductsSection = () => {
                     <img src={imgUrl} alt={p.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" width={400} height={400} />
                     {p.tag && <span className="absolute top-3 left-3 px-3 py-1 text-xs font-medium gold-gradient text-primary-foreground rounded-full">{p.tag}</span>}
                   </div>
-                  <div className="p-4">
-                    <p className="text-xs text-primary mb-1 font-medium">{categoryName}</p>
-                    <h3 className="font-semibold text-foreground text-sm line-clamp-1">{p.name}</h3>
-                  </div>
                 </Link>
               )
             })

@@ -998,7 +998,7 @@ const ProductDetail = () => {
                     </div>
                   )}
 
-                  <div className="flex flex-col md:flex-row items-center gap-4 pt-3 border-t border-border/50">
+                  <div className="flex flex-col md:flex-row items-end gap-4 pt-3 border-t border-border/50">
                     <div className="flex flex-col gap-1.5 w-full md:w-auto">
                       <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Quantity</Label>
                       <div className="flex items-center gap-1 p-1 bg-white rounded-full border-2 border-border w-fit shadow-sm">
