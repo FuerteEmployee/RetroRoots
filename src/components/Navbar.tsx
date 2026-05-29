@@ -525,7 +525,7 @@ const Navbar = () => {
   const activeCategory = queryParams.get('category');
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://retroroots-backend.onrender.com/api'}/categories`)
+    fetch(`${API_BASE_URL}/categories`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
