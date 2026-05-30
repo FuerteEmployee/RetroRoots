@@ -530,12 +530,24 @@ const Navbar = () => {
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
           const filtered = data.filter((c: any) => c.type === "category");
-          const mapped = filtered.map((c: any) => ({
-            label: c.name,
-            slug: c.slug || toSlug(c.name),
-            image: typeof c.image === 'object' ? c.image?.url : c.image,
-            _id: c._id
-          }));
+          const mapped = filtered.map((c: any) => {
+            const currentSlug = c.slug || toSlug(c.name);
+            const staticMatch = staticCategories.find(sc => sc.slug === currentSlug || sc.label.toLowerCase() === c.name.toLowerCase());
+            return {
+              label: c.name,
+              slug: currentSlug,
+              image: staticMatch ? staticMatch.image : (typeof c.image === 'object' ? c.image?.url : c.image),
+              _id: c._id
+            };
+          });
+
+          const orderMap = new Map(staticCategories.map((sc, index) => [sc.label.toLowerCase(), index]));
+          mapped.sort((a: any, b: any) => {
+            const idxA = orderMap.has(a.label.toLowerCase()) ? orderMap.get(a.label.toLowerCase())! : 999;
+            const idxB = orderMap.has(b.label.toLowerCase()) ? orderMap.get(b.label.toLowerCase())! : 999;
+            return idxA - idxB;
+          });
+
           setCategories(mapped.length > 0 ? mapped : staticCategories);
         } else {
           setCategories(staticCategories);
@@ -668,13 +680,7 @@ const Navbar = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-1 sm:gap-6">
-            {/* Login Button */}
-            <button
-              onClick={() => setAuthModalOpen(true)}
-              className={`hidden lg:flex items-center justify-center px-6 whitespace-nowrap gold-gradient text-primary-foreground font-bold uppercase tracking-widest rounded transition-all shadow hover:opacity-90 active:scale-95 ${scrolled ? "py-2 text-[9px]" : "py-3.5 text-[11px]"}`}
-            >
-              Sign Up / Sign In
-            </button>
+
 
             {/* Favorite */}
             <button
@@ -694,40 +700,14 @@ const Navbar = () => {
               <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Basket</span>
             </Link>
 
-            {/* More */}
-            <div
-              className="relative group cursor-pointer flex flex-col items-center gap-1"
-              onMouseEnter={() => setShowMoreMenu(true)}
-              onMouseLeave={() => setShowMoreMenu(null)}
+            {/* Login */}
+            <button
+              onClick={() => setAuthModalOpen(true)}
+              className="flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
-              <MoreHorizontal className={`text-muted-foreground group-hover:text-primary transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
-              <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>More</span>
-
-              {showMoreMenu && (
-                <div className="absolute top-[100%] right-0 pt-4 z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 min-w-[280px]">
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4 pb-2 border-b border-gray-50">All Categories</h4>
-                    <div className="space-y-1">
-                      {categories.map((cat) => (
-                        <Link
-                          key={cat.label}
-                          to={`/products?category=${cat.slug}`}
-                          className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group/item"
-                        >
-                          <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 group-hover/item:border-primary">
-                            <img src={getImageUrl(cat.image)} className="w-full h-full object-cover" alt="" />
-                          </div>
-                          <span className="text-sm font-bold text-gray-700 group-hover/item:text-gray-900">{cat.label}</span>
-                        </Link>
-                      ))}
-                      <div className="pt-4 border-t border-gray-50 mt-2">
-                        <Link to="/products" className="text-xs font-bold text-primary uppercase tracking-widest hover:pl-2 transition-all block">View All Collections</Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+              <User className={`text-muted-foreground group-hover:text-primary transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
+              <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Login</span>
+            </button>
 
             <button className="lg:hidden text-foreground p-2" onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -835,8 +815,7 @@ const Navbar = () => {
                 </button>
                 {[
                   { label: "Favorite", action: () => setAuthModalOpen(true), icon: Heart },
-                  { label: "Basket", action: () => (window.location.href = "/cart"), icon: ShoppingBasket },
-                  { label: "More", action: () => setShowMoreMenu(!showMoreMenu), icon: MoreHorizontal },
+                  { label: "Basket", action: () => (window.location.href = "/cart"), icon: ShoppingBasket }
                 ].map(item => (
                   <button key={item.label} onClick={item.action} className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold uppercase tracking-widest text-foreground hover:bg-muted rounded-lg text-left">
                     <item.icon className="w-5 h-5 text-muted-foreground" /> {item.label}

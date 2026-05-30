@@ -24,6 +24,21 @@ const CategoryShowcase = () => {
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
           const filtered = data.filter((c: any) => c.type === "category");
+
+          const orderMap = new Map([
+            ["sofa", 1],
+            ["dining chair", 2],
+            ["lounger (diwaan)", 3],
+            ["lounge chair", 4],
+            ["recliners", 5]
+          ]);
+
+          filtered.sort((a: any, b: any) => {
+            const idxA = orderMap.has((a.name || "").toLowerCase()) ? orderMap.get((a.name || "").toLowerCase())! : 999;
+            const idxB = orderMap.has((b.name || "").toLowerCase()) ? orderMap.get((b.name || "").toLowerCase())! : 999;
+            return idxA - idxB;
+          });
+
           setCategories(filtered.length > 0 ? filtered : dummyCategories);
         } else {
           setCategories(dummyCategories);
