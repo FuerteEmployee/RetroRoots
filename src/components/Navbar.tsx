@@ -685,7 +685,7 @@ const Navbar = () => {
             {/* Favorite */}
             <button
               onClick={() => setAuthModalOpen(true)}
-              className="flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
+              className="hidden md:flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
               <Heart className={`text-muted-foreground group-hover:text-red-500 transition-colors ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
               <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Favorite</span>
@@ -694,7 +694,7 @@ const Navbar = () => {
             {/* Basket */}
             <Link
               to="/cart"
-              className="flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
+              className="hidden md:flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
               <ShoppingBasket className={`text-muted-foreground group-hover:text-primary transition-colors ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
               <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Basket</span>
@@ -703,7 +703,7 @@ const Navbar = () => {
             {/* Login */}
             <button
               onClick={() => setAuthModalOpen(true)}
-              className="flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
+              className="hidden md:flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
               <User className={`text-muted-foreground group-hover:text-primary transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
               <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Login</span>
@@ -780,40 +780,9 @@ const Navbar = () => {
         {mobileOpen && (
           <div className="lg:hidden bg-white border-t border-border shadow-lg max-h-[85vh] overflow-y-auto animate-in slide-in-from-top-4 duration-300">
             <div className="p-4">
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-border">
-
-                {/* ✅ FIX: Sale circle & text always black in mobile too */}
-                {/* <Link to="/products?on_sale=true" className="flex flex-col items-center gap-1.5">
-                  <div className="w-16 h-16 rounded-full flex items-end justify-center bg-black text-white border-2 border-black shadow-md">
-                    <span className="text-[10px] font-black italic uppercase pb-1">Sale</span>
-                  </div>
-                  <span className="text-[10px] font-bold uppercase text-black">Sale</span>
-                </Link> */}
-
-                {categories.map((cat) => (
-                  <Link key={cat.label} to={`/products?category=${cat.slug}`} className="flex flex-col items-center gap-1.5">
-                    <div className={`w-16 h-16 rounded-full overflow-hidden border-2 shadow-sm ${toSlug(new URLSearchParams(location.search).get('category') || "") === toSlug(cat.slug)
-                      ? 'border-primary'
-                      : 'border-border'
-                      }`}>
-                      <img src={getImageUrl(cat.image)} alt={cat.label} className="w-full h-full object-cover" loading="lazy" width={64} height={64} />
-                    </div>
-                    <span className={`text-[10px] font-bold uppercase leading-tight tracking-tighter ${new URLSearchParams(location.search).get('category') === cat.slug
-                      ? 'text-primary'
-                      : 'text-foreground'
-                      }`}>{cat.label}</span>
-                  </Link>
-                ))}
-              </div>
-
               <div className="space-y-1">
-                <button
-                  onClick={() => setAuthModalOpen(true)}
-                  className="w-full flex items-center gap-2 px-4 py-4 mb-4 gold-gradient text-primary-foreground font-bold text-xs uppercase tracking-widest rounded-xl text-center justify-center"
-                >
-                  <User className="w-4 h-4" /> Sign Up / Sign In
-                </button>
                 {[
+                  { label: "Login", action: () => setAuthModalOpen(true), icon: User },
                   { label: "Favorite", action: () => setAuthModalOpen(true), icon: Heart },
                   { label: "Basket", action: () => (window.location.href = "/cart"), icon: ShoppingBasket }
                 ].map(item => (
