@@ -5,7 +5,7 @@ const getApiUrl = () => {
   if (url) {
     return url.endsWith('/api') ? url : `${url.replace(/\/$/, '')}/api`;
   }
-  return import.meta.env.DEV ? "http://localhost:5000/api" : "https://retrorootsbackend.onrender.com/api";
+  return import.meta.env.DEV ? "http://localhost:5000/api" : "https://retrorootsbackend-tbu9.onrender.com/api";
 };
 
 export const API_BASE_URL = getApiUrl();
