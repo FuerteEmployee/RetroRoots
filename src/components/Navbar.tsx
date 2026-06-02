@@ -696,8 +696,8 @@ const Navbar = () => {
               to="/cart"
               className="hidden md:flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
-              <ShoppingBasket className={`text-muted-foreground group-hover:text-primary transition-colors ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
-              <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Basket</span>
+              <ShoppingBasket className={`text-muted-foreground group-hover:text-black transition-colors ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
+              <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-black tracking-tighter`}>Basket</span>
             </Link>
 
             {/* Login */}
@@ -705,8 +705,8 @@ const Navbar = () => {
               onClick={() => setAuthModalOpen(true)}
               className="hidden md:flex flex-col items-center gap-1 group transition-all duration-300 outline-none"
             >
-              <User className={`text-muted-foreground group-hover:text-primary transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
-              <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-foreground tracking-tighter`}>Login</span>
+              <User className={`text-muted-foreground group-hover:text-black transition-all ${scrolled ? "w-4 h-4" : "w-6 h-6"}`} />
+              <span className={`font-bold transition-all duration-300 ${scrolled ? "hidden" : "text-[10px]"} uppercase text-muted-foreground group-hover:text-black tracking-tighter`}>Login</span>
             </button>
 
             <button className="lg:hidden text-foreground p-2" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -780,6 +780,16 @@ const Navbar = () => {
         {mobileOpen && (
           <div className="lg:hidden bg-white border-t border-border shadow-lg max-h-[85vh] overflow-y-auto animate-in slide-in-from-top-4 duration-300">
             <div className="p-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-border">
+                {categories.map((cat) => (
+                  <Link key={cat.label} to={`/products?category=${cat.slug}`} onClick={() => setMobileOpen(false)} className="flex flex-col items-center gap-1.5">
+                    <div className={`w-16 h-16 rounded-full overflow-hidden border-2 shadow-sm ${toSlug(activeCategory || "") === toSlug(cat.slug) ? 'border-primary' : 'border-border'}`}>
+                      <img src={getImageUrl(cat.image)} alt={cat.label} className="w-full h-full object-cover" loading="lazy" width={64} height={64} />
+                    </div>
+                    <span className={`text-[10px] font-bold text-center uppercase leading-tight tracking-tighter ${toSlug(activeCategory || "") === toSlug(cat.slug) ? 'text-primary' : 'text-foreground'}`}>{cat.label}</span>
+                  </Link>
+                ))}
+              </div>
               <div className="space-y-1">
                 {[
                   { label: "Login", action: () => setAuthModalOpen(true), icon: User },
