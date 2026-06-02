@@ -544,13 +544,13 @@ const Footer = () => (
       <div className="flex flex-col items-center text-center space-y-4">
         <h3 className="text-2xl font-bold">Subscribe to our awesome emails.</h3>
         <p className="text-lg md:text-sm text-gray-500 leading-relaxed">Get our latest offers and news straight in your inbox.</p>
-        <div className="flex w-full max-w-md mt-6">
+        <div className="flex flex-col md:flex-row w-full max-w-md mt-6 gap-2 md:gap-0">
           <input
             type="email"
             placeholder="Please enter an email address"
-            className="flex-grow bg-[#F5F5F5] px-4 py-4 text-lg md:text-sm focus:outline-none placeholder:text-gray-400"
+            className="w-full md:flex-grow bg-[#F5F5F5] px-4 py-4 text-lg md:text-sm focus:outline-none placeholder:text-gray-400"
           />
-          <button className="bg-black text-white px-8 py-4 font-bold text-sm tracking-wider uppercase transition-colors hover:bg-gray-800">
+          <button className="w-full md:w-auto bg-black text-white px-8 py-4 font-bold text-sm tracking-wider uppercase transition-colors hover:bg-gray-800 shrink-0">
             Subscribe
           </button>
         </div>
