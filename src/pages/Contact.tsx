@@ -2,13 +2,17 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { API_BASE_URL } from "@/contexts/AuthContext";
-import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Send, Phone, Mail, MapPin, CheckCircle } from "lucide-react";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", mobileNumber: "", mailId: "", additionalInfo: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
     try {
       const res = await fetch(API_BASE_URL + "/enquiries", {
         method: "POST",
@@ -22,13 +26,15 @@ const Contact = () => {
         })
       });
       if (res.ok) {
-        alert("Thank you for reaching out! We will get back to you soon.");
+        setStatus("success");
         setForm({ name: "", mobileNumber: "", mailId: "", additionalInfo: "" });
       } else {
-        alert("Failed to submit form. Please try again.");
+        setStatus("error");
+        setErrorMsg("Failed to submit. Please try again.");
       }
-    } catch (error) {
-      alert("Error submitting form. Please check your connection.");
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please check your connection.");
     }
   };
 
@@ -103,64 +109,89 @@ const Contact = () => {
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-3xl opacity-50"></div>
 
                 <div className="relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                    <div className="space-y-3 md:col-span-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm"
-                        placeholder="John Doe"
-                      />
+                  {status === "success" ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center gap-6">
+                      <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
+                        <CheckCircle className="w-10 h-10 text-green-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
+                        <p className="text-muted-foreground text-sm max-w-xs mx-auto">
+                          Thank you for reaching out. Our team will get back to you within 24 hours.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setStatus("idle")}
+                        className="text-xs font-bold uppercase tracking-widest text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
+                      >
+                        Send another message
+                      </button>
                     </div>
-                    <div className="space-y-3 md:col-span-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mobile Number</label>
-                      <input
-                        type="tel"
-                        required
-                        value={form.mobileNumber}
-                        onChange={(e) => setForm({ ...form, mobileNumber: e.target.value })}
-                        className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm"
-                        placeholder="+91 00000 00000"
-                      />
-                    </div>
-                    <div className="space-y-3 md:col-span-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mail ID</label>
-                      <input
-                        type="email"
-                        required
-                        value={form.mailId}
-                        onChange={(e) => setForm({ ...form, mailId: e.target.value })}
-                        className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm"
-                        placeholder="john@example.com"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-3 mb-10">
-                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Additional Information</label>
-                    <textarea
-                      rows={4}
-                      required
-                      value={form.additionalInfo}
-                      onChange={(e) => setForm({ ...form, additionalInfo: e.target.value })}
-                      className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm resize-none"
-                      placeholder="How can we help you with your space?"
-                    />
-                  </div>
+                  ) : (
+                    <>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div className="space-y-3 md:col-span-2">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Name</label>
+                          <input
+                            type="text"
+                            required
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm"
+                            placeholder="John Doe"
+                          />
+                        </div>
+                        <div className="space-y-3 md:col-span-2">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mobile Number</label>
+                          <input
+                            type="tel"
+                            required
+                            value={form.mobileNumber}
+                            onChange={(e) => setForm({ ...form, mobileNumber: e.target.value })}
+                            className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm"
+                            placeholder="+91 00000 00000"
+                          />
+                        </div>
+                        <div className="space-y-3 md:col-span-2">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mail ID</label>
+                          <input
+                            type="email"
+                            required
+                            value={form.mailId}
+                            onChange={(e) => setForm({ ...form, mailId: e.target.value })}
+                            className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm"
+                            placeholder="john@example.com"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-3 mb-10">
+                        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Additional Information</label>
+                        <textarea
+                          rows={4}
+                          required
+                          value={form.additionalInfo}
+                          onChange={(e) => setForm({ ...form, additionalInfo: e.target.value })}
+                          className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/60 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium text-sm resize-none"
+                          placeholder="How can we help you with your space?"
+                        />
+                      </div>
 
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-4 border-t border-border">
-                    {/* <p className="text-[10px] text-muted-foreground leading-relaxed max-w-[240px] italic">
-                      Note: Our experts will contact you within 24 business hours to discuss your requirements.
-                    </p> */}
-                    <button
-                      type="submit"
-                      className="w-full md:w-auto px-12 py-5 gold-gradient text-primary-foreground font-black rounded-lg hover:opacity-90 transition-all hover:translate-x-1 active:scale-95 shadow-xl text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-3"
-                    >
-                      Submit Query <Send className="w-4 h-4" />
-                    </button>
-                  </div>
+                      {status === "error" && (
+                        <p className="text-red-500 text-sm mb-4">{errorMsg}</p>
+                      )}
+
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-4 border-t border-border">
+                        <button
+                          type="submit"
+                          disabled={status === "loading"}
+                          className="w-full md:w-auto px-12 py-5 gold-gradient text-primary-foreground font-black rounded-lg hover:opacity-90 transition-all hover:translate-x-1 active:scale-95 shadow-xl text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
+                        >
+                          {status === "loading" ? "Sending..." : <> Submit Query <Send className="w-4 h-4" /> </>}
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </form>
             </div>

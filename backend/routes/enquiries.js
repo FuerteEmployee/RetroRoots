@@ -2,6 +2,7 @@ const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Enquiry = require("../models/Enquiry");
 const createCrud = require("../utils/crudFactory");
+const { sendEnquiryEmail } = require("../utils/mailer");
 const crud = createCrud(Enquiry, "productId");
 
 router.get("/", crud.getAll);
@@ -18,7 +19,21 @@ router.get("/export/csv", auth, async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 router.get("/:id", crud.getOne);
-router.post("/", crud.create);
+router.post("/", async (req, res) => {
+  try {
+    const enquiry = await Enquiry.create(req.body);
+    sendEnquiryEmail({
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      message: req.body.message,
+      type: req.body.type,
+    }).catch(err => console.error("Email send error:", err.message));
+    res.status(201).json(enquiry);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 router.put("/:id", auth, crud.update);
 router.delete("/:id", auth, crud.remove);
 
