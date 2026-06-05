@@ -21,7 +21,7 @@ const Contact = () => {
           name: form.name,
           email: form.mailId,
           phone: form.mobileNumber,
-          type: "feedback",
+          type: "contact",
           message: form.additionalInfo
         })
       });
